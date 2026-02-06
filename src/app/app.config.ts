@@ -13,12 +13,12 @@ export const appConfig: ApplicationConfig = {
         provideRouter(routes),
         provideFirebaseApp(() =>
             initializeApp({
-                projectId: 'blog-signal-form',
-                appId: '1:934281691011:web:5da7f8b82c21af2ee980b6',
-                storageBucket: 'blog-signal-form.firebasestorage.app',
-                apiKey: 'AIzaSyBhWH9axnPT9eXf9s7ENfjIIn_3ImXn49E',
-                authDomain: 'blog-signal-form.firebaseapp.com',
-                messagingSenderId: '934281691011',
+                projectId: 'angular-signal-forms-example-app',
+                appId: 'x:xxxxxxxxxxxx:web:xxxxxxxxxxxxxxxxxxxxxx',
+                storageBucket: 'angular-signal-forms-example-app.firebasestorage.app',
+                apiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_xxxxxxxx',
+                authDomain: 'angular-signal-forms-example-app.firebaseapp.com',
+                messagingSenderId: 'xxxxxxxxxxxx',
             }),
         ),
         provideAuth(() => getAuth()),
