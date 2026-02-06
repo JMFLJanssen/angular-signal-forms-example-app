@@ -44,6 +44,7 @@ export class ArticleService {
      * @error notify the user something went wrong
      */
     create(article: Article) {
+        /** DISABLED FOR DEMO PURPOSESE
         this.handleCreate(article)
             .then((newArticle) => {
                 this.allResource.reload();
@@ -56,6 +57,7 @@ export class ArticleService {
                     'An unexpected error occurred during creation of the new article. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
+        */
     }
 
     /**
@@ -124,6 +126,7 @@ export class ArticleService {
      * @error notify the user something went wrong
      */
     update(article: Article) {
+        /** DISABLED FOR DEMO PURPOSESE
         this.handleUpdate(article)
             .then(() => {
                 this.allResource.reload();
@@ -135,6 +138,7 @@ export class ArticleService {
                     'An unexpected error occurred during article update. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
+        */
     }
 
     /**
@@ -142,14 +146,9 @@ export class ArticleService {
      */
     private async handleUpdate(article: Article) {
         // 1. new image uploaded?
-        if (
-            article.image.imageUrl &&
-            article.image.imageUrl.startsWith('data:image') &&
-            article.image.imageFile
-        ) {
+        if (article.image.imageUrl && article.image.imageUrl.startsWith('data:image') && article.image.imageFile) {
             // Get the old url and delete the old image
-            const oldImageUrl = this.articles().find((article) => article.id === article.id)!.image
-                .imageUrl;
+            const oldImageUrl = this.articles().find((article) => article.id === article.id)!.image.imageUrl;
             if (oldImageUrl) await this.imageApi.deleteImage(oldImageUrl);
             // Insert the newly uploaded image
             const guid = createGuid();
@@ -162,10 +161,8 @@ export class ArticleService {
             if (chapter.status === objectStatus.New) {
                 chapter.article = article.id;
                 await this.chapterService.create(chapter);
-            } else if (chapter.status === objectStatus.Updated)
-                await this.chapterService.update(chapter);
-            else if (chapter.status === objectStatus.ToBeDeleted && chapter.id)
-                await this.chapterService.delete(chapter);
+            } else if (chapter.status === objectStatus.Updated) await this.chapterService.update(chapter);
+            else if (chapter.status === objectStatus.ToBeDeleted && chapter.id) await this.chapterService.delete(chapter);
         });
         // 3. Save the article
         await this.api.update(article);
@@ -182,6 +179,7 @@ export class ArticleService {
      * @error notify the user something went wrong
      */
     delete(article: Article) {
+        /** DISABLED FOR DEMO PURPOSESE
         this.handleDelete(article)
             .then(() => {
                 this.allResource.reload();
@@ -196,6 +194,7 @@ export class ArticleService {
                     'An unexpected error occurred during deletion of the article. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
+        */
     }
 
     private async handleDelete(article: Article) {

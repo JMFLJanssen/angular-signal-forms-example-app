@@ -35,6 +35,7 @@ export class NewsService {
      * @error notify the user something went wrong
      */
     create(news: News) {
+        /** DISABLED FOR DEMO PURPOSESE
         this.api
             .create(news)
             .then((newNews) => {
@@ -50,6 +51,7 @@ export class NewsService {
                     'An unexpected error occurred during creation of the new news item. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
+        */
     }
 
     /********
@@ -86,6 +88,7 @@ export class NewsService {
      * @error notify the user something went wrong
      */
     update(news: News) {
+        /** DISABLED FOR DEMO PURPOSESE
         this.api
             .update(news)
             .then(() => {
@@ -98,6 +101,7 @@ export class NewsService {
                     'An unexpected error occurred during news update. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
+        */
     }
 
     /**********
@@ -111,6 +115,7 @@ export class NewsService {
      * @error notify the user something went wrong
      */
     delete(id: string) {
+        /** DISABLED FOR DEMO PURPOSESE
         this.api
             .delete(id)
             .then(() => {
@@ -126,5 +131,6 @@ export class NewsService {
                     'An unexpected error occurred during deletion of the news item. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
+        */
     }
 }
