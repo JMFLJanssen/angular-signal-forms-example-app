@@ -53,10 +53,10 @@ npm i --force
 
 ## ✨ Features
 
-| ✅ Angular 21           | Using the latest version                            |
-| ✅ Angular Material     | Using the latest version                            |
-| ✅ Custom styling       | On top of Angular Material                          |
-| ✅ Ngx-editor           | As rich text editor                                 |
+- ✅ **Angular 21**: Using the latest version
+- ✅ **Angular Material**: Using the latest version
+- ✅ **Custom styling**: On top of Angular Material
+- ✅ **Ngx-editor**: As rich text editor
 
 ---
 
