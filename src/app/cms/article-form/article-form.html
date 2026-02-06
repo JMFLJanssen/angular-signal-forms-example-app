@@ -1,12 +1,6 @@
 <div class="w-full px-32 flex flex-col mt-6">
     <div class="flex flex-row justify-between items-center mb-6">
-        <button
-            matButton="filled"
-            color="accent"
-            type="button"
-            [routerLink]="'/cms/articles'"
-            (click)="cancel()"
-        >
+        <button matButton="filled" color="accent" type="button" [routerLink]="'/cms/articles'" (click)="cancel()">
             <mat-icon>arrow_back</mat-icon>
             Articles
         </button>
@@ -45,10 +39,7 @@
     <div class="h-fit w-full flex flex-col gap-6">
         <div class="bg-grey-1 opacity-90 rounded-sm p-3 w-full">
             <mat-action-list>
-                <mat-list-item
-                    (click)="setViewPart('CONTENT')"
-                    [class]="{ 'bg-primary-100': part === 'CONTENT' }"
-                >
+                <mat-list-item (click)="setViewPart('CONTENT')" [class]="{ 'bg-primary-100': part === 'CONTENT' }">
                     <div matListItemTitle class="flex items-center gap-2">
                         @if (status()[0] !== 0) {
                             @if (status()[0] === 1) {
@@ -61,10 +52,7 @@
                     </div>
                     <div matListItemMeta><mat-icon color="accent">chevron_right</mat-icon></div>
                 </mat-list-item>
-                <mat-list-item
-                    (click)="setViewPart('IMAGE')"
-                    [class]="{ 'bg-primary-100': part === 'IMAGE' }"
-                >
+                <mat-list-item (click)="setViewPart('IMAGE')" [class]="{ 'bg-primary-100': part === 'IMAGE' }">
                     <div matListItemTitle class="flex items-center gap-2">
                         @if (status()[1] !== 0) {
                             @if (status()[1] === 1) {
@@ -77,10 +65,7 @@
                     </div>
                     <div matListItemMeta><mat-icon color="accent">chevron_right</mat-icon></div>
                 </mat-list-item>
-                <mat-list-item
-                    (click)="setViewPart('CHAPTERS')"
-                    [class]="{ 'bg-primary-100': part === 'CHAPTERS' }"
-                >
+                <mat-list-item (click)="setViewPart('CHAPTERS')" [class]="{ 'bg-primary-100': part === 'CHAPTERS' }">
                     <div matListItemTitle class="flex items-center gap-2">
                         @if (status()[2] !== 0) {
                             @if (status()[2] === 1) {
@@ -91,40 +76,21 @@
                     </div>
                     <div matListItemMeta><mat-icon color="accent">chevron_right</mat-icon></div>
                 </mat-list-item>
-                <mat-list-item
-                    (click)="setViewPart('CARD')"
-                    [class]="{ 'bg-primary-100': part === 'CARD' }"
-                >
+                <mat-list-item (click)="setViewPart('CARD')" [class]="{ 'bg-primary-100': part === 'CARD' }">
                     <span matListItemTitle>Preview as card</span>
                     <div matListItemMeta><mat-icon color="accent">chevron_right</mat-icon></div>
                 </mat-list-item>
-                <mat-list-item
-                    (click)="setViewPart('PREVIEW')"
-                    [class]="{ 'bg-primary-100': part === 'PREVIEW' }"
-                >
+                <mat-list-item (click)="setViewPart('PREVIEW')" [class]="{ 'bg-primary-100': part === 'PREVIEW' }">
                     <span matListItemTitle>Preview full article-view</span>
                     <div matListItemMeta><mat-icon color="accent">chevron_right</mat-icon></div>
                 </mat-list-item>
             </mat-action-list>
         </div>
         <div class="flex flex-row justify-between">
-            <button
-                matIconButton
-                color="accent"
-                filled
-                type="button"
-                (click)="delete()"
-                [class]="{ invisible: !articleService.selectedID() }"
-            >
+            <button matIconButton color="accent" filled type="button" (click)="delete()" [class]="{ invisible: !articleService.selectedID() }">
                 <mat-icon>delete</mat-icon>
             </button>
-            <button
-                matButton="filled"
-                type="submit"
-                color="accent"
-                (click)="submitForm()"
-                [disabled]="articleForm().invalid()"
-            >
+            <button matButton="filled" type="submit" color="accent" (click)="submitForm()" [disabled]="articleForm().invalid()">
                 <mat-icon>save</mat-icon>
                 @if (articleService.selectedID()) {
                     Save changes
@@ -146,21 +112,11 @@
                     <mat-option [value]="1">Current</mat-option>
                 </mat-select>
                 @if (statusSelector.panelOpen) {
-                    <button
-                        matIconButton
-                        color="accent"
-                        (click)="statusSelector.close()"
-                        type="button"
-                    >
+                    <button matIconButton color="accent" (click)="statusSelector.close()" type="button">
                         <mat-icon>keyboard_arrow_up</mat-icon>
                     </button>
                 } @else {
-                    <button
-                        matIconButton
-                        color="accent"
-                        (click)="statusSelector.open()"
-                        type="button"
-                    >
+                    <button matIconButton color="accent" (click)="statusSelector.open()" type="button">
                         <mat-icon>keyboard_arrow_down</mat-icon>
                     </button>
                 }
@@ -169,31 +125,17 @@
         <div class="ro-form-field w-1/2 mt-6">
             <form-error [fieldRef]="articleForm.category" [title]="'Category *'"></form-error>
             <div matSuffix>
-                <mat-select
-                    #categorySelector
-                    [formField]="articleForm.category"
-                    placeholder="Please select one"
-                >
+                <mat-select #categorySelector [formField]="articleForm.category" placeholder="Please select one">
                     @for (category of categoryService.categories(); track category.id) {
                         <mat-option [value]="category.id">{{ category.name }}</mat-option>
                     }
                 </mat-select>
                 @if (categorySelector.panelOpen) {
-                    <button
-                        matIconButton
-                        color="accent"
-                        (click)="categorySelector.close()"
-                        type="button"
-                    >
+                    <button matIconButton color="accent" (click)="categorySelector.close()" type="button">
                         <mat-icon>keyboard_arrow_up</mat-icon>
                     </button>
                 } @else {
-                    <button
-                        matIconButton
-                        color="accent"
-                        (click)="categorySelector.open()"
-                        type="button"
-                    >
+                    <button matIconButton color="accent" (click)="categorySelector.open()" type="button">
                         <mat-icon>keyboard_arrow_down</mat-icon>
                     </button>
                 }
@@ -207,16 +149,11 @@
         <div class="ro-form-field w-full">
             <form-error [fieldRef]="articleForm.excerpt" [title]="'Excerpt *'"></form-error>
             <textarea matInput [formField]="articleForm.excerpt" #excerpt></textarea>
-            <mat-hint class="w-full flex justify-end pr-6"
-                >{{ excerpt.value.length }} / 150</mat-hint
-            >
+            <mat-hint class="w-full flex justify-end pr-6">{{ excerpt.value.length }} / 150</mat-hint>
         </div>
 
         <div class="ro-form-field">
-            @if (
-                editorErrorMessage().length > 0 ||
-                (articleForm.text().invalid() && articleForm.text().touched())
-            ) {
+            @if (editorErrorMessage().length > 0 || (articleForm.text().invalid() && articleForm.text().touched())) {
                 <section #label class="flex flex-row items-center">
                     <mat-icon class="text-red mr-1 mb-2">warning</mat-icon>
                     <mat-label>Content *</mat-label>
@@ -226,11 +163,7 @@
                 <mat-label>Content *</mat-label>
             }
             <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [colorPresets]="colorPresets" />
-            <ngx-editor
-                [editor]="editor"
-                [(ngModel)]="editorContent"
-                (ngModelChange)="updateNewsForm()"
-            />
+            <ngx-editor [editor]="editor" [(ngModel)]="editorContent" (ngModelChange)="updateNewsForm()" />
         </div>
     </div>
 </ng-template>
