@@ -16,12 +16,9 @@
 
 Started with Signal Forms and looking to expand your forms? This project, and the accompanying articles, has you covered.
 
-
 - ✅ **Beginner-friendly**: Clean code, best practices, and detailed structure.
-- ✅ **Fully documented**: Complete API, lots of code comments and a set of 3 articles in <a href="https://medium.com/">Medium</a>
-- ✅ **Production-ready**: Real APIs, authentication, modular architecture.
-- ✅ **Feature-rich**: Not just a to-do list! Real-world logic you’ll use in any serious project.
-- ✅ **Made with love**: Built by passionate developers, for the community.
+- ✅ **Production-ready**: omplete API, modular architecture, lots of code comments and a set of 3 articles in <a href="https://medium.com/">Medium</a>
+- ✅ **Feature-rich**: Not just a to-do list or a login form. Real-world logic showcasing a news & article CMS.
 
 ---
 
