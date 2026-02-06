@@ -17,15 +17,37 @@
 Started with Signal Forms and looking to expand your forms? This project, and the accompanying articles, has you covered.
 
 - ✅ **Beginner-friendly**: Clean code, best practices, and detailed structure.
-- ✅ **Production-ready**: omplete API, modular architecture, lots of code comments and a set of 3 articles in <a href="https://medium.com/">Medium</a>
+- ✅ **Production-ready**: complete API, modular architecture, lots of code comments and a set of 3 articles in <a href="https://medium.com/">Medium</a>
 - ✅ **Feature-rich**: Not just a to-do list or a login form. Real-world logic showcasing a news & article CMS.
 
 ---
 
 ## 🌍 Backend API
 
-This app connects to a real backend powered by Firebase. Due to the Google billing conditions of Firebase the, accompanying, demo doesn't allow for actual database writes. Yes the demo shows the full features of Signal Forms, its the actual create/update/delete API calls that have been disabled. 
+This app connects to a real backend powered by Firebase. Due to the Google billing conditions of Firebase the, accompanying, demo doesn't allow for actual database writes. Yes the demo shows the full features of Signal Forms, its the actual create/update/delete API calls that have been disabled. Want to see this working? Create your own version of this project with your own Firebase project.
 
 ---
 
 ## 🛠️ Getting Started
+
+**Step 1**: Create a Firebase Project
+- Visit the Firebase <a href="https://console.firebase.google.com/">Console</a>
+- Click “Create a new Firebase project” and follow the prompts to create a new Firebase project.
+- Form the "Build" product category add Hosting, Firestore Database & Storage and follow the instructions to add hosting, create the database and create the storage bucket (for this the pricing plan needs to be upgraded).
+
+**Step 2**: Set up Firebase
+```bash
+npm install -g firebase-tools
+```
+
+**Step 3**: Install as new project
+- Download the project
+- install modules: <i>--force</i> is needed since up-to-date (feb 6 2026) @angular/fire is not yet v21 compatible, but still usable.
+```bash
+npm i --force
+```
+- Goto the Firebase project and copy the project's General Settings and copy your web app's Firebase configuration.
+- open <code>app.config.ts</code> and replace the impersonalized firebase settings for yours/
+
+---
+
