@@ -42,12 +42,38 @@ npm install -g firebase-tools
 
 **Step 3**: Install as new project
 - Download the project
-- install modules: <i>--force</i> is needed since up-to-date (feb 6 2026) @angular/fire is not yet v21 compatible, but still usable.
+- install modules: <code>--force</code> is needed since up-to-date (feb 6 2026) @angular/fire is not yet v21 compatible, but still usable.
 ```bash
 npm i --force
 ```
 - Goto the Firebase project and copy the project's General Settings and copy your web app's Firebase configuration.
-- open <code>app.config.ts</code> and replace the impersonalized firebase settings for yours/
+- open <code>app.config.ts</code> and replace the impersonalized firebase settings for yours.
 
 ---
 
+## ✨ Features
+
+| ✅ Angular 21           | Using the latest version                            |
+| ✅ Angular Material     | Using the latest version                            |
+| ✅ Custom styling       | On top of Angular Material                          |
+| ✅ Ngx-editor           | As rich text editor                                 |
+
+---
+
+## 🧩 Roadmap
+Although not Signal Form related this project only becomes a true real-world example when access to the CMS is restricted for editors & admins. For this the following features still have to be implemented.
+
+- [ ] Firebase authentication & Role management
+- [ ] Login & Registration
+- [ ] CMS Behind Login & Add Role management
+
+---
+
+## 🐛 Found a bug? Got an idea?
+I love feedback! I'm sure there is a bug somewhere or there are improved ways to get the same result. Got an idea or found a bug? [open an issue](https://github.com/JMFLJanssen/angular-signal-forms-example-app/issues/new).
+
+---
+
+## License
+
+This project is licensed under the [MIT License](https://github.com/JMFLJanssen/angular-signal-forms-example-app/blob/master/LICENSE).
