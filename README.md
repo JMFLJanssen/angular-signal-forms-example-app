@@ -49,6 +49,9 @@ npm i --force
 - Goto the Firebase project and copy the project's General Settings and copy your web app's Firebase configuration.
 - open <code>app.config.ts</code> and replace the impersonalized firebase settings for yours.
 
+**Step 4**: Enable Service
+The create/update/delete functions of the services have been disabled by putting their code as comments. Undo this commenting to get these functions to work.
+
 ---
 
 ## ✨ Features
