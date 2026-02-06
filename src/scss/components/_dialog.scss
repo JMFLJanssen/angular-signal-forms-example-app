@@ -1,0 +1,104 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/dialog' as dialogVariables;
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/grid' as gridVariables;
+@use '../utils/variables/typography' as typographyVariables;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+@use '../utils/mixins/typography' as typographyMixins;
+
+// Material 19.x and up styling mixin overrides used
+:root,
+:root .dark-mode {
+  @include mat.dialog-overrides(
+    (
+      container-shape: 8px,
+      headline-padding: none,
+    )
+  );
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  // Drop the shadow
+  box-shadow: none !important;
+
+  color: inherit !important;
+
+  // The dialog should also be given a standard padding
+  // But this is dependend on the size of the device/browser
+  @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+    @include breakpointMixins.media-breakpoint-only($device) {
+      $grid-key: map.get(
+        $map: gridVariables.$grid-keys,
+        $key: $device,
+      );
+      padding: map.get($map: gridVariables.$grid-gutter-width, $key: $grid-key);
+    }
+  }
+}
+
+// When the content is long, you 'must' use a <mat-dialog-content> element
+// to make that content scrollable, while keeping the everything above
+// and below visible.
+// However, this element again adds padding and makes the text grey. Drop
+// the padding, and make the the default color, to keep full control over
+// the text color as well.
+
+.mdc-dialog .mdc-dialog__content {
+  padding: 0 !important;
+}
+
+// Setup the mat-dialog-title correctly
+.mat-mdc-dialog-container .mdc-dialog__title {
+  letter-spacing: inherit !important;
+
+  // All is device/browser size dependend.
+  @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+    @include breakpointMixins.media-breakpoint-only($device) {
+      // This is for the title, so a header element is used
+      @each $header in map.keys($map: typographyVariables.$heading-bottom-margins) {
+        @include typographyMixins.font($header, $device);
+      }
+    }
+  }
+}
+
+.mdc-dialog__title {
+  // The bottom maring is device/browser size dependend
+  @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+    @include breakpointMixins.media-breakpoint-only($device) {
+      padding-bottom: map.get($map: dialogVariables.$madui-dialog-title-bottom-margins, $key: $device) !important;
+    }
+  }
+}
+
+.mdc-dialog__title::before {
+  height: 0 !important;
+}
+
+// The correct padding and margin for the actions
+.mdc-dialog__actions {
+  padding: 0 !important;
+  margin-bottom: -8px !important;
+
+  // Default there is a good UX reason to have the action on the bottom right:
+  // You want your users to read te content of your dialog first. All in 1 column
+  // on the left triggers the users too soon to the action.
+  display: flex !important;
+  justify-content: flex-end !important;
+
+  @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+    @include breakpointMixins.media-breakpoint-only($device) {
+      margin-top: map.get($map: dialogVariables.$madui-dialog-actions-top-margins, $key: $device) !important;
+      margin-bottome: 0 !important;
+    }
+  }
+}
+
+// So instead of adding: align="end", you want to be adding align="front"
+.mat-mdc-dialog-actions[align='start'] {
+  display: flex !important;
+  justify-content: flex-start !important;
+}

@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the km color is given
+$km-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "km",
+);
+
+// Create a material design (specification 2) palette
+$km-colors: (
+  50: colorFunctions.colorvariant($km-color, 50),
+  100: colorFunctions.colorvariant($km-color, 100),
+  200: colorFunctions.colorvariant($km-color, 200),
+  300: colorFunctions.colorvariant($km-color, 300),
+  400: colorFunctions.colorvariant($km-color, 400),
+  500: $km-color,
+  600: colorFunctions.colorvariant($km-color, 600),
+  700: colorFunctions.colorvariant($km-color, 700),
+  800: colorFunctions.colorvariant($km-color, 800),
+  900: colorFunctions.colorvariant($km-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($km-color, 50),
+    100: colorFunctions.colorcontrast($km-color, 100),
+    200: colorFunctions.colorcontrast($km-color, 200),
+    300: colorFunctions.colorcontrast($km-color, 300),
+    400: colorFunctions.colorcontrast($km-color, 400),
+    500: colorFunctions.colorcontrast($km-color, 500),
+    600: colorFunctions.colorcontrast($km-color, 600),
+    700: colorFunctions.colorcontrast($km-color, 700),
+    800: colorFunctions.colorcontrast($km-color, 800),
+    900: colorFunctions.colorcontrast($km-color, 900),
+  ),
+);
+
+$km: mat.m2-define-palette($km-colors);

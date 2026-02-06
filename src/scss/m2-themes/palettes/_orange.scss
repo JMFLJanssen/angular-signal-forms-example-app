@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the orange color is given
+$orange-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "orange",
+);
+
+// Create a material design (specification 2) palette
+$orange-colors: (
+  50: colorFunctions.colorvariant($orange-color, 50),
+  100: colorFunctions.colorvariant($orange-color, 100),
+  200: colorFunctions.colorvariant($orange-color, 200),
+  300: colorFunctions.colorvariant($orange-color, 300),
+  400: colorFunctions.colorvariant($orange-color, 400),
+  500: $orange-color,
+  600: colorFunctions.colorvariant($orange-color, 600),
+  700: colorFunctions.colorvariant($orange-color, 700),
+  800: colorFunctions.colorvariant($orange-color, 800),
+  900: colorFunctions.colorvariant($orange-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($orange-color, 50),
+    100: colorFunctions.colorcontrast($orange-color, 100),
+    200: colorFunctions.colorcontrast($orange-color, 200),
+    300: colorFunctions.colorcontrast($orange-color, 300),
+    400: colorFunctions.colorcontrast($orange-color, 400),
+    500: colorFunctions.colorcontrast($orange-color, 500),
+    600: colorFunctions.colorcontrast($orange-color, 600),
+    700: colorFunctions.colorcontrast($orange-color, 700),
+    800: colorFunctions.colorcontrast($orange-color, 800),
+    900: colorFunctions.colorcontrast($orange-color, 900),
+  ),
+);
+
+$orange: mat.m2-define-palette($orange-colors);

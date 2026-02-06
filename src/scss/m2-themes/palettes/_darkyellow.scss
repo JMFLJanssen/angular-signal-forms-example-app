@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the darkyellow color is given
+$darkyellow-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "darkyellow",
+);
+
+// Create a material design (specification 2) palette
+$darkyellow-colors: (
+  50: colorFunctions.colorvariant($darkyellow-color, 50),
+  100: colorFunctions.colorvariant($darkyellow-color, 100),
+  200: colorFunctions.colorvariant($darkyellow-color, 200),
+  300: colorFunctions.colorvariant($darkyellow-color, 300),
+  400: colorFunctions.colorvariant($darkyellow-color, 400),
+  500: $darkyellow-color,
+  600: colorFunctions.colorvariant($darkyellow-color, 600),
+  700: colorFunctions.colorvariant($darkyellow-color, 700),
+  800: colorFunctions.colorvariant($darkyellow-color, 800),
+  900: colorFunctions.colorvariant($darkyellow-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($darkyellow-color, 50),
+    100: colorFunctions.colorcontrast($darkyellow-color, 100),
+    200: colorFunctions.colorcontrast($darkyellow-color, 200),
+    300: colorFunctions.colorcontrast($darkyellow-color, 300),
+    400: colorFunctions.colorcontrast($darkyellow-color, 400),
+    500: colorFunctions.colorcontrast($darkyellow-color, 500),
+    600: colorFunctions.colorcontrast($darkyellow-color, 600),
+    700: colorFunctions.colorcontrast($darkyellow-color, 700),
+    800: colorFunctions.colorcontrast($darkyellow-color, 800),
+    900: colorFunctions.colorcontrast($darkyellow-color, 900),
+  ),
+);
+
+$darkyellow: mat.m2-define-palette($darkyellow-colors);

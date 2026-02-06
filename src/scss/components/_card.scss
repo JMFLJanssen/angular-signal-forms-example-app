@@ -1,0 +1,180 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/card' as cardVariables;
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/typography' as typographyVariables;
+@use '../utils/variables/button' as buttonVariables;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+@use '../utils/mixins/typography' as typographyMixins;
+
+.mat-mdc-card {
+  background-color: var(--mat-sidenav-content-background-color) !important;
+  border-radius: 5px !important;
+  // Drop the shadow
+  box-shadow: none !important;
+  // Give the dialog a primay colored border
+  border-width: cardVariables.$madui-card-border-size !important;
+  border-color: var(--primary-#{cardVariables.$madui-card-border-hue}) !important;
+}
+
+.dark-mode .mat-mdc-card {
+  border-color: var(--primary-#{cardVariables.$madui-card-border-hue-dark}) !important;
+}
+
+// Font size title & subtitle
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  @include breakpointMixins.media-breakpoint-only($device) {
+    $fontSizes: map.get(
+      $map: typographyVariables.$font-sizes,
+      $key: $device,
+    );
+    $fontSize-body: map.get(
+      $map: $fontSizes,
+      $key: 'body',
+    );
+    @include mat.card-overrides(
+      (
+        title-text-size: calc(map.get($map: $fontSizes, $key: 'h6') * $fontSize-body),
+        subtitle-text-size: calc(map.get($map: $fontSizes, $key: 'caption') * $fontSize-body),
+      )
+    );
+  }
+}
+
+// <mat-card-actions>	Container for buttons at the bottom of the card (adds padding)
+mat-card-actions.mdc-card__actions:not([align='start']) {
+  // Default the action are put on the right!
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+mat-card-actions[align='start'],
+.mat-card-actions[align='start'] {
+  .mdc-card__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}
+
+// The buttons in a card are put without inbetween margin: correct this like the button group
+mat-card-actions:not(:first-child) {
+  button {
+    margin-left: buttonVariables.$madui-buttongroup-spacing;
+  }
+}
+
+/***************
+ * CARD FOOTER *
+ ***************/
+
+mat-card-footer {
+  padding: 24px 0px 24px 12px;
+}
+
+@if (cardVariables.$madui-card-use-actionable) {
+  /******************** 
+   * ACTIONABLE CARDS *
+   ********************/
+
+  // color attribute !important
+  // set all mat-icons and header in color specified: else black (or white for dark mode)
+  // change border to specified color
+  // change hover to specified color
+
+  // PRIMARY
+  .mat-mdc-card[ng-reflect-router-link][color='primary'] {
+    .mat-caption,
+    div,
+    span,
+    p {
+      color: black !important;
+    }
+
+    &:hover {
+      background-color: var(--primary-50);
+    }
+
+    border-color: var(--primary-#{cardVariables.$madui-card-border-hue}) !important;
+  }
+
+  .mat-mdc-card[ng-reflect-router-link][color='primary'] {
+    .mat-caption,
+    div,
+    span,
+    p {
+      color: white !important;
+    }
+
+    &:hover {
+      background-color: var(--primary-900);
+    }
+
+    border-color: var(--primary-#{cardVariables.$madui-card-border-hue}) !important;
+  }
+
+  // ACCENT
+  .mat-mdc-card[ng-reflect-router-link][color='accent'] {
+    .mat-caption,
+    div,
+    span,
+    p {
+      color: black !important;
+    }
+
+    &:hover {
+      background-color: var(--accent-50);
+    }
+
+    border-color: var(--accent-#{cardVariables.$madui-card-border-hue}) !important;
+  }
+
+  .mat-mdc-card[ng-reflect-router-link][color='accent'] {
+    .mat-caption,
+    div,
+    span,
+    p {
+      color: white !important;
+    }
+
+    &:hover {
+      background-color: var(--accent-900);
+    }
+
+    border-color: var(--accent-#{cardVariables.$madui-card-border-hue}) !important;
+  }
+
+  // WARN
+  .mat-mdc-card[ng-reflect-router-link][color='warn'] {
+    .mat-caption,
+    div,
+    span,
+    p {
+      color: black !important;
+    }
+
+    &:hover {
+      background-color: var(--warn-50);
+    }
+
+    border-color: var(--warn-#{cardVariables.$madui-card-border-hue}) !important;
+  }
+
+  .mat-mdc-card[ng-reflect-router-link][color='warn'] {
+    .mat-caption,
+    div,
+    span,
+    p {
+      color: white !important;
+    }
+
+    &:hover {
+      background-color: var(--warn-900);
+    }
+
+    border-color: var(--warn-#{cardVariables.$madui-card-border-hue}) !important;
+  }
+}

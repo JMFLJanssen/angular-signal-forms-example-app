@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the mintgreen color is given
+$mintgreen-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "mintgreen",
+);
+
+// Create a material design (specification 2) palette
+$mintgreen-colors: (
+  50: colorFunctions.colorvariant($mintgreen-color, 50),
+  100: colorFunctions.colorvariant($mintgreen-color, 100),
+  200: colorFunctions.colorvariant($mintgreen-color, 200),
+  300: colorFunctions.colorvariant($mintgreen-color, 300),
+  400: colorFunctions.colorvariant($mintgreen-color, 400),
+  500: $mintgreen-color,
+  600: colorFunctions.colorvariant($mintgreen-color, 600),
+  700: colorFunctions.colorvariant($mintgreen-color, 700),
+  800: colorFunctions.colorvariant($mintgreen-color, 800),
+  900: colorFunctions.colorvariant($mintgreen-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($mintgreen-color, 50),
+    100: colorFunctions.colorcontrast($mintgreen-color, 100),
+    200: colorFunctions.colorcontrast($mintgreen-color, 200),
+    300: colorFunctions.colorcontrast($mintgreen-color, 300),
+    400: colorFunctions.colorcontrast($mintgreen-color, 400),
+    500: colorFunctions.colorcontrast($mintgreen-color, 500),
+    600: colorFunctions.colorcontrast($mintgreen-color, 600),
+    700: colorFunctions.colorcontrast($mintgreen-color, 700),
+    800: colorFunctions.colorcontrast($mintgreen-color, 800),
+    900: colorFunctions.colorcontrast($mintgreen-color, 900),
+  ),
+);
+
+$mintgreen: mat.m2-define-palette($mintgreen-colors);

@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the mossgreen color is given
+$mossgreen-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "mossgreen",
+);
+
+// Create a material design (specification 2) palette
+$mossgreen-colors: (
+  50: colorFunctions.colorvariant($mossgreen-color, 50),
+  100: colorFunctions.colorvariant($mossgreen-color, 100),
+  200: colorFunctions.colorvariant($mossgreen-color, 200),
+  300: colorFunctions.colorvariant($mossgreen-color, 300),
+  400: colorFunctions.colorvariant($mossgreen-color, 400),
+  500: $mossgreen-color,
+  600: colorFunctions.colorvariant($mossgreen-color, 600),
+  700: colorFunctions.colorvariant($mossgreen-color, 700),
+  800: colorFunctions.colorvariant($mossgreen-color, 800),
+  900: colorFunctions.colorvariant($mossgreen-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($mossgreen-color, 50),
+    100: colorFunctions.colorcontrast($mossgreen-color, 100),
+    200: colorFunctions.colorcontrast($mossgreen-color, 200),
+    300: colorFunctions.colorcontrast($mossgreen-color, 300),
+    400: colorFunctions.colorcontrast($mossgreen-color, 400),
+    500: colorFunctions.colorcontrast($mossgreen-color, 500),
+    600: colorFunctions.colorcontrast($mossgreen-color, 600),
+    700: colorFunctions.colorcontrast($mossgreen-color, 700),
+    800: colorFunctions.colorcontrast($mossgreen-color, 800),
+    900: colorFunctions.colorcontrast($mossgreen-color, 900),
+  ),
+);
+
+$mossgreen: mat.m2-define-palette($mossgreen-colors);

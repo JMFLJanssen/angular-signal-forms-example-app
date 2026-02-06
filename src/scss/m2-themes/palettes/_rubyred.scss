@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the rubyred color is given
+$rubyred-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "rubyred",
+);
+
+// Create a material design (specification 2) palette
+$rubyred-colors: (
+  50: colorFunctions.colorvariant($rubyred-color, 50),
+  100: colorFunctions.colorvariant($rubyred-color, 100),
+  200: colorFunctions.colorvariant($rubyred-color, 200),
+  300: colorFunctions.colorvariant($rubyred-color, 300),
+  400: colorFunctions.colorvariant($rubyred-color, 400),
+  500: $rubyred-color,
+  600: colorFunctions.colorvariant($rubyred-color, 600),
+  700: colorFunctions.colorvariant($rubyred-color, 700),
+  800: colorFunctions.colorvariant($rubyred-color, 800),
+  900: colorFunctions.colorvariant($rubyred-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($rubyred-color, 50),
+    100: colorFunctions.colorcontrast($rubyred-color, 100),
+    200: colorFunctions.colorcontrast($rubyred-color, 200),
+    300: colorFunctions.colorcontrast($rubyred-color, 300),
+    400: colorFunctions.colorcontrast($rubyred-color, 400),
+    500: colorFunctions.colorcontrast($rubyred-color, 500),
+    600: colorFunctions.colorcontrast($rubyred-color, 600),
+    700: colorFunctions.colorcontrast($rubyred-color, 700),
+    800: colorFunctions.colorcontrast($rubyred-color, 800),
+    900: colorFunctions.colorcontrast($rubyred-color, 900),
+  ),
+);
+
+$rubyred: mat.m2-define-palette($rubyred-colors);

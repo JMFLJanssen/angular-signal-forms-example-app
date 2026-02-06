@@ -1,0 +1,44 @@
+// BACKGROUND ANIMATION
+.enter-background-animation {
+    animation: emerge-background 500ms;
+}
+
+@keyframes emerge-background {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.65;
+    }
+}
+
+.leave-background-aminamation {
+    opacity: 0;
+    transition:
+        opacity 500ms ease-out,
+        transform 500ms ease-out;
+}
+
+// MENU ANIMATION
+.enter-menu-animation {
+    animation: emerge-fade-menu 500ms;
+}
+
+@keyframes emerge-fade-menu {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+}
+
+.leave-menu-animation {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+        opacity 500ms ease-out,
+        transform 500ms ease-out;
+}

@@ -1,0 +1,82 @@
+@use 'sass:map' as map;
+
+@use '@angular/material' as mat;
+
+@use '../../utils/variables/colors' as colorVariables;
+@use '../../utils/variables/themes' as themeVariables;
+
+@use '../../utils/functions/colors' as colorFunctions;
+
+/**********************
+ * FRESH LIGHT THEME *
+ **********************/
+
+$primary: map.get(colorVariables.$colors, map.get(themeVariables.$fresh-theme, 'primary'));
+$accent: map.get(colorVariables.$colors, map.get(themeVariables.$fresh-theme, 'accent'));
+$warn: map.get(colorVariables.$colors, map.get(themeVariables.$fresh-theme, 'warn'));
+
+:root {
+  .fresh {
+    --primary-type: #{map.get(colorVariables.$color-types, colorFunctions.colorname($primary))};
+    --accent-type: #{map.get(colorVariables.$color-types, colorFunctions.colorname($accent))};
+    --warn-type: #{map.get(colorVariables.$color-types, colorFunctions.colorname($warn))};
+
+    @each $variant in map.keys(colorVariables.$variants) {
+      --primary-#{$variant}: #{colorFunctions.colorvariant($primary, $variant)};
+      --accent-#{$variant}: #{colorFunctions.colorvariant($accent, $variant)};
+      --warn-#{$variant}: #{colorFunctions.colorvariant($warn, $variant)};
+
+      @if ($variant ==500) {
+        --primary: #{$primary};
+        --accent: #{$accent};
+        --warn: #{$warn};
+      }
+
+      --primary-contrast-#{$variant}: #{colorFunctions.colorcontrast($primary, $variant)};
+      --accent-contrast-#{$variant}: #{colorFunctions.colorcontrast($accent, $variant)};
+      --warn-contrast-#{$variant}: #{colorFunctions.colorcontrast($warn, $variant)};
+
+      @if ($variant ==500) {
+        --primary-contrast: #{colorFunctions.colorcontrast($primary, $variant)};
+        --accent-contrast: #{colorFunctions.colorcontrast($accent, $variant)};
+        --warn-contrast: #{colorFunctions.colorcontrast($warn, $variant)};
+      }
+    }
+  }
+}
+
+/*********************
+ * FRESH DARK THEME *
+ *********************/
+
+$primary-dark: map.get(colorVariables.$colors, map.get(themeVariables.$fresh-dark-theme, 'primary'));
+$accent-dark: map.get(colorVariables.$colors, map.get(themeVariables.$fresh-dark-theme, 'accent'));
+$warn-dark: map.get(colorVariables.$colors, map.get(themeVariables.$fresh-dark-theme, 'warn'));
+
+.fresh-dark {
+  --primary-type: #{map.get(colorVariables.$color-types, colorFunctions.colorname($primary-dark))};
+  --accent-type: #{map.get(colorVariables.$color-types, colorFunctions.colorname($accent-dark))};
+  --warn-type: #{map.get(colorVariables.$color-types, colorFunctions.colorname($warn-dark))};
+
+  @each $variant in map.keys(colorVariables.$variants) {
+    --primary-#{$variant}: #{colorFunctions.colorvariant($primary-dark, $variant)};
+    --accent-#{$variant}: #{colorFunctions.colorvariant($accent-dark, $variant)};
+    --warn-#{$variant}: #{colorFunctions.colorvariant($warn-dark, $variant)};
+
+    @if ($variant ==500) {
+      --primary: #{$primary-dark};
+      --accent: #{$accent-dark};
+      --warn: #{$warn-dark};
+    }
+
+    --primary-contrast-#{$variant}: #{colorFunctions.colorcontrast($primary-dark, $variant)};
+    --accent-contrast-#{$variant}: #{colorFunctions.colorcontrast($accent-dark, $variant)};
+    --warn-contrast-#{$variant}: #{colorFunctions.colorcontrast($warn-dark, $variant)};
+
+    @if ($variant ==500) {
+      --primary-contrast: #{colorFunctions.colorcontrast($primary-dark, $variant)};
+      --accent-contrast: #{colorFunctions.colorcontrast($accent-dark, $variant)};
+      --warn-contrast: #{colorFunctions.colorcontrast($warn-dark, $variant)};
+    }
+  }
+}

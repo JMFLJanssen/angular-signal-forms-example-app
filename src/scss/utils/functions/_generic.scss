@@ -1,0 +1,12 @@
+// Does a list contain a given value?
+@function contains($list, $var) {
+  $_out: false;
+
+  @each $item in $list {
+    @if $item ==$var {
+      $_out: true;
+    }
+  }
+
+  @return $_out;
+}

@@ -1,0 +1,10 @@
+// Set the border size to 0, not to use a border at all
+$madui-card-border-size: 1px;
+
+// Set the hue of the border. The color will always be the primary color
+$madui-card-border-hue: 400;
+// Set the hue of the border in darkmode. For a dark primary color the hue must be 200 or 300 for better visibility
+$madui-card-border-hue-dark: 300;
+
+// ADD-ON ACTIONABLE CARDS: based on having a routerLink attribute. USE?
+$madui-card-use-actionable: true;

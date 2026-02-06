@@ -1,0 +1,192 @@
+@use 'sass:map' as map;
+@use 'sass:string' as string;
+
+@use '@angular/material' as mat;
+
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/typography' as typographyVariables;
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+@use '../utils/mixins/typography' as typographyMixins;
+
+/*****************************
+ * SETUP & USAGE OF WEBFONTS *
+ *****************************/
+
+// Start with setting the font used to the Rijksoverheid Web fonts.
+@each $type, $font-face in typographyVariables.$font-faces {
+  @font-face {
+    @each $key, $value in $font-face {
+      @if not($key == 'src') {
+        #{$key}: $value;
+      } @else {
+        #{$key}: url(string.quote($value)) format('woff');
+      }
+    }
+  }
+}
+
+@each $key, $value in typographyVariables.$fonts {
+  #{$key} {
+    font-family: $value, Arial, Verdana;
+  }
+
+  @if $key == 'body' {
+    .mat-caption {
+      font-family: $value, Arial, Verdana;
+    }
+  }
+}
+
+/*********************************************
+ * DEVICE DEPENDEND TYPOGRAPHY HTML ELEMENTS *
+ *********************************************/
+
+// A list of all typograpy html elements
+$elements: map.keys(
+  $map: typographyVariables.$handset-font-sizes,
+);
+
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  @include breakpointMixins.media-breakpoint-only($device) {
+    @each $element in $elements {
+      @if $element ==body {
+        body {
+          @include typographyMixins.font($element, $device);
+        }
+      }
+
+      @if $element ==h1 {
+        h1,
+        .mat-h1,
+        .mat-headline {
+          @include typographyMixins.font($element, $device);
+        }
+      }
+
+      @if $element ==h2 {
+        h2,
+        .mat-h2,
+        .mat-title {
+          @include typographyMixins.font($element, $device);
+        }
+      }
+
+      @if $element ==h3 {
+        h3,
+        .mat-h3,
+        .mat-subheading-2 {
+          @include typographyMixins.font($element, $device);
+        }
+      }
+
+      @if $element ==h4 {
+        h4,
+        .mat-h4,
+        .mat-subheading-1 {
+          @include typographyMixins.font($element, $device);
+        }
+      }
+
+      @if $element ==h5 {
+        h5 {
+          @include typographyMixins.font($element, $device);
+        }
+      }
+
+      @if $element ==h6 {
+        h6 {
+          @include typographyMixins.font($element, $device);
+        }
+      }
+
+      @if $element ==caption {
+        .mat-caption {
+          @include typographyMixins.font($element, $device);
+        }
+      }
+
+      @if $element ==small {
+        small,
+        .mat-small {
+          @include typographyMixins.font($element, $device);
+        }
+      }
+
+      @if $element ==blockquote {
+        blockquote {
+          @include typographyMixins.font($element, $device);
+        }
+      }
+
+      @if $element ==button {
+        button,
+        .mat-button,
+        .mat-raised-button,
+        .mat-flat-button,
+        .mat-stroked-button {
+          @include typographyMixins.font($element, $device);
+        }
+      }
+    }
+  }
+}
+
+/*****************
+ * LINK COLORING *
+ *****************/
+
+// A link is a call to action => use the theme's accent color
+a,
+a:visited,
+a:hover {
+  color: var(--accent);
+}
+
+a:hover {
+  text-decoration-line: underline;
+}
+
+// Darkmode? Different visited color, since purple is to low in contrast against the background
+.dark-mode a,
+.dark-mode a:visited {
+  color: var(--accent-300);
+}
+
+/***********
+ * MARGINS *
+ ***********/
+
+// Default a browser adds margins and paddings to text elements.
+// We don't want that: first get rid of them
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+blockquote,
+.blockqoute {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-block-start: 0;
+  padding-block-end: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+  display: block;
+}
+
+// Now use the bottom margins for the heading elements
+@each $key in map.keys($map: typographyVariables.$heading-bottom-margins) {
+  #{$key},
+  .#{$key} {
+    margin-bottom: map.get(typographyVariables.$heading-bottom-margins, $key);
+  }
+}

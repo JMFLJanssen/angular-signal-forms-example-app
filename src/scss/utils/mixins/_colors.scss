@@ -1,0 +1,90 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../variables/colors" as colorVariables;
+
+@use "../functions/colors" as colorFunctions;
+
+// As of v19.2.3 MADUI uses tailwind. To be able to use the tailwind (style)
+// classes, but the MADUI colors '!important' is needed to override the tailwind
+// colors.
+
+/*****************
+ * REUSABLE CODE *
+ *****************/
+
+@mixin colorscheme($colors) {
+  @each $colorname, $colorvalue in $colors {
+    @each $variant in map.keys($map: colorVariables.$variants) {
+      .bg-#{$colorname}-#{$variant} {
+        background-color: colorFunctions.colorvariant($colorvalue, $variant) !important;
+        color: colorFunctions.colorcontrast($colorvalue, $variant);
+      }
+
+      .border-#{$colorname}-#{$variant} {
+        border: 1px solid colorFunctions.colorvariant($colorvalue, $variant) !important;
+      }
+
+      ro-icon[color="#{$colorname}-#{$variant}"] {
+        svg {
+          fill: colorFunctions.colorvariant($colorvalue, $variant) !important;
+        }
+      }
+
+      @if $variant ==500 {
+        .bg-#{$colorname} {
+          background-color: colorFunctions.colorvariant($colorvalue, $variant) !important;
+          color: colorFunctions.colorcontrast($colorvalue, $variant);
+        }
+
+        .border-#{$colorname} {
+          border: 1px solid colorFunctions.colorvariant($colorvalue, $variant) !important;
+        }
+
+        ro-icon[color="#{$colorname}"] {
+          svg {
+            fill: colorFunctions.colorvariant($colorvalue, 500) !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin themeColorscheme() {
+  @each $colorname in ("primary", "accent", "warn") {
+    @each $variant in map.keys($map: colorVariables.$variants) {
+      .bg-#{$colorname}-#{$variant} {
+        background-color: var(--#{$colorname}-#{$variant}) !important;
+        color: var(--#{$colorname}-contrast-#{$variant});
+      }
+
+      .border-#{$colorname}-#{$variant} {
+        border: 1px solid var(--#{$colorname}-#{$variant}) !important;
+      }
+
+      ro-icon[color="#{$colorname}-#{$variant}"] {
+        svg {
+          fill: var(--#{$colorname}-#{$variant}) !important;
+        }
+      }
+
+      @if $variant ==500 {
+        .bg-#{$colorname} {
+          background-color: var(--#{$colorname}) !important;
+          color: var(--#{$colorname}-contrast);
+        }
+
+        .border-#{$colorname}-#{$variant} {
+          border: 1px solid var(--#{$colorname}) !important;
+        }
+
+        ro-icon[color="#{$colorname}-#{$variant}"] {
+          svg {
+            fill: var(--#{$colorname}) !important;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,145 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+// Import all the Material 2 MADUI color palettes
+@use './palettes/brown' as brownPallete;
+@use './palettes/darkblue' as darkbluePallete;
+@use './palettes/darkbrown' as darkbrownPallete;
+@use './palettes/darkgreen' as darkgreenPallete;
+@use './palettes/darkyellow' as darkyellowPallete;
+@use './palettes/green' as greenPallete;
+@use './palettes/lightblue' as lightbluePallete;
+@use './palettes/kl' as klPallete;
+@use './palettes/klu' as kluPallete;
+@use './palettes/kmar' as kmarPallete;
+@use './palettes/km' as kmPallete;
+@use './palettes/mintgreen' as mintgreenPallete;
+@use './palettes/mossgreen' as mossgreenPallete;
+@use './palettes/orange' as orangePallete;
+@use './palettes/pink' as pinkPallete;
+@use './palettes/purple' as purplePallete;
+@use './palettes/red' as redPallete;
+@use './palettes/rubyred' as rubyredPallete;
+@use './palettes/skyblue' as skybluePallete;
+@use './palettes/violet' as violetPallete;
+@use './palettes/yellow' as yellowPallete;
+
+// All the color palettes from which Material M2 themes can be created
+$palettes: (
+  'brown': brownPallete.$brown,
+  'darkblue': darkbluePallete.$darkblue,
+  'darkbrown': darkbrownPallete.$darkbrown,
+  'darkgreen': darkgreenPallete.$darkgreen,
+  'darkyellow': darkyellowPallete.$darkyellow,
+  'green': greenPallete.$green,
+  'lightblue': lightbluePallete.$lightblue,
+  'kl': klPallete.$kl,
+  'klu': kluPallete.$klu,
+  'kmar': kmarPallete.$kmar,
+  'km': kmPallete.$km,
+  'mintgreen': mintgreenPallete.$mintgreen,
+  'mossgreen': mossgreenPallete.$mossgreen,
+  'orange': orangePallete.$orange,
+  'pink': pinkPallete.$pink,
+  'purple': purplePallete.$purple,
+  'red': redPallete.$red,
+  'rubyred': rubyredPallete.$rubyred,
+  'skyblue': skybluePallete.$skyblue,
+  'violet': violetPallete.$violet,
+  'yellow': yellowPallete.$yellow,
+);
+
+/*********************
+ * LIGHT THEME SETUP *
+ *********************/
+
+// Definition of the light theme for this application
+$light-theme: (
+  'primary': 'darkblue',
+  'accent': 'orange',
+  'warn': 'mintgreen',
+);
+
+// Create the material light theme from the palettes for these colors
+$light-theme-primary-palette: map.get(
+  $map: $palettes,
+  $key: map.get($light-theme, 'primary'),
+);
+$light-theme-accent-palette: map.get(
+  $map: $palettes,
+  $key: map.get($light-theme, 'accent'),
+);
+$light-theme-warn-palette: map.get(
+  $map: $palettes,
+  $key: map.get($light-theme, 'warn'),
+);
+
+$madui-light-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $light-theme-primary-palette,
+      accent: $light-theme-accent-palette,
+      warn: $light-theme-warn-palette,
+    ),
+  )
+);
+
+// Apply the light theme by default
+html {
+  @include mat.elevation-classes();
+  @include mat.app-background();
+}
+
+// Set this theme for all Material components
+html {
+  @include mat.all-component-themes($madui-light-theme);
+}
+
+/********************
+ * DARK THEME SETUP *
+ ********************/
+
+// Definition of the light theme for this application
+$dark-theme: (
+  'primary': 'green',
+  'accent': 'yellow',
+  'warn': 'pink',
+);
+
+// Create the material dark theme from the palettes for these colors
+$dark-theme-primary-palette: map.get(
+  $map: $palettes,
+  $key: map.get($dark-theme, 'primary'),
+);
+$dark-theme-accent-palette: map.get(
+  $map: $palettes,
+  $key: map.get($dark-theme, 'accent'),
+);
+$dark-theme-warn-palette: map.get(
+  $map: $palettes,
+  $key: map.get($dark-theme, 'warn'),
+);
+
+$madui-dark-theme: mat.m2-define-dark-theme(
+  (
+    color: (
+      primary: $dark-theme-primary-palette,
+      accent: $dark-theme-accent-palette,
+      warn: $dark-theme-warn-palette,
+    ),
+  )
+);
+
+// Set this theme for all Material components
+html {
+  .dark-mode {
+    @include mat.all-component-colors($madui-dark-theme);
+  }
+}
+
+// Add backward compatibility support for Material Design specification 2.
+$theme: mat.define-theme();
+
+html {
+  @include mat.color-variants-backwards-compatibility($theme);
+}

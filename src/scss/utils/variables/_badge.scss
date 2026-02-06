@@ -1,0 +1,12 @@
+// Change the font sizes on the badge to match the sizes specified by the typography
+$badge-font-sizes: (
+  "small": "small",
+  "medium": "caption",
+  "large": "h3",
+);
+
+$badge-line-heights: (
+  "small": 16px,
+  "medium": 22px,
+  "large": 28px,
+);

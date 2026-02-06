@@ -1,0 +1,109 @@
+/******************************
+ * APPLE LIQUID GLASS BUTTONS *
+ ******************************/
+
+.glass {
+    position: relative;
+    color: rgba(255, 255, 255, 0.8) !important;
+    padding: 0 8px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(2px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 2.4px;
+    box-shadow:
+        0 8px 32px rgba(31, 38, 135, 0.2),
+        inset 0 4px 20px rgba(255, 255, 255, 0.3);
+}
+
+.glass::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2.4px;
+    backdrop-filter: blur(1px);
+    box-shadow:
+        inset -10px -8px 0px -11px rgba(255, 255, 255, 1),
+        inset 0px -9px 0px -8px rgba(255, 255, 255, 1);
+    opacity: 0.6;
+    z-index: -1;
+    filter: blur(1px) drop-shadow(10px 4px 6px black) brightness(115%);
+}
+
+.glass {
+    button > mat-icon {
+        margin: 6px 10px 0 10px;
+    }
+}
+
+/***********************************
+ * DEFAULT HEIGHT RICH TEXT EDITOR *
+ ***********************************/
+
+.NgxEditor__Content {
+    height: 240px;
+    overflow: auto;
+}
+.NgxEditor {
+    :focus {
+        border: 1.5px solid var(--accent);
+        border-radius: 5px;
+    }
+}
+
+/*****************
+ * WHITE BUTTONS *
+ *****************/
+
+button[matButton][color='white'],
+button[matButton='outlined'][color='white'] {
+    color: white;
+}
+
+button[matButton='outlined'][color='white'] {
+    border: 1px solid white;
+}
+
+button[matButton][color='white'][disabled],
+button[matButton='outlined'][color='white'][disabled] {
+    border: none !important;
+}
+
+/**************
+ * PARAGRAPHS *
+ **************/
+
+p {
+    margin: 16px 0;
+}
+
+/*********
+ * LISTS *
+ *********/
+
+p:not(ul > li > p),
+p:not(ol > li > p) {
+    margin-bottom: 16px;
+}
+
+ul > li {
+    list-style-type: disc;
+    margin-left: 24px;
+}
+
+ol > li {
+    list-style-type: decimal;
+    margin-left: 24px;
+}
+
+ul > li:last-child,
+ol > li:last-child {
+    margin-bottom: 16px !important;
+}
+
+.gradient {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, black 100%);
+}

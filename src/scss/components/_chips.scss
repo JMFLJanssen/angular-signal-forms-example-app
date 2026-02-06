@@ -1,0 +1,196 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/chips' as chipVariables;
+@use '../utils/variables/typography' as typographyVariables;
+@use '../utils/variables/colors' as colorVariables;
+@use '../utils/variables/button' as buttonVariables;
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/themes' as themeVariables;
+
+@use '../utils/functions/breakpoints' as breakpointFunctions;
+@use '../utils/functions/colors' as colorFunctions;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+
+:root {
+  @include mat.chips-overrides(
+    (
+      container-shape-radius: 100%,
+    )
+  );
+}
+
+/***********
+ * PADDING *
+ ***********/
+
+mat-chip,
+mat-chip-option {
+  padding: 0 6px !important;
+}
+
+/************************
+ * ACCENT CHIP COLORING *
+ ************************/
+
+$accent-btn-colors: (
+  'success': map.get(colorVariables.$accents, 'success'),
+  'info': map.get(colorVariables.$accents, 'info'),
+  'warning': map.get(colorVariables.$accents, 'warning'),
+  'danger': map.get(colorVariables.$accents, 'danger'),
+);
+
+@each $color, $colorvalue in $accent-btn-colors {
+  $colorname: colorFunctions.colorname($colorvalue);
+
+  mat-chip[color='#{$color}'] {
+    // Set the chips background color
+    background-color: $colorvalue !important;
+
+    // Set the chips contrasting text color
+    .mdc-evolution-chip__text-label,
+    .mat-mdc-chip-action-label {
+      color: colorFunctions.colorcontrast($colorvalue, 500) !important;
+    }
+
+    // The hover color
+    $colortype: map.get(
+      $map: colorVariables.$color-types,
+      $key: $colorname,
+    );
+    $hoverHue: map.get(
+      $map: buttonVariables.$madui-button-flat-hover-hues,
+      $key: $colortype,
+    );
+    $hoverColor: colorFunctions.colorvariant($colorvalue, $hoverHue);
+
+    &:hover {
+      background-color: $hoverColor !important;
+
+      .mdc-evolution-chip__text-label,
+      .mat-mdc-chip-action-label,
+      .mdc-evolution-chip__checkmark {
+        color: colorFunctions.colorcontrast($colorvalue, $hoverHue) !important;
+      }
+    }
+  }
+}
+
+// Corrections for dark-mode
+@each $color, $colorvalue in $accent-btn-colors {
+  $colorname: colorFunctions.colorname($colorvalue);
+  $colortype: map.get(colorVariables.$color-types, $colorname);
+
+  // The hover color
+  $colortype: map.get(
+    $map: colorVariables.$color-types,
+    $key: $colorname,
+  );
+  $hoverHue: map.get(
+    $map: buttonVariables.$madui-button-flat-hover-hues-dark-theme,
+    $key: $colortype,
+  );
+  $hoverColor: colorFunctions.colorvariant($colorvalue, $hoverHue);
+
+  .dark-mode mat-chip[color='#{$color}'] {
+    &:hover {
+      background-color: $hoverColor !important;
+
+      .mdc-evolution-chip__text-label,
+      .mat-mdc-chip-action-label,
+      .mdc-evolution-chip__checkmark {
+        color: colorFunctions.colorcontrast($colorvalue, $hoverHue) !important;
+      }
+    }
+  }
+}
+
+/***********************
+ * THEME CHIP COLORING *
+ ***********************/
+
+@each $color in ('primary', 'accent', 'warn') {
+  @each $theme in themeVariables.$theme-classes {
+    $colortype: colorFunctions.colortype($color, $theme);
+
+    #{$theme} mat-chip[color='#{$color}'],
+    #{$theme} mat-chip-option[color='#{$color}'].mat-mdc-chip-selected {
+      // Set the chips background color
+      background-color: var(--#{$color}) !important;
+
+      // Set the chips contrasting text color
+      .mdc-evolution-chip__text-label,
+      .mat-mdc-chip-action-label,
+      .mdc-evolution-chip__checkmark {
+        color: var(--#{$color}-contrast) !important;
+      }
+
+      // The hover color
+      $hoverHue: map.get(buttonVariables.$madui-button-flat-hover-hues, $colortype);
+      $hoverColor: var(--#{$color}-#{$hoverHue});
+
+      &:hover {
+        background-color: $hoverColor !important;
+
+        .mdc-evolution-chip__text-label,
+        .mat-mdc-chip-action-label,
+        .mdc-evolution-chip__checkmark {
+          color: var(--#{$color}-contrast-#{$hoverHue}) !important;
+        }
+      }
+    }
+  }
+}
+
+// Corrections for dark-mode
+@each $color in ('primary', 'accent', 'warn') {
+  @each $theme in themeVariables.$theme-classes {
+    $colortype: colorFunctions.colortype($color, $theme);
+    $hoverHue: map.get(
+      $map: buttonVariables.$madui-button-flat-hover-hues-dark-theme,
+      $key: $colortype,
+    );
+    $hoverColor: var(--#{$color}-#{$hoverHue});
+
+    .dark-mode #{$theme} mat-chip[color='#{$color}'],
+    .dark-mode #{$theme} mat-chip-option[color='#{$color}']:not(.mat-mdc-chip-selected) {
+      &:hover {
+        background-color: $hoverColor !important;
+
+        .mdc-evolution-chip__text-label,
+        .mat-mdc-chip-action-label,
+        .mdc-evolution-chip__checkmark {
+          color: var(--#{$color}-contrast-#{$hoverHue}) !important;
+        }
+      }
+    }
+  }
+}
+
+/***********************************
+ * CHIPS WITHOUT A COLOR SPECIFIED *
+ ***********************************/
+
+mat-chip:not([color]),
+mat-chip-option:not([color]) {
+  background: transparent !important;
+  border: 1px solid var(--primary) !important;
+  &:hover {
+    background-color: var(--primary-50) !important;
+  }
+
+  @include mat.chips-overrides(
+    (
+      label-text-color: var(--primary),
+    )
+  );
+}
+
+.dark-mode mat-chip:not([color]),
+.dark-mode mat-chip-option:not([color]) {
+  border: 1px solid var(--primary-300) !important;
+  &:hover {
+    background-color: var(--primary-900) !important;
+  }
+}

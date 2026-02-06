@@ -1,0 +1,35 @@
+// Spacing affect all margin-* and padding-* classes. I.e. margin-top-4px adds a 4px margin to the top of the element.
+$spacing: (
+  "1px": 1px,
+  "2px": 2px,
+  "4px": 4px,
+  "8px": 8px,
+  "12px": 12px,
+  "16px": 16px,
+  "24px": 24px,
+  "32px": 32px,
+  "48px": 48px,
+  "96px": 96px,
+);
+
+// This variable affects the `.h-*` and `.w-*` classes.
+$sizes: (
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  85: 85%,
+  100: 100%,
+);
+
+// Display property of an element. Supported display values:
+$display-values: (
+  "none": none,
+  "inline": inline,
+  "inline-block": inline-block,
+  "block": block,
+  "table": table,
+  "table-cell": table-cell,
+  "table-row": table-row,
+  "flex": flex,
+  "inline-flex": inline-flex,
+);

@@ -1,0 +1,13 @@
+// RO checkboxes are a bit larger then the default Angular Material buttons
+$madui-checkbox-size: 18px;
+
+// The distance between the checkbox and its label
+$madui-checkbox-label-distance: 16px;
+
+// Default, the outer rim in a Material checkbox = darkgrey in a light theme
+// and very light grey in a dark theme.
+// A checkbox is a call-to-action: so by default the outer rim should get the
+// accent color.
+
+// What is your preference?
+$madui-checkbox-outerrim-madui: true;

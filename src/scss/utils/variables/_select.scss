@@ -1,0 +1,19 @@
+// Height of the (single line) input
+$madui-select-text-corrections: (
+  "handset": 3px,
+  "tablet": 5px,
+  "web": 7px,
+);
+
+// Coloring the option list
+// The accent hue for hover option list
+$madui-option-hover-hue: 50;
+
+// The accent hue fot selected option option list
+$madui-option-selected-hue: 100;
+
+// The dark-mode accent hue for hover option list
+$madui-option-hover-hue-dark-mode: 900;
+
+// The dark-mode accent hue fot selected option option list
+$madui-option-selected-hue-dark-mode: 800;

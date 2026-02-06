@@ -1,0 +1,98 @@
+@let articleModel = articleId() ? articleService.article() : article();
+
+@if (articleModel) {
+    <div #imageContainer class="relative w-full">
+        <img [src]="articleModel?.image?.imageUrl" class="w-full h-100 object-cover rounded-md" />
+        <div class="absolute top-0 left-0 gradient w-full h-full rounded-sm"></div>
+        <div class="absolute bottom-3 left-6 text-white">
+            <h3>{{ articleModel?.title }}</h3>
+        </div>
+    </div>
+
+    <div class="bg-grey-1 opacity-90 rounded-sm p-3 flex flex-row gap-6 items-center my-6">
+        <mat-chip color="primary">{{ getCategory(articleModel!.category) }}</mat-chip>
+        <small
+            >{{ articleModel?.updateDate | date: 'dd MMM yyyy' }} at
+            {{ articleModel?.updateDate | date: 'HH:mm' }}
+        </small>
+    </div>
+
+    <div class="bg-grey-1 rounded-sm opacity-90 p-3 mb-6" [innerHTML]="articleModel?.text"></div>
+
+    @if (!articleId()) {
+        <div class="mb-6">
+            @if (articleModel?.chapters) {
+                @for (chapter of articleModel!.chapters; track chapter.id; let even = $even) {
+                    <div
+                        *ngTemplateOutlet="
+                            chapterTemplate;
+                            context: { chapter: chapter, even: even }
+                        "
+                    ></div>
+                }
+            }
+        </div>
+    } @else {
+        <div class="mb-6">
+            @for (chapter of chapterService.articleChapters(); track chapter.id; let even = $even) {
+                <div
+                    *ngTemplateOutlet="chapterTemplate; context: { chapter: chapter, even: even }"
+                ></div>
+            }
+        </div>
+    }
+
+    <ng-template #chapterTemplate let-chapter="chapter" let-even="even">
+        @if (chapter.status !== 3) {
+            <div class="bg-grey-1 opacity-90 rounded-sm p-3 mt-6">
+                @if (chapter.showTitle) {
+                    <section #title>
+                        <h4>{{ chapter.title }}</h4>
+                    </section>
+                }
+                <section #content>
+                    @if (chapter.text && chapter.image.imageUrl === '') {
+                        <div class="mt-2" [innerHTML]="chapter.text"></div>
+                    }
+                    @if (!chapter.text && chapter.image.imageUrl !== '') {
+                        <div class="my-2 flex flex-col">
+                            <img class="w-full object-cover" [src]="chapter.image.imageUrl" />
+                            @if (chapter.imageCaption) {
+                                <small class="line-clamp-1 text-grey-4 mt-1">{{
+                                    chapter.imageCaption
+                                }}</small>
+                            }
+                        </div>
+                    }
+                    @if (chapter.text && chapter.image.imageUrl !== '' && even) {
+                        <div>
+                            <div class="flex flex-col w-5/12 float-left mb-1 mr-4">
+                                <img [src]="chapter.image.imageUrl" />
+                                @if (chapter.imageCaption) {
+                                    <small class="line-clamp-2 text-grey-4 mt-1">{{
+                                        chapter.imageCaption
+                                    }}</small>
+                                }
+                            </div>
+                            <span [innerHTML]="chapter.text"></span>
+                        </div>
+                    }
+                    @if (chapter.text && chapter.image.imageUrl !== '' && !even) {
+                        <div>
+                            <div class="flex flex-col w-5/12 float-right mb-1 ml-4">
+                                <img [src]="chapter.image.imageUrl" />
+                                @if (chapter.imageCaption) {
+                                    <small class="line-clamp-2 text-grey-4">{{
+                                        chapter.imageCaption
+                                    }}</small>
+                                }
+                            </div>
+
+                            <span [innerHTML]="chapter.text"></span>
+                        </div>
+                    }
+                </section>
+            </div>
+        }
+    </ng-template>
+}

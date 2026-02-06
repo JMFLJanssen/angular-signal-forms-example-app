@@ -1,0 +1,191 @@
+@use './colors' as colorVariables;
+
+$font-face-regular: (
+  'font-family': 'Open Sans',
+  'font-style': normal,
+  'font-weight': normal,
+  'src': '/fonts/OpenSansRegular.woff',
+);
+
+$font-face-italic: (
+  'font-family': 'Open Sans',
+  'font-style': italic,
+  'font-weight': normal,
+  'src': '/fonts/OpenSansItalic.woff',
+);
+
+$font-face-bold: (
+  'font-family': 'Open Sans',
+  'font-style': normal,
+  'font-weight': bold,
+  'src': '/fonts/OpenSansBold.woff',
+);
+
+$font-face-serif: (
+  'font-family': 'PT Serif',
+  'font-style': normal,
+  'font-weight': normal,
+  'src': '/fonts/OpenSerif-Book.ttf',
+);
+
+$font-faces: (
+  'regular': $font-face-regular,
+  'italic': $font-face-italic,
+  'bold': $font-face-bold,
+  'serif': $font-face-serif,
+);
+
+// default font = Open Sans, except for a quote, which is in PT Serif
+$fonts: (
+  body: 'Open Sans',
+  blockquote: 'PT Serif',
+);
+
+/***********************
+ * FONT STYLE & WEIGHT *
+ ***********************/
+
+// font-style: normal, unless specified otherwise
+$font-styles: (
+  blockquote: italic,
+);
+
+// font-weight: 400, unless specified otherwise
+$font-weights: (
+  h1: 700,
+  h2: 400,
+  h3: 400,
+  h4: 700,
+  h5: 700,
+  h6: 400,
+  body: 400,
+  caption: 400,
+  small: 400,
+  button: 400,
+  blockquote: 400,
+);
+
+// Overruling of the default browser margins and paddings that are added to headings.
+// These are set to 0, after which the rijkshuisstijl specifies the bottom margin
+$heading-bottom-margins: (
+  'h1': 1rem,
+  'h2': 1rem,
+  'h3': 0.5rem,
+  'h4': 0.5rem,
+  'h5': 0.5rem,
+  'h6': 1rem,
+);
+
+// text-transform: CHANGE THIS VALUE TO UPPERCASE IF YOU WANT ALL UPPERCASE BUTTONS
+$text-transform: (
+  button: none,
+);
+
+// paragraph spacing
+$paragraph-spacing: 8px;
+
+// The Rijkshuisstijl also defines the color of a link and a visited link.
+$link-color-visited: colorVariables.$purple;
+$link-color-visited-dark: colorVariables.$skyblue;
+
+/*******************
+ * DEVICE SPECIFIC *
+ *******************/
+
+// Font sizes and line heights are device dependend, and are all relative to the body font-size!
+
+$handset-font-sizes: (
+  h1: 1.625,
+  h2: 1.75,
+  h3: 1.625,
+  h4: 1,
+  h5: 1,
+  h6: 1.25,
+  body: 16px,
+  caption: 0.9,
+  small: 0.75,
+  button: 1,
+  blockquote: 1.5,
+);
+
+$handset-line-heights: (
+  h1: 1.154,
+  h2: 1.143,
+  h3: 1.231,
+  h4: 1.375,
+  h5: 1.375,
+  h6: 1.3,
+  body: 1.375,
+  caption: 1.429,
+  small: 1.333,
+  button: 1.375,
+  blockquote: 1.25,
+);
+
+$tablet-font-sizes: (
+  h1: 1.647,
+  h2: 1.647,
+  h3: 1.353,
+  h4: 1,
+  h5: 0.882,
+  h6: 1.235,
+  body: 17px,
+  caption: 0.882,
+  small: 0.794,
+  button: 1,
+  blockquote: 1.647,
+);
+
+$tablet-line-heights: (
+  h1: 1.142,
+  h2: 1.142,
+  h3: 1.174,
+  h4: 1.529,
+  h5: 1.534,
+  h6: 1.524,
+  body: 1.529,
+  caption: 1.333,
+  small: 1.333,
+  button: 1.529,
+  blockquote: 1.214,
+);
+
+$web-font-sizes: (
+  h1: 1.722,
+  h2: 1.556,
+  h3: 1.444,
+  h4: 1,
+  h5: 0.889,
+  h6: 1.333,
+  body: 18px,
+  caption: 0.889,
+  small: 0.811,
+  button: 1,
+  blockquote: 1.722,
+);
+
+$web-line-heights: (
+  h1: 1.161,
+  h2: 1.142,
+  h3: 1.192,
+  h4: 1.444,
+  h5: 1.375,
+  h6: 1.456,
+  body: 1.444,
+  caption: 1.375,
+  small: 1.232,
+  button: 1.444,
+  blockquote: 1.258,
+);
+
+$font-sizes: (
+  'handset': $handset-font-sizes,
+  'tablet': $tablet-font-sizes,
+  'web': $web-font-sizes,
+);
+
+$line-heights: (
+  'handset': $handset-line-heights,
+  'tablet': $tablet-line-heights,
+  'web': $web-line-heights,
+);

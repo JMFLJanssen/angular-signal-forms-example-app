@@ -1,0 +1,52 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/typography' as typographyVariables;
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/colors' as colorVariables;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+
+div[matsnackbaractions] {
+  span.mdc-button__label {
+    color: var(--accent-300) !important;
+  }
+}
+
+:root,
+:root .dark-mode {
+  @include mat.snack-bar-overrides(
+    (
+      container-shape: 5px,
+      container-color: map.get(colorVariables.$coolgray, 900),
+      supporting-text-color: map.get(colorVariables.$coolgray, 200),
+    )
+  );
+}
+
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  @include breakpointMixins.media-breakpoint-only($device) {
+    // The typography used for the chips = caption, which is device dependent in size
+    $font-size: map.get(
+      map.get(
+        $map: typographyVariables.$font-sizes,
+        $key: $device,
+      ),
+      'body'
+    );
+
+    :root {
+      @include mat.snack-bar-overrides(
+        (
+          supporting-text-size: $font-size,
+        )
+      );
+    }
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  .mdc-snackbar__surface {
+    box-shadow: none !important;
+  }
+}

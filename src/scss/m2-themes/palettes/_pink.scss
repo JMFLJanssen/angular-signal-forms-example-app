@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the pink color is given
+$pink-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "pink",
+);
+
+// Create a material design (specification 2) palette
+$pink-colors: (
+  50: colorFunctions.colorvariant($pink-color, 50),
+  100: colorFunctions.colorvariant($pink-color, 100),
+  200: colorFunctions.colorvariant($pink-color, 200),
+  300: colorFunctions.colorvariant($pink-color, 300),
+  400: colorFunctions.colorvariant($pink-color, 400),
+  500: $pink-color,
+  600: colorFunctions.colorvariant($pink-color, 600),
+  700: colorFunctions.colorvariant($pink-color, 700),
+  800: colorFunctions.colorvariant($pink-color, 800),
+  900: colorFunctions.colorvariant($pink-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($pink-color, 50),
+    100: colorFunctions.colorcontrast($pink-color, 100),
+    200: colorFunctions.colorcontrast($pink-color, 200),
+    300: colorFunctions.colorcontrast($pink-color, 300),
+    400: colorFunctions.colorcontrast($pink-color, 400),
+    500: colorFunctions.colorcontrast($pink-color, 500),
+    600: colorFunctions.colorcontrast($pink-color, 600),
+    700: colorFunctions.colorcontrast($pink-color, 700),
+    800: colorFunctions.colorcontrast($pink-color, 800),
+    900: colorFunctions.colorcontrast($pink-color, 900),
+  ),
+);
+
+$pink: mat.m2-define-palette($pink-colors);

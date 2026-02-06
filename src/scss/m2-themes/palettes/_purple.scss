@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the purple color is given
+$purple-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "purple",
+);
+
+// Create a material design (specification 2) palette
+$purple-colors: (
+  50: colorFunctions.colorvariant($purple-color, 50),
+  100: colorFunctions.colorvariant($purple-color, 100),
+  200: colorFunctions.colorvariant($purple-color, 200),
+  300: colorFunctions.colorvariant($purple-color, 300),
+  400: colorFunctions.colorvariant($purple-color, 400),
+  500: $purple-color,
+  600: colorFunctions.colorvariant($purple-color, 600),
+  700: colorFunctions.colorvariant($purple-color, 700),
+  800: colorFunctions.colorvariant($purple-color, 800),
+  900: colorFunctions.colorvariant($purple-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($purple-color, 50),
+    100: colorFunctions.colorcontrast($purple-color, 100),
+    200: colorFunctions.colorcontrast($purple-color, 200),
+    300: colorFunctions.colorcontrast($purple-color, 300),
+    400: colorFunctions.colorcontrast($purple-color, 400),
+    500: colorFunctions.colorcontrast($purple-color, 500),
+    600: colorFunctions.colorcontrast($purple-color, 600),
+    700: colorFunctions.colorcontrast($purple-color, 700),
+    800: colorFunctions.colorcontrast($purple-color, 800),
+    900: colorFunctions.colorcontrast($purple-color, 900),
+  ),
+);
+
+$purple: mat.m2-define-palette($purple-colors);

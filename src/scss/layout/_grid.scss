@@ -1,0 +1,187 @@
+@use 'sass:map' as map;
+@use 'sass:math' as math;
+@use 'sass:list' as list;
+
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/grid' as gridVariables;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+
+/**
+ * GRID SYSTEM
+ * 
+ * Very simple, lightweight grid system covering the basics of a grid.
+ */
+
+// Make sure the rows in a container are put underneath each other.
+.container,
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-fluid {
+  width: 100%;
+}
+
+// Default container with max-width
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  @include breakpointMixins.media-breakpoint-only($device) {
+    // Create the containers for this device type
+    $grid-key: map.get(
+      $map: gridVariables.$grid-keys,
+      $key: $device,
+    );
+
+    .container {
+      $width: map.get(
+        $map: gridVariables.$grid-max-container-width,
+        $key: $grid-key,
+      );
+
+      @if ($width != 'none') {
+        width: $width;
+        margin: 0 auto;
+      } @else {
+        width: 100%;
+      }
+    }
+
+    $gutter: calc(
+      map.get(
+          $map: gridVariables.$grid-gutter-width,
+          $key: $grid-key,
+        ) /
+        2
+    );
+
+    // Create the row margin = half of the column gutter to
+    // accomodate for the column gutters left and right of the
+    // first and last column
+    .row {
+      margin: 0 $gutter;
+      width: calc(100% - 2 * $gutter);
+    }
+
+    // Create the gutters (paddings) for the columns used
+    .row > [class^='col'] {
+      padding: 0 $gutter;
+    }
+  }
+}
+
+// The only thing a row does is wrap content to a new row if n.o. columns exceed max
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// Create the generic columns: i.e. col-2, valid for all types
+// The properties set for these columns are not device depended!
+@for $i from 1 through gridVariables.$grid-columns {
+  .col-#{$i} {
+    $percentage: math.percentage(calc($i / gridVariables.$grid-columns));
+    width: #{$percentage};
+    box-sizing: border-box;
+  }
+}
+
+// And create the default offset columns
+@for $i from 1 through gridVariables.$grid-columns {
+  .offset-#{$i} {
+    margin-left: math.percentage(calc($i / gridVariables.$grid-columns));
+  }
+}
+
+/****************************************************
+ * RESPONSIVE GRID COLUMNS WITH ANGULAR BREAKPOINTS *
+ ****************************************************/
+
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  // Translation from Material breakpoint key to grid key
+  $key: map.get(
+    $map: gridVariables.$grid-keys,
+    $key: $device,
+  );
+
+  // What is the designated grid breakpoint?
+  $grid-breakpoint: map.get(
+    $map: gridVariables.$grid-breakpoints,
+    $key: $key,
+  );
+
+  @if ($grid-breakpoint == 'none') {
+    @for $i from 1 through gridVariables.$grid-columns {
+      .col-#{$key}-#{$i} {
+        width: math.percentage(calc($i / gridVariables.$grid-columns));
+        box-sizing: border-box;
+      }
+
+      .offset-#{$key}-#{$i} {
+        margin-left: math.percentage(calc($i / gridVariables.$grid-columns));
+      }
+    }
+  } @else {
+    @include breakpointMixins.media-breakpoint-only($device) {
+      @for $i from 1 through gridVariables.$grid-columns {
+        .col-#{$key}-#{$i} {
+          width: math.percentage(calc($i / gridVariables.$grid-columns));
+          box-sizing: border-box;
+        }
+
+        .offset-#{$key}-#{$i} {
+          margin-left: math.percentage(calc($i / gridVariables.$grid-columns));
+        }
+      }
+    }
+  }
+}
+
+// row.no-gutters
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  @include breakpointMixins.media-breakpoint-only($device) {
+    // Translation from Material breakpoint key to grid key
+    $key: map.get(
+      $map: gridVariables.$grid-keys,
+      $key: $device,
+    );
+    $gutter: calc(
+      map.get(
+          $map: gridVariables.$grid-gutter-width,
+          $key: $key,
+        ) /
+        2
+    );
+
+    .row.no-gutters {
+      margin: 0 $gutter;
+    }
+
+    .row.no-gutters > [class^='col'] {
+      padding: 0;
+    }
+
+    $index: list.index(
+      $list: map.keys(gridVariables.$grid-breakpoints),
+      $value: $key,
+    );
+    $index: calc($index + 1);
+
+    @if ($index <=list.length(gridVariables.$grid-breakpoints)) {
+      @for $b from $index through list.length(map.keys(gridVariables.$grid-breakpoints)) {
+        $temp: list.nth(
+          $list: map.keys(gridVariables.$grid-breakpoints),
+          $n: $b,
+        );
+
+        .row > [class^='col-#{$temp}'] {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.row.no-gutters > [class^='col'] {
+  padding: 0;
+}

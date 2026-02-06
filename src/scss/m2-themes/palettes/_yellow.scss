@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the yellow color is given
+$yellow-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "yellow",
+);
+
+// Create a material design (specification 2) palette
+$yellow-colors: (
+  50: colorFunctions.colorvariant($yellow-color, 50),
+  100: colorFunctions.colorvariant($yellow-color, 100),
+  200: colorFunctions.colorvariant($yellow-color, 200),
+  300: colorFunctions.colorvariant($yellow-color, 300),
+  400: colorFunctions.colorvariant($yellow-color, 400),
+  500: $yellow-color,
+  600: colorFunctions.colorvariant($yellow-color, 600),
+  700: colorFunctions.colorvariant($yellow-color, 700),
+  800: colorFunctions.colorvariant($yellow-color, 800),
+  900: colorFunctions.colorvariant($yellow-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($yellow-color, 50),
+    100: colorFunctions.colorcontrast($yellow-color, 100),
+    200: colorFunctions.colorcontrast($yellow-color, 200),
+    300: colorFunctions.colorcontrast($yellow-color, 300),
+    400: colorFunctions.colorcontrast($yellow-color, 400),
+    500: colorFunctions.colorcontrast($yellow-color, 500),
+    600: colorFunctions.colorcontrast($yellow-color, 600),
+    700: colorFunctions.colorcontrast($yellow-color, 700),
+    800: colorFunctions.colorcontrast($yellow-color, 800),
+    900: colorFunctions.colorcontrast($yellow-color, 900),
+  ),
+);
+
+$yellow: mat.m2-define-palette($yellow-colors);

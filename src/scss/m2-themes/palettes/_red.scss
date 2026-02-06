@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the red color is given
+$red-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "red",
+);
+
+// Create a material design (specification 2) palette
+$red-colors: (
+  50: colorFunctions.colorvariant($red-color, 50),
+  100: colorFunctions.colorvariant($red-color, 100),
+  200: colorFunctions.colorvariant($red-color, 200),
+  300: colorFunctions.colorvariant($red-color, 300),
+  400: colorFunctions.colorvariant($red-color, 400),
+  500: $red-color,
+  600: colorFunctions.colorvariant($red-color, 600),
+  700: colorFunctions.colorvariant($red-color, 700),
+  800: colorFunctions.colorvariant($red-color, 800),
+  900: colorFunctions.colorvariant($red-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($red-color, 50),
+    100: colorFunctions.colorcontrast($red-color, 100),
+    200: colorFunctions.colorcontrast($red-color, 200),
+    300: colorFunctions.colorcontrast($red-color, 300),
+    400: colorFunctions.colorcontrast($red-color, 400),
+    500: colorFunctions.colorcontrast($red-color, 500),
+    600: colorFunctions.colorcontrast($red-color, 600),
+    700: colorFunctions.colorcontrast($red-color, 700),
+    800: colorFunctions.colorcontrast($red-color, 800),
+    900: colorFunctions.colorcontrast($red-color, 900),
+  ),
+);
+
+$red: mat.m2-define-palette($red-colors);

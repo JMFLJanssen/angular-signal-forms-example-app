@@ -1,0 +1,10 @@
+// The distance between the radio button and its label
+$madui-radio-label-distance: 16px;
+
+// Default, the outer rim in a Material radiobutton = darkgrey in a light theme
+// and very light grey in a dark theme.
+// A radiobutton is a call-to-action: so by default the outer rim should get the
+// accent color.
+
+// What is your preference?
+$madui-radio-outerrim: true;

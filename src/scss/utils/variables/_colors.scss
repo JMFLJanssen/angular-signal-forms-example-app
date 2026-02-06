@@ -1,0 +1,215 @@
+@use "sass:map" as map;
+
+// Rijkshuisstijl online colors
+$ribbonblue: #154273 !default;
+$purple: #42145f !default;
+$violet: #a90061 !default;
+$rubyred: #ca005d !default;
+$pink: #f092cd !default;
+$red: #d52b1e !default;
+$orange: #e17000 !default;
+$darkyellow: #ffb612 !default;
+$yellow: #f9e11e !default;
+$darkbrown: #673327 !default;
+$brown: #94710a !default;
+$darkgreen: #275937 !default;
+$green: #39870c !default;
+$mossgreen: #777b00 !default;
+$mintgreen: #76d2b6 !default;
+$darkblue: #01689b !default;
+$skyblue: #007bc7 !default;
+$lightblue: #8fcae7 !default;
+
+$online: (
+  "ribbonblue": $ribbonblue,
+  "purple": $purple,
+  "violet": $violet,
+  "rubyred": $rubyred,
+  "pink": $pink,
+  "red": $red,
+  "orange": $orange,
+  "darkyellow": $darkyellow,
+  "yellow": $yellow,
+  "darkbrown": $darkbrown,
+  "brown": $brown,
+  "darkgreen": $darkgreen,
+  "green": $green,
+  "mossgreen": $mossgreen,
+  "mintgreen": $mintgreen,
+  "darkblue": $darkblue,
+  "skyblue": $skyblue,
+  "lightblue": $lightblue,
+);
+
+// white - greys - black
+$black: #000 !default;
+$grey-7: #535353 !default;
+$grey-6: #696969 !default;
+$grey-5: #999999 !default;
+$grey-4: #b4b4b4 !default;
+$grey-3: #cccccc !default;
+$grey-2: #e6e6e6 !default;
+$grey-1: #f3f3f3 !default;
+$white: #fff !default;
+
+$greys: (
+  "white": $white,
+  "grey-1": $grey-1,
+  "grey-2": $grey-2,
+  "grey-3": $grey-3,
+  "grey-4": $grey-4,
+  "grey-5": $grey-5,
+  "grey-6": $grey-6,
+  "grey-7": $grey-7,
+  "black": $black,
+);
+
+$coolgray: (
+  50: #f8fafc,
+  100: #f1f5f9,
+  200: #e2e8f0,
+  300: #cbd5e1,
+  400: #94a3b8,
+  500: #64748b,
+  600: #475569,
+  700: #334155,
+  800: #1e293b,
+  900: #0f172a,
+);
+
+// Ministerie van Defensie specific colors
+$km: #0e61aa !default;
+$kl: #00423c !default;
+$klu: #005187 !default;
+$kmar: #0e3d6e !default;
+$mindef: (
+  "km": $km,
+  "kl": $kl,
+  "klu": $klu,
+  "kmar": $kmar,
+);
+
+// Accent colors
+$success: $green;
+$info: $skyblue;
+$warning: $yellow;
+$danger: $red;
+$accents: (
+  "success": $green,
+  "info": $skyblue,
+  "warning": $yellow,
+  "danger": $red,
+);
+
+// All possible colors in 1 map
+// The complete color map
+$colors: () !default;
+$colors: map.deep-merge($online, $colors);
+$colors: map.deep-merge($greys, $colors);
+$colors: map.deep-merge($accents, $colors);
+$colors: map.deep-merge($mindef, $colors);
+
+// Light and dark variants of colors
+$variants: (
+  50: (
+    0.15,
+    $white,
+  ),
+  100: (
+    0.3,
+    $white,
+  ),
+  200: (
+    0.45,
+    $white,
+  ),
+  300: (
+    0.6,
+    $white,
+  ),
+  400: (
+    0.75,
+    $white,
+  ),
+  500: (
+    1,
+    $white,
+  ),
+  600: (
+    0.75,
+    $black,
+  ),
+  700: (
+    0.6,
+    $black,
+  ),
+  800: (
+    0.45,
+    $black,
+  ),
+  900: (
+    0.3,
+    $black,
+  ),
+  950: (
+    0.15,
+    $black,
+  ),
+);
+
+// A color can be light, lighter, dark or darker. This in combination
+// with its variant determines the color of the text, when used used
+// as background color
+$color-types: (
+  // The online colors
+  "ribbonblue": "dark",
+  "purple": "darker",
+  "violet": "dark",
+  "rubyred": "dark",
+  "pink": "light",
+  "red": "dark",
+  "orange": "dark",
+  "darkyellow": "light",
+  "yellow": "light",
+  "darkbrown": "darker",
+  "brown": "dark",
+  "darkgreen": "darker",
+  "green": "dark",
+  "mossgreen": "dark",
+  "mintgreen": "lighter",
+  "darkblue": "dark",
+  "skyblue": "dark",
+  "lightblue": "light",
+  // The Defensie specific colors
+  "km": "dark",
+  "kl": "dark",
+  "klu": "dark",
+  "kmar": "dark"
+);
+
+// Greys do not have variants! These are the variants allowed for black and white.
+// Setting the default contrasting color for greys
+$grey-contrasts: (
+  "white": $black,
+  "grey-1": $black,
+  "grey-2": $black,
+  "grey-3": $black,
+  "grey-4": $black,
+  "grey-5": $black,
+  "grey-6": $white,
+  "grey-7": $white,
+  "black": $white,
+);
+
+$coolgray-contrasts: (
+  50: $black,
+  100: $black,
+  200: $black,
+  300: $black,
+  400: $white,
+  500: $white,
+  600: $white,
+  700: $white,
+  800: $white,
+  900: $white,
+);

@@ -1,0 +1,59 @@
+@use "sass:map" as map;
+
+@use "../functions/generic" as genericFunctions;
+@use "../variables/typography" as typographyVariables;
+
+// Given the HTML element & the device it is displayed on, set all its characteristics
+
+@mixin font($element, $device) {
+  // Default font size for this device type
+  $font-sizes-device: map.get(
+    $map: typographyVariables.$font-sizes,
+    $key: $device,
+  );
+  $font-size-body: map.get(
+    $map: $font-sizes-device,
+    $key: "body",
+  );
+
+  // Relative line height for this device type & element
+  $line-heights-device: map.get(
+    $map: typographyVariables.$line-heights,
+    $key: $device,
+  );
+  $line-height: map.get(
+    $map: $line-heights-device,
+    $key: $element,
+  );
+
+  // Calculate the correct font size & line height (in px)
+  @if ($element != "body") {
+    $font-size: calc(
+      map.get(
+          $map: $font-sizes-device,
+          $key: $element,
+        ) *
+        $font-size-body
+    );
+    font-size: $font-size !important;
+    line-height: calc($font-size * $line-height) !important;
+  } @else {
+    font-size: $font-size-body !important;
+    line-height: calc($font-size-body * $line-height) !important;
+  }
+
+  // font-weight
+  @if genericFunctions.contains(map.keys(typographyVariables.$font-weights), $element) {
+    font-weight: map.get($map: typographyVariables.$font-weights, $key: $element) !important;
+  }
+
+  // font-style
+  @if genericFunctions.contains(map.keys(typographyVariables.$font-styles), $element) {
+    font-style: map.get($map: typographyVariables.$font-styles, $key: $element) !important;
+  }
+
+  // text-transform
+  @if genericFunctions.contains(map.keys(typographyVariables.$text-transform), $element) {
+    text-transform: map.get($map: typographyVariables.$text-transform, $key: $element) !important;
+  }
+}

@@ -1,0 +1,139 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/input' as inputVariables;
+@use '../utils/variables/themes' as themeVariables;
+@use '../utils/variables/colors' as colorVariables;
+
+@use '../utils/functions/colors' as colorFunctions;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+
+/*************************
+ * DATEPICKER INPUT ICON *
+ *************************/
+
+.ro-form-field {
+  .mat-datepicker-panel {
+    border: 1.5px solid var(--accent) !important;
+    box-shadow: none !important;
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+  }
+}
+
+/************************
+ * DATEPICKER CONTAINER *
+ ************************/
+
+@each $theme in themeVariables.$theme-classes {
+  #{$theme} .mat-datepicker-content-container {
+    // General background color
+    background-color: var(--accent-50);
+
+    // Color when hovering over a date
+    td &:hover {
+      background-color: var(--accent-200);
+    }
+
+    // Color of selected date
+    span.mat-calendar-body-selected {
+      background-color: var(--accent);
+      color: var(--accent-contrast);
+    }
+  }
+}
+
+.dark-mode .mat-datepicker-content-container {
+  background-color: var(--accent-800);
+}
+
+.dark-mode .mat-calendar-body-cell {
+  &:hover {
+    background-color: var(--accent-500);
+    border: none;
+  }
+}
+
+:root {
+  @include mat.datepicker-overrides(
+    (
+      calendar-container-shape: none,
+      calendar-container-elevation-shadow: none,
+      calendar-header-text-weight: bold,
+      calendar-header-text-color: black,
+    )
+  );
+}
+
+.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  border-radius: 0px !important;
+  border: none !important;
+  background-color: white !important;
+  font-weight: bold;
+}
+
+.mat-calendar-body-label {
+  visibility: hidden;
+}
+
+mat-month-view {
+  tr[aria-hidden='true'] {
+    display: none !important;
+  }
+}
+
+.mat-calendar-body-cell-content {
+  border-radius: 0px !important;
+}
+
+// Make the calender pop-up a little wider to make the custom header fit better
+.mat-calendar-content {
+  margin: 0 16px !important;
+}
+
+.dark-mode .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  border: none;
+  color: black !important;
+}
+
+table.mat-calendar-table {
+  .mat-calendar-table-header {
+    th {
+      width: 44px !important;
+    }
+  }
+}
+
+.mat-datepicker-content .mat-calendar {
+  width: 360px !important;
+  height: fit-content !important;
+  border-bottom-left-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+}
+
+/************************
+ * DARKMODE CORRECTIONS *
+ ************************/
+
+.dark-mode table.mat-calendar-table .mat-calendar-table-header th {
+  color: colorVariables.$grey-1;
+}
+
+.dark-mode .mat-calendar-body-cell-content {
+  color: white;
+}
+
+.dark-mode .mat-datepicker-content .mat-calendar-previous-button:not(.mat-mdc-button-disabled),
+.dark-mode .mat-datepicker-content .mat-calendar-next-button:not(.mat-mdc-button-disabled) {
+  color: white;
+}
+
+.dark-mode button.mat-calendar-period-button {
+  color: white;
+}
+
+.dark-mode svg.mat-calendar-arrow {
+  fill: white;
+}

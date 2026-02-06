@@ -1,0 +1,25 @@
+@use '@angular/material' as mat;
+
+// Styles for the option list are set by the select component
+
+// Styles from the material/autocomplete package can be customized using the autocomplete-overrides mixin.
+:root,
+:root .dark-mode {
+  @include mat.autocomplete-overrides(
+    (
+      // No elevation shadow for the opened select
+      container-elevation-shadow: none
+    )
+  );
+}
+
+/**
+ * !IMPORTANT
+ *
+ * Instead of directly overruling with !important, set the appropriate Material variable: where possible!
+ */
+
+// A border around the option list
+.mat-mdc-autocomplete-panel {
+  border: 1.5px solid var(--accent);
+}

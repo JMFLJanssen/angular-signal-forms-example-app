@@ -1,0 +1,189 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/buttonToggle' as buttontoggleVariables;
+@use '../utils/variables/button' as buttonVariables;
+@use '../utils/variables/colors' as colorVariables;
+@use '../utils/variables/breakpoints' as breakpointVariables;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+
+@use '../utils/functions/colors' as colorFunctions;
+
+// Styles from the material/button-toggle package can be customized using the button-toggle-overrides mixin.
+// Shape = like buttons 10% rounded corners
+// Button height: equal to a standard button, which has been set to 48px even in responsive mode
+:root,
+:root .dark-mode {
+  @include mat.button-toggle-overrides(
+    (
+      shape: 5px,
+      height: 48px,
+    )
+  );
+}
+
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  padding: 0 12px !important;
+}
+
+mat-button-toggle-group {
+  @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+    @include breakpointMixins.media-breakpoint-only($device) {
+      $margin: calc(
+          (
+              buttonVariables.$madui-button-height - map.get(
+                  $map: buttonVariables.$madui-button-visible-heights,
+                  $key: $device,
+                )
+            ) /
+            2
+        )
+        0 !important;
+      margin: $margin;
+
+      mat-icon,
+      ro-icon {
+        margin: calc((map.get($map: buttonVariables.$madui-button-visible-heights, $key: $device) - 24px) / 2);
+      }
+    }
+  }
+}
+
+/***********************************
+ * ACCENT COLOURED BUTTONS & HOVER *
+ ***********************************/
+
+$accent-btn-colors: (
+  'success': map.get(colorVariables.$accents, 'success'),
+  'info': map.get(colorVariables.$accents, 'info'),
+  'warning': map.get(colorVariables.$accents, 'warning'),
+  'danger': map.get(colorVariables.$accents, 'danger'),
+);
+
+@each $color, $colorvalue in $accent-btn-colors {
+  $colorname: colorFunctions.colorname($colorvalue);
+  $colorcontrast: colorFunctions.colorcontrast($colorvalue, 500);
+
+  mat-button-toggle-group[color='#{$color}'] {
+    mat-button-toggle {
+      color: $colorvalue;
+
+      &:hover {
+        background: colorFunctions.colorvariant($colorvalue, 50);
+        color: colorFunctions.colorcontrast($colorvalue, 50);
+      }
+    }
+
+    .mat-button-toggle-checked {
+      background-color: colorFunctions.colorvariant($colorvalue, 100);
+      color: colorFunctions.colorcontrast($colorvalue, 100);
+    }
+
+    &.mat-button-toggle-standalone.mat-button-toggle-appearance-standard,
+    &.mat-button-toggle-group-appearance-standard {
+      border: solid 1px colorFunctions.colorvariant($colorvalue, 500);
+    }
+
+    &.mat-button-toggle-group-appearance-standard .mat-button-toggle + .mat-button-toggle {
+      border-left: solid 1px colorFunctions.colorvariant($colorvalue, 500);
+    }
+  }
+}
+
+// No color attribute set, but only if $button-toggle_border-accent
+@if (buttontoggleVariables.$madui-button-toggle-accent-border) {
+  mat-button-toggle-group:not([color]) {
+    mat-button-toggle {
+      color: var(--accent);
+      &:hover {
+        background: var(--accent-50);
+        color: var(--accent-contrast-50);
+      }
+    }
+
+    .mat-button-toggle-checked {
+      background-color: var(--accent-100) !important;
+      color: var(--accent-contrast-100);
+    }
+
+    // BORDER COLOR = SELECT COLOR
+    &.mat-button-toggle-standalone.mat-button-toggle-appearance-standard,
+    &.mat-button-toggle-group-appearance-standard {
+      border: solid 1px var(--accent-500);
+    }
+
+    &.mat-button-toggle-group-appearance-standard .mat-button-toggle + .mat-button-toggle {
+      border-left: solid 1px var(--accent-500);
+    }
+  }
+}
+
+// Corrections for dark-mode
+@each $color, $colorvalue in $accent-btn-colors {
+  $colorname: colorFunctions.colorname($colorvalue);
+  $colorcontrast: colorFunctions.colorcontrast($colorvalue, 500);
+
+  .dark-mode mat-button-toggle-group[color='#{$color}'] {
+    mat-button-toggle {
+      &:hover {
+        background: colorFunctions.colorvariant($colorvalue, 700);
+        color: colorFunctions.colorcontrast($colorvalue, 700);
+      }
+    }
+  }
+}
+
+@if (buttontoggleVariables.$madui-button-toggle-accent-border) {
+  .dark-mode mat-button-toggle-group:not([color]) {
+    mat-button-toggle {
+      &:hover {
+        background: var(--accent-700);
+        color: var(--accent-contrast-700);
+      }
+    }
+  }
+}
+
+/**********************************
+ * THEME COLOURED BUTTONS & HOVER *
+ **********************************/
+
+@each $color in ('primary', 'accent', 'warn') {
+  mat-button-toggle-group[color='#{$color}'] {
+    mat-button-toggle {
+      color: var(--#{$color});
+
+      &:hover {
+        background: var(--#{$color}-50);
+        color: var(--#{$color}-contrast-50);
+      }
+    }
+
+    .mat-button-toggle-checked {
+      background-color: var(--#{$color}-100);
+      color: var(--#{$color}-contrast-100);
+    }
+
+    &.mat-button-toggle-standalone.mat-button-toggle-appearance-standard,
+    &.mat-button-toggle-group-appearance-standard {
+      border: solid 1px var(--#{$color});
+    }
+
+    &.mat-button-toggle-group-appearance-standard .mat-button-toggle + .mat-button-toggle {
+      border-left: solid 1px var(--#{$color});
+    }
+  }
+}
+
+// Corrections for dark-mode
+@each $color in ('primary', 'accent', 'warn') {
+  .dark-mode mat-button-toggle-group[color='#{$color}'] {
+    mat-button-toggle {
+      &:hover {
+        background: var(--#{$color}-700);
+        color: var(--#{$color}-contrast-700);
+      }
+    }
+  }
+}

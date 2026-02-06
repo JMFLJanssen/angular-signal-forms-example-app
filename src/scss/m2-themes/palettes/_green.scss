@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the green color is given
+$green-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "green",
+);
+
+// Create a material design (specification 2) palette
+$green-colors: (
+  50: colorFunctions.colorvariant($green-color, 50),
+  100: colorFunctions.colorvariant($green-color, 100),
+  200: colorFunctions.colorvariant($green-color, 200),
+  300: colorFunctions.colorvariant($green-color, 300),
+  400: colorFunctions.colorvariant($green-color, 400),
+  500: $green-color,
+  600: colorFunctions.colorvariant($green-color, 600),
+  700: colorFunctions.colorvariant($green-color, 700),
+  800: colorFunctions.colorvariant($green-color, 800),
+  900: colorFunctions.colorvariant($green-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($green-color, 50),
+    100: colorFunctions.colorcontrast($green-color, 100),
+    200: colorFunctions.colorcontrast($green-color, 200),
+    300: colorFunctions.colorcontrast($green-color, 300),
+    400: colorFunctions.colorcontrast($green-color, 400),
+    500: colorFunctions.colorcontrast($green-color, 500),
+    600: colorFunctions.colorcontrast($green-color, 600),
+    700: colorFunctions.colorcontrast($green-color, 700),
+    800: colorFunctions.colorcontrast($green-color, 800),
+    900: colorFunctions.colorcontrast($green-color, 900),
+  ),
+);
+
+$green: mat.m2-define-palette($green-colors);

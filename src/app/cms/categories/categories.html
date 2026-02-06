@@ -1,0 +1,137 @@
+<div class="w-full px-32 flex flex-col mt-6">
+    <div class="flex flex-row justify-between items-center mb-6">
+        <button
+            matIconButton
+            filled
+            color="accent"
+            [class]="{ invisible: isForm() }"
+            type="button"
+            (click)="add()"
+        >
+            <mat-icon>add</mat-icon>
+        </button>
+        <span class="text-6xl text-primary-50">Categories</span>
+        @if (!isForm() && categoryService.categories().length > 0) {
+            <button matIconButton filled color="accent" type="button" (click)="edit()">
+                <mat-icon>edit</mat-icon>
+            </button>
+        } @else {
+            <div>&nbsp;</div>
+        }
+    </div>
+    @if (categoryService.categories().length === 0 && !isForm()) {
+        <div class="flex w-full justify-center">
+            <ng-container *ngTemplateOutlet="info"></ng-container>
+        </div>
+    } @else {
+        <div class="flex flex-row gap-6 mt-6">
+            <div class="w-5/12">
+                @if (categoryService.categories().length === 0) {
+                    <ng-container *ngTemplateOutlet="info"></ng-container>
+                } @else {
+                    <ng-container *ngTemplateOutlet="list"></ng-container>
+                }
+            </div>
+            <div class="w-7/12">
+                @if (isForm()) {
+                    <ng-container *ngTemplateOutlet="form"></ng-container>
+                } @else {
+                    <ng-container *ngTemplateOutlet="view"></ng-container>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<ng-template #info>
+    <div
+        class="flex flex-row gap-3 items-center bg-info-50 p-3 rounded-sm"
+        [class]="isForm() ? 'w-full mt-19' : 'w-fit mt-6'"
+    >
+        <mat-icon class="text-info">info</mat-icon>
+        <span>No categories created yet.</span>
+    </div>
+</ng-template>
+
+<ng-template #list>
+    <div class="bg-grey-1 opacity-90 rounded-sm p-3" [class]="{ 'mt-19': isForm() }">
+        <mat-action-list>
+            @for (
+                category of categoryService.categories();
+                track category.id;
+                let last = $last;
+                let index = $index
+            ) {
+                <mat-list-item
+                    (click)="select(category.id)"
+                    [class]="{
+                        'bg-accent-100':
+                            category.id === categoryForm.id().value() ||
+                            (index === 0 && !categoryForm.id().value()),
+                    }"
+                >
+                    <span matListItemTitle>{{ category.name }}</span>
+                    <div matListItemMeta class="pt-2">
+                        <mat-icon class="text-accent">chevron_right</mat-icon>
+                    </div>
+                </mat-list-item>
+                @if (!last) {
+                    <div class="py-1"><mat-divider></mat-divider></div>
+                }
+            }
+        </mat-action-list>
+    </div>
+</ng-template>
+
+<ng-template #view>
+    <div class="bg-grey-1 opacity-90 rounded-sm p-3 flex flex-col">
+        <b>Category name</b>
+        @if (!categoryForm.id().value() && categoryService.categories()) {
+            {{ categoryService.categories()[0].name }}
+        } @else {
+            <span>{{ categoryForm.name().value() }}</span>
+        }
+    </div>
+</ng-template>
+
+<ng-template #form>
+    <form (submit)="onSubmit($event)">
+        <div class="w-full flex mb-6 justify-between">
+            @if (categoryForm.id().value()) {
+                <button matIconButton filled color="accent" (click)="delete()" type="button">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            }
+            <h1 class="text-primary-50">
+                @if (categoryForm.id().value()) {
+                    Update category
+                } @else {
+                    Create category
+                }
+            </h1>
+            <div class="button-group">
+                <button matButton="outlined" color="white" type="button" (click)="cancel()">
+                    <mat-icon>close</mat-icon>Cancel
+                </button>
+                <button
+                    matButton="filled"
+                    color="accent"
+                    type="submit"
+                    [disabled]="categoryForm().invalid()"
+                >
+                    <mat-icon>save</mat-icon>Save
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-grey-1 opacity-90 rounded-sm p-3">
+            <div class="ro-form-field w-full">
+                <form-error [fieldRef]="categoryForm.name" [title]="'Category name *'"></form-error>
+                <input matInput [formField]="categoryForm.name" #name />
+                <mat-hint class="w-full flex justify-end pr-6"
+                    >{{ name.value.length }} / 25</mat-hint
+                >
+            </div>
+        </div>
+    </form>
+</ng-template>

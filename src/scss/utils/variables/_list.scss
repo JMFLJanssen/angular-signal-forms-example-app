@@ -1,0 +1,18 @@
+@use "./colors" as colorVariables;
+
+// Font-size used for title
+$madui-list-font-size-title: "body";
+
+// Font-size user for secondary lines
+$madui-list-font-size-line: "caption";
+
+// The color used for secondary lines
+$madui-list-text-color-line: colorVariables.$grey-4;
+
+// Adjust the height of a list item. By default Angular Material are to high.
+$madui-listitem-height-oneLine: 44px;
+$madui-listitem-height-twoLines: 70px;
+$madui-listitem-height-threeLines: 88px;
+
+// For 2 and 3 line list items add a bit more space between the title and the secondary lines
+$madui-listitem-line-spacing: 6px;

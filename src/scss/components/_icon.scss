@@ -1,0 +1,62 @@
+@use "@angular/material" as mat;
+@use "sass:map" as map;
+
+@use "../utils/variables/colors" as colorVariables;
+
+/*************************
+ * MATERIAL THEME COLORS *
+ *************************/
+
+/*******************************************
+ * MATERIAL 18 FIX: THEME COLORING LIKE M2 *
+ *******************************************/
+
+.mat-primary.mat-icon {
+  --mat-icon-color: var(--primary) !important;
+}
+
+.mat-accent.mat-icon {
+  --mat-icon-color: var(--accent) !important;
+}
+
+.mat-warn.mat-icon {
+  --mat-icon-color: var(--warn) !important;
+}
+
+/********************
+ * RO-ICON COLORING *
+ ********************/
+
+// Theme colors
+@each $key in ("primary", "accent", "warn") {
+  ro-icon[color="#{$key}"] {
+    svg {
+      fill: var(--#{$key}) !important;
+    }
+  }
+}
+
+// Notification colors
+$accent-colors: (
+  "success": map.get(colorVariables.$accents, "success"),
+  "info": map.get(colorVariables.$accents, "info"),
+  "warning": map.get(colorVariables.$accents, "warning"),
+  "danger": map.get(colorVariables.$accents, "danger"),
+);
+
+@each $key, $colorvalue in $accent-colors {
+  ro-icon[color="#{$key}"] {
+    svg {
+      fill: $colorvalue !important;
+    }
+  }
+}
+
+// Online colors
+@each $key, $value in colorVariables.$online {
+  ro-icon[color="#{$key}"] {
+    svg {
+      fill: $value !important;
+    }
+  }
+}

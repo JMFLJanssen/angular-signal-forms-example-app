@@ -1,0 +1,165 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/toolbar' as toolbarVariables;
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/typography' as typographyVariables;
+@use '../utils/variables/button' as buttonVariables;
+@use '../utils/variables/colors' as colorVariables;
+@use '../utils/variables/themes' as themeVariables;
+
+@use '../utils/functions/colors' as colorFunctions;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+@use '../utils/mixins/typography' as typographyMixins;
+
+/**************************
+ * ALL !IMPORTANT CHECKED *
+ **************************/
+
+/*************************
+ * PRIMAIRY THEME COLORS *
+ *************************/
+
+mat-toolbar {
+  background-color: var(--primary) !important;
+  color: var(--primary-contrast) !important;
+}
+
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  @include breakpointMixins.media-breakpoint-only($device) {
+    $fontSizes: map.get(
+      $map: typographyVariables.$font-sizes,
+      $key: $device,
+    );
+    $font-size-body: map.get(
+      $map: $fontSizes,
+      $key: 'body',
+    );
+
+    :root {
+      @include mat.toolbar-overrides(
+        (
+          standard-height: map.get($map: toolbarVariables.$madui-toolbar-heights, $key: $device),
+          title-text-size: calc(map.get($map: $fontSizes, $key: toolbarVariables.$madui-toolbar-title-font-size) * $font-size-body),
+        )
+      );
+    }
+  }
+}
+
+mat-toolbar {
+  // Device dependend settings
+  @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+    @include breakpointMixins.media-breakpoint-only($device) {
+      // Set the correct heights and (left and right) paddings per device type.
+      padding-right: map.get($map: toolbarVariables.$madui-toolbar-padding, $key: $device) !important;
+      padding-left: calc(map.get($map: toolbarVariables.$madui-toolbar-padding, $key: $device) - 8px) !important;
+    }
+  }
+
+  // When an icon or a mat-icon-button is put in front of the title: add 16px space between them
+  > span,
+  > mat-icon,
+  > ro-icon {
+    margin-left: 8px;
+  }
+
+  // Drop the ripple of the mat-icon-buttons
+  .mat-mdc-icon-button .mat-mdc-button-ripple,
+  .mat-mdc-icon-button .mat-mdc-button-persistent-ripple,
+  .mat-mdc-icon-button .mat-mdc-button-persistent-ripple::before {
+    display: none !important;
+  }
+
+  .mat-toolbar__actions {
+    display: flex;
+    flex-direction: row;
+    // Put the actions on the right in the toolbar
+    margin-left: auto;
+    margin-right: 0;
+
+    // Drop the 16px left margin of the mat-icon-button
+    button[mat-icon-button] {
+      margin-right: 0 !important;
+    }
+
+    // And give them, all but the last a right margin of what they would get if they were in a button group
+    button:not(:last-child) {
+      margin-right: buttonVariables.$madui-buttongroup-spacing !important;
+    }
+  }
+
+  // Optional for a toolbar is a menu consisting out of button[mat-flat-button] elements.
+  .mat-toolbar__menu {
+    // The buttons in the toolbar should get the same height as the toolbar!
+    button {
+      border-radius: 0px;
+
+      @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+        @include breakpointMixins.media-breakpoint-only($device) {
+          height: map.get($map: toolbarVariables.$madui-toolbar-heights, $key: $device) !important;
+          // Enlarge the font-size of the menu to H6
+          $fontSizes: map.get(
+            $map: typographyVariables.$font-sizes,
+            $key: $device,
+          );
+          $font-size-body: map.get($fontSizes, 'body');
+          $font-size-h6: map.get($fontSizes, 'h6');
+          $font-size-button: map.get($fontSizes, 'button');
+          font-size: calc($font-size-body * $font-size-h6 * $font-size-button) !important;
+        }
+      }
+    }
+
+    // And give them, all but the last a right margin of what they would get if they were in a button group
+    button:not(:last-child) {
+      margin-right: buttonVariables.$madui-buttongroup-spacing;
+    }
+
+    // The buttons should be transparant, to take on the color of the mat-toolbar.
+    .mat-mdc-unelevated-button:not(:disabled) {
+      background-color: transparent !important;
+    }
+  }
+}
+
+/********************************
+ *     LIGHT THEME COLORING     *
+ ********************************/
+
+@each $themeclass in themeVariables.$theme-classes {
+  $colortype: colorFunctions.colortype('primary', $themeclass);
+  $hoverHue: map.get(toolbarVariables.$madui-toolbar-icon-button-hover-hues, $colortype);
+
+  #{$themeclass} mat-toolbar {
+    .mat-mdc-icon-button:hover {
+      color: var(--primary-#{$hoverHue});
+
+      svg {
+        fill: var(--primary-#{$hoverHue}) !important;
+      }
+    }
+
+    // ro-icon svg coloring
+    ro-icon > svg {
+      fill: var(--primary-contrast);
+    }
+  }
+
+  $hoverHue: map.get(toolbarVariables.$madui-toolbar-menu-button-hover-hues, $colortype);
+
+  #{$themeclass} mat-toolbar {
+    .mat-toolbar__menu {
+      .mat-mdc-unelevated-button:not(:disabled) {
+        color: var(--primary-contrast);
+      }
+
+      .mat-mdc-unelevated-button:not(:disabled):hover,
+      .mat-mdc-unelevated-button:not(:disabled).selected {
+        background-color: var(--primary-#{$hoverHue}) !important;
+        color: var(--primary-contrast-#{$hoverHue}) !important;
+      }
+    }
+  }
+}

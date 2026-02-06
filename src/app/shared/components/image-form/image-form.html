@@ -1,0 +1,46 @@
+<div class="flex flex-col gap-6">
+    @if (
+        image().imageUrl().required() &&
+        image().imageUrl().invalid() &&
+        image().imageUrl().touched()
+    ) {
+        <section class="bg-grey-1 rounded-sm opacity-90 p-3 flex flex-row gap-2 mb-3">
+            <mat-icon class="text-red mr-1 mb-2">warning</mat-icon>
+            <span>Please upload an image. It's required.</span>
+        </section>
+    }
+    <section class="w-full flex flex-col gap-6 bg-grey-1 opacity-90 rounded-sm">
+        <div class="p-2 w-full flex justify-center">
+            <img
+                [src]="
+                    image().imageUrl().value().length > 0 ? image().imageUrl().value() : imageSrc()
+                "
+                class="object-contain h-100"
+            />
+        </div>
+    </section>
+    <input type="file" hidden #fileInput (change)="onFileSelected($event)" accept="image/*" />
+
+    <div class="flex flex-row w-full justify-between">
+        <button
+            matButton="filled"
+            color="accent"
+            (click)="fileInput.click()"
+            class="w-fit"
+            type="button"
+        >
+            <mat-icon>upload</mat-icon>
+            Select an image
+        </button>
+
+        <button
+            matIconButton
+            filled
+            color="accent"
+            (click)="delete()"
+            [class]="{ invisible: !image().imageUrl().value() || image().imageUrl().required() }"
+        >
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</div>

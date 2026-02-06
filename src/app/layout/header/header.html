@@ -1,0 +1,48 @@
+@if (isShown()) {
+    <section
+        #background
+        class="w-screen h-screen fixed top-0 left-0 bg-black opacity-[.65] enter-background"
+        animate.enter="enter-background-animation"
+        animate.leave="leave-background-aminamation"
+        (click)="toggle()"
+    ></section>
+}
+
+@if (isShown()) {
+    <section #menu animate.enter="enter-menu-animation" animate.leave="leave-menu-animation">
+        <div class="absolute top-22 left-23 bg-grey-1 opacity-90 rounded-sm p-6">
+            <mat-action-list class="w-60">
+                <mat-list-item [routerLink]="'/cms/categories'" (click)="close()">
+                    <span matListItemTitle>Categories</span>
+                    <div matListItemMeta class="pt-2">
+                        <mat-icon color="accent">chevron_right</mat-icon>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="'/cms/news'" (click)="close()">
+                    <span matListItemTitle>News</span>
+                    <div matListItemMeta class="pt-2">
+                        <mat-icon color="accent">chevron_right</mat-icon>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="'/cms/articles'" (click)="close()">
+                    <span matListItemTitle>Articles</span>
+                    <div matListItemMeta class="pt-2">
+                        <mat-icon color="accent">chevron_right</mat-icon>
+                    </div>
+                </mat-list-item>
+            </mat-action-list>
+        </div>
+    </section>
+}
+
+<div class="w-full p-6 flex flex-row gap-2">
+    <div class="glass" [routerLink]="'/home'">
+        <button class="cursor-pointer"><mat-icon>home</mat-icon></button>
+    </div>
+    <div class="glass">
+        <button class="cursor-pointer flex items-center pb-1.5 pl-2" (click)="toggle()">
+            <span class="pt-2">CMS</span>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+    </div>
+</div>

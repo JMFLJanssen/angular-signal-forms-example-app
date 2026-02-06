@@ -1,0 +1,14 @@
+<div class="mb-1.5">
+    @let state = fieldRef()();
+    @if (state.touched() && state.errors().length) {
+        <section #label class="flex flex-row items-center">
+            <mat-icon class="text-red mr-1 mb-2">warning</mat-icon>
+            <mat-label>{{ title() }}</mat-label>
+        </section>
+        @for (error of state.errors(); track $index) {
+            <mat-error>{{ error.message }}</mat-error>
+        }
+    } @else {
+        <mat-label>{{ title() }}</mat-label>
+    }
+</div>

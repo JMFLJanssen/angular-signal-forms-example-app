@@ -1,0 +1,36 @@
+// Columns
+//
+// Set the number of columns and specify the width of the gutters.
+$grid-columns: 12 !default;
+$grid-gutter-width: (
+  'sm': 16px,
+  'md': 24px,
+  'lg': 24px,
+) !default;
+
+// Container widths
+//
+// The maxumum width of a container
+$grid-max-container-width: (
+  'sm': 'none',
+  'md': 720px,
+  'lg': 1140px,
+) !default;
+
+// For the grid system it is simpler to use sm, md & lg abbreviations
+// for the different devices types. This would give 'col-md-3' in stead
+// of 'col-tablet-3'. The grid system implements both, it is up to the
+// user to decide which one to use.
+$grid-keys: (
+  'handset': 'sm',
+  'tablet': 'md',
+  'web': 'lg',
+);
+
+// Based on the Material breakpoints combined to get the correct
+// breakpoints for the grid system
+$grid-breakpoints: (
+  'sm': 'none',
+  'md': '((min-width: 600px) and (orientation: portrait)) or ((min-width: 960px) and (orientation: landscape))',
+  'lg': '((min-width: 840px) and (orientation: portrait)) or ((min-width: 1280px) and (orientation: landscape))',
+) !default;

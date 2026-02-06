@@ -1,0 +1,24 @@
+@use '@angular/material' as mat;
+
+@use '../utils/variables/bottomSheet' as bottomsheetVariables;
+@use '../utils/variables/card' as cardVariables;
+
+// Styles from the material/bottom-sheet package can be customized using the bottom-sheet-overrides mixin.
+// 2025: lighlty rounded corners
+:root,
+:root .dark-mode {
+  @include mat.bottom-sheet-overrides(
+    (
+      container-shape: 8px,
+    )
+  );
+}
+
+// Changes:
+// - no border-radius
+// - no shadow
+.mat-bottom-sheet-container {
+  box-shadow: none !important;
+  border: cardVariables.$madui-card-border-size solid var(--primary-#{bottomsheetVariables.$madui-bottomsheet-border-hue});
+  border-bottom: none;
+}

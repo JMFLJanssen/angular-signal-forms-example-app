@@ -1,0 +1,28 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../utils/variables/typography" as typographyVariables;
+@use "../utils/variables/breakpoints" as breakpointVariables;
+
+@use "../utils/mixins/breakpoints" as breakpointMixins;
+
+:root,
+:root .dark-mode {
+  @include mat.tree-overrides(
+    (
+      container-background-color: "none",
+    )
+  );
+}
+
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  @include breakpointMixins.media-breakpoint-only($device) {
+    :root {
+      @include mat.tree-overrides(
+        (
+          node-text-size: map.get(map.get($map: typographyVariables.$font-sizes, $key: $device), "body"),
+        )
+      );
+    }
+  }
+}

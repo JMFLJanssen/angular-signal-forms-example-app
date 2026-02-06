@@ -1,0 +1,33 @@
+@let article = articleId() ? getArticleItem(articleId()!) : articleItem();
+
+<div class="w-full flip-box">
+    <div class="flip-box-inner">
+        <div class="flip-box-front bg-accent text-accent-contrast rounded-md">
+            <img [src]="article!.image.imageUrl" class="object-cover h-47.5 w-full rounded-t-md" />
+            <div class="p-4 grid gap-4 text-white">
+                <small>{{ article!.updateDate | date: 'dd MMMM yyyy' }}</small>
+                <div class="truncate">
+                    {{ article!.title }}
+                </div>
+                <div class="grid justify-center">
+                    <div class="p-2 w-fit">Read More</div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="flip-box-back p-6 grid content-center gap-6 bg-accent text-accent-contrast rounded-md"
+        >
+            {{ article!.excerpt }}
+            <div class="grid justify-center w-full">
+                <button
+                    matButton
+                    class="max-w-fit accent-contrast"
+                    (click)="loadArticle()"
+                    [routerLink]="'/articles'"
+                >
+                    Read the full article
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

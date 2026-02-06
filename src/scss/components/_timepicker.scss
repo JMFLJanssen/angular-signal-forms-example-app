@@ -1,0 +1,18 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.timepicker-overrides(
+    (
+      container-elevation-shadow: none,
+    )
+  );
+}
+
+.ro-form-field {
+  .mat-timepicker-panel {
+    border: 1.5px solid var(--accent) !important;
+    box-shadow: none !important;
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+  }
+}

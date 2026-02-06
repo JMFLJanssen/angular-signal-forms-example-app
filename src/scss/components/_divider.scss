@@ -1,0 +1,29 @@
+@use "@angular/material" as mat;
+@use "sass:map" as map;
+
+@use "../utils/variables/colors" as colorVariables;
+
+:root {
+  @include mat.divider-overrides(
+    (
+      color: colorVariables.$grey-3,
+    )
+  );
+}
+
+:root .dark-mode {
+  @include mat.divider-overrides(
+    (
+      color: colorVariables.$grey-5,
+    )
+  );
+}
+
+// add support for a darker color through the dark attribute
+mat-divider[dark] {
+  border-top-color: colorVariables.$grey-6 !important;
+}
+
+.dark-mode mat-divider[dark] {
+  border-top-color: colorVariables.$grey-2 !important;
+}

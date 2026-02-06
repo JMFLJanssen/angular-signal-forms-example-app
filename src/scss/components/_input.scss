@@ -1,0 +1,203 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/colors' as colorVariables;
+@use '../utils/variables/typography' as typographyVariables;
+@use '../utils/variables/input' as inputVariables;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+
+@use '../utils/functions/colors' as colorFunctions;
+
+.ro-form-field {
+  /*******************
+   * GENERAL STYLING *
+   *******************/
+
+  display: flex;
+  flex-direction: column;
+
+  mat-label {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  input {
+    height: 44px;
+    padding: 0 12px;
+  }
+
+  input,
+  textarea {
+    border: none;
+    border-radius: 2.4px;
+    outline: 2px solid map.get(colorVariables.$coolgray, 500);
+    background-color: white;
+  }
+
+  textarea {
+    padding: 12px;
+  }
+
+  /*********
+   * FOCUS *
+   *********/
+
+  input:focus,
+  textarea:focus {
+    outline: 2px solid var(--accent);
+  }
+
+  /************
+   * DISABLED *
+   ************/
+
+  input:disabled,
+  textarea:disabled {
+    background-color: map.get(colorVariables.$coolgray, 200);
+    color: map.get(colorVariables.$coolgray, 600);
+    outline: 2px solid map.get(colorVariables.$coolgray, 200);
+  }
+
+  /**********
+   * ERRORS *
+   **********/
+
+  section:has(+ mat-error) {
+    margin-bottom: 0px;
+  }
+
+  mat-error + input,
+  mat-error + textarea {
+    outline: 2px solid red;
+  }
+
+  /**********
+   * SUFFIX *
+   **********/
+
+  div[matSuffix] {
+    position: relative;
+    display: inline-block;
+
+    input {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+
+    button {
+      position: absolute;
+      right: 0;
+      top: -2px !important;
+      &:hover {
+        background: none !important;
+      }
+    }
+
+    mat-icon {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+  }
+
+  /*********
+   * HINTS *
+   *********/
+
+  mat-label:has(+ mat-hint) {
+    margin-bottom: 2px;
+  }
+
+  mat-hint,
+  mat-error {
+    margin: 3px 12px 8px 12px;
+    @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+      @include breakpointMixins.media-breakpoint-only($device) {
+        // font sizes for this device type
+        $fontSizes: map.get(
+          $map: typographyVariables.$font-sizes,
+          $key: $device,
+        );
+        $fontSize-body: map.get(
+          $map: $fontSizes,
+          $key: 'body',
+        );
+        $fontSize: calc(
+          map.get(
+              $map: $fontSizes,
+              $key: 'small',
+            ) *
+            $fontSize-body
+        );
+        font-size: $fontSize;
+        $lineHeights: map.get(
+          $map: typographyVariables.$line-heights,
+          $key: $device,
+        );
+        line-height: calc(map.get($map: $lineHeights, $key: 'small') * $fontSize);
+      }
+    }
+  }
+
+  mat-hint {
+    color: map.get(colorVariables.$greys, 'grey-5');
+  }
+
+  /****************************************
+  * RESPONSIVE FONT SIZES & LINE HEIGHTS *
+  ****************************************/
+
+  // Responsive text size (label & input)
+  @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+    @include breakpointMixins.media-breakpoint-only($device) {
+      // font sizes for this device type
+      $fontSizes: map.get(
+        $map: typographyVariables.$font-sizes,
+        $key: $device,
+      );
+      $fontSize: map.get(
+        $map: $fontSizes,
+        $key: 'body',
+      );
+      // line heights for this device type
+      $lineHeights: map.get(
+        $map: typographyVariables.$line-heights,
+        $key: $device,
+      );
+      $lineHeight: map.get(
+        $map: $lineHeights,
+        $key: 'body',
+      );
+
+      *:not(mat-hint):not(mat-icon):not(mat-error) {
+        font-size: $fontSize;
+        line-height: calc($fontSize * $lineHeight);
+      }
+    }
+  }
+}
+
+/************************
+ * DARKMODE CORRECTIONS *
+ ************************/
+
+.dark-mode .ro-form-field {
+  input,
+  textarea {
+    background-color: black;
+  }
+
+  input:disabled,
+  textarea:disabled {
+    background-color: map.get(colorVariables.$coolgray, 600);
+    color: map.get(colorVariables.$coolgray, 200);
+    outline: 2px solid map.get(colorVariables.$coolgray, 600);
+  }
+}
+
+.dark-mode mat-hint {
+  color: map.get(colorVariables.$greys, 'grey-4');
+}

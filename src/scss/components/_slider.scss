@@ -1,0 +1,78 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/slider' as sliderVariables;
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/typography' as typographyVariables;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+
+:root,
+:root .dark-mode {
+  @include mat.slider-overrides(
+    (
+      active-track-height: sliderVariables.$madui-slider-track-height,
+      handle-height: sliderVariables.$madui-slider-knob-size,
+      handle-width: sliderVariables.$madui-slider-knob-size,
+      inactive-track-color: sliderVariables.$madui-slider-track-color,
+      value-indicator-width: 32px,
+      value-indicator-height: 24px,
+      value-indicator-border-radius: 2px,
+      value-indicator-padding: 3px,
+    )
+  );
+}
+
+.mdc-slider__track--active_fill {
+  border-color: var(--accent) !important;
+}
+
+.mdc-slider__thumb-knob {
+  background-color: var(--accent) !important;
+}
+
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  @include breakpointMixins.media-breakpoint-only($device) {
+    // The typography used for the chips = caption, which is device dependent in size
+    $fontSizes: map.get(
+      $map: typographyVariables.$font-sizes,
+      $key: $device,
+    );
+    $font-size-body: map.get(
+      $map: $fontSizes,
+      $key: 'body',
+    );
+    $font-size: calc(
+      map.get(
+          $map: $fontSizes,
+          $key: 'small',
+        ) *
+        $font-size-body
+    );
+
+    :root {
+      @include mat.slider-overrides(
+        (
+          label-label-text-size: $font-size,
+        )
+      );
+    }
+  }
+}
+
+// Change the size of the knob
+.mat-mdc-slider .mdc-slider__thumb-knob {
+  border-width: 0 !important;
+  // And of course drop the shadow
+  box-shadow: none !important;
+}
+
+mat-slider:hover .mdc-slider__thumb-knob {
+  width: sliderVariables.$madui-slider-knob-size-hover !important;
+  height: sliderVariables.$madui-slider-knob-size-hover !important;
+}
+
+// Change the default (inactive) track color
+.mat-mdc-slider .mdc-slider__track--inactive {
+  opacity: 1 !important;
+}

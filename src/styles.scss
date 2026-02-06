@@ -1,1 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+// INCLUDE ANGULAR MATERIAL
+@use '@angular/material' as mat;
+
+// INCLUDE FROSTY
+@use './scss/frosty';
+
+// INCLUDE THE PROJECT'S SPECIFIC STYLING
+@use './app/app.scss';
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+
+    ::-webkit-scrollbar {
+        width: 0 !important;
+    }
+}

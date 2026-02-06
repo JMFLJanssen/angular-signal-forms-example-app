@@ -1,0 +1,150 @@
+@use 'sass:map' as map;
+@use 'sass:list' as list;
+@use 'sass:color' as color;
+
+@use '../variables/colors' as colorVariables;
+@use '../variables/themes' as themeVariables;
+
+@use '../functions/generic' as genericFunctions;
+
+// The set of unique colors!
+$unique-colors: map.deep-merge(colorVariables.$online, colorVariables.$greys);
+$unique-colors: map.deep-merge(colorVariables.$mindef, $unique-colors);
+
+// Get value of a color by color name
+@function colorvalue($colorname) {
+  $colorvalue: null;
+
+  @if genericFunctions.contains(map.keys(colorVariables.$colors), $colorname) {
+    $colorvalue: map.get(
+      $map: colorVariables.$colors,
+      $key: $colorname,
+    );
+  }
+
+  @return $colorvalue;
+}
+
+// Get name of a color by color value
+@function colorname($colorvalue) {
+  $colorname: null;
+  $found: false;
+
+  @if genericFunctions.contains(map.values($map: $unique-colors), $colorvalue) {
+    @each $key, $value in $unique-colors {
+      @if ($value ==$colorvalue and not $found) {
+        $colorname: $key;
+        $found: true;
+      }
+    }
+  }
+
+  @return $colorname;
+}
+
+// Given the value of a color and its HUE value, get the color variant
+@function colorvariant($colorvalue, $hue) {
+  $colorname: 'red';
+
+  @if ($colorvalue) {
+    $colorname: colorname($colorvalue);
+  }
+
+  $colorvalue: colorvalue($colorname);
+  $variant: map.get(
+    $map: colorVariables.$variants,
+    $key: $hue,
+  );
+  $gradient: list.nth($variant, 1);
+  $mixin_color: list.nth($variant, 2);
+  @return color.mix($colorvalue, $mixin_color, calc($gradient * 100%));
+}
+
+// Given the value of a color and its HUE value, get the contrasting color (black or white)
+@function colorcontrast($colorvalue, $hue) {
+  $colorname: colorname($colorvalue);
+  $colorvalue: colorvalue($colorname);
+  $colortype: map.get(
+    $map: colorVariables.$color-types,
+    $key: $colorname,
+  );
+  $variant: map.get(
+    $map: colorVariables.$variants,
+    $key: $hue,
+  );
+  $mixin_color: list.nth($variant, 2);
+
+  $contrast: colorVariables.$white;
+
+  @if ($colortype == 'dark') {
+    $contrast: colorVariables.$white;
+
+    @if ($mixin_color ==colorVariables.$white and $hue < 300) {
+      $contrast: colorVariables.$black;
+    }
+  } @else if ($colortype == 'light') {
+    $contrast: colorVariables.$black;
+
+    @if ($mixin_color ==colorVariables.$black and $hue > 600) {
+      $contrast: colorVariables.$white;
+    }
+  } @else if ($colortype == 'darker') {
+    $contrast: colorVariables.$white;
+
+    @if ($mixin_color ==colorVariables.$white and $hue < 200) {
+      $contrast: colorVariables.$black;
+    }
+  } @else if ($colortype == 'lighter') {
+    $contrast: colorVariables.$black;
+
+    @if ($mixin_color ==colorVariables.$black and $hue >=700) {
+      $contrast: colorVariables.$white;
+    }
+  }
+
+  @return $contrast;
+}
+
+@function colortype($colorname, $themeclass) {
+  $colortype: '';
+
+  @if ($themeclass == '.km') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$km-theme, #{$colorname}));
+  } @else if($themeclass == '.km-dark') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$km-dark-theme, #{$colorname}));
+  } @else if($themeclass == '.kl') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$kl-theme, #{$colorname}));
+  } @else if($themeclass == '.kl-dark') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$kl-dark-theme, #{$colorname}));
+  } @else if($themeclass == '.klu') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$klu-theme, #{$colorname}));
+  } @else if($themeclass == '.klu-dark') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$klu-dark-theme, #{$colorname}));
+  } @else if($themeclass == '.kmar') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$kmar-theme, #{$colorname}));
+  } @else if($themeclass == '.kmar-dark') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$kmar-dark-theme, #{$colorname}));
+  } @else if($themeclass == '.commit') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$commit-theme, #{$colorname}));
+  } @else if($themeclass == '.commit-dark') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$commit-dark-theme, #{$colorname}));
+  } @else if($themeclass == '.mindef') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$mindef-theme, #{$colorname}));
+  } @else if($themeclass == '.mindef-dark') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$mindef-dark-theme, #{$colorname}));
+  } @else if($themeclass == '.fresh') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$fresh-theme, #{$colorname}));
+  } @else if($themeclass == '.fresh-dark') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$fresh-dark-theme, #{$colorname}));
+  } @else if($themeclass == '.frosty') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$frosty-theme, #{$colorname}));
+  } @else if($themeclass == '.frosty-dark') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$frosty-dark-theme, #{$colorname}));
+  } @else if($themeclass == '.custom') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$custom-theme, #{$colorname}));
+  } @else if($themeclass == '.custom-dark') {
+    $colortype: map.get(colorVariables.$color-types, map.get(themeVariables.$custom-dark-theme, #{$colorname}));
+  }
+
+  @return $colortype;
+}

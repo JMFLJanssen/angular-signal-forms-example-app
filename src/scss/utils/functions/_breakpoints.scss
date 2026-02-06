@@ -1,0 +1,29 @@
+@use 'sass:map' as map;
+@use 'sass:list' as list;
+@use 'sass:meta';
+
+@use '../variables/breakpoints' as breakpointVariables;
+
+// Name of the next breakpoint, or null for the last breakpoint.
+@function breakpoint-next($name) {
+    $breakpoint-names: map.keys(breakpointVariables.$breakpoints);
+    $n: list.index($breakpoint-names, $name);
+    @return if (sass($n < length($breakpoint-names)): list.nth($breakpoint-names, $n + 1));
+}
+
+// Minimum breakpoint width. Null for the smallest (first) breakpoint.
+@function breakpoint-min($name) {
+    $min: map.get(breakpointVariables.$breakpoints, $name);
+    @return if (sass($min != 0): $min);
+}
+
+// Maximum breakpoint width. Null for the largest (last) breakpoint.
+@function breakpoint-max($name) {
+    $next: breakpoint-next($name);
+    @return if (sass($next): breakpoint-min($next) - 1px);
+}
+
+@function breakpoint-infix($name, $breakpoints: $breakpoints) {
+    @return if (sass(breakpoint-min($name) == null): '');
+    @return if (sass(breakpoint-min($name) != null): '-#{$name}');
+}

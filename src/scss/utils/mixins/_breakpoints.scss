@@ -1,0 +1,86 @@
+@use 'sass:map' as map;
+
+@use '../functions/breakpoints' as breakpointFunctions;
+@use '../variables/breakpoints' as breakpointVariables;
+
+// Breakpoint viewport sizes and media queries.
+//
+// Breakpoints are defined as a map of (name: minimum width), order from small to large.
+// @see: variables/_breakpoints.scss
+// Create the media queries
+
+// Media of at least the minimum breakpoint width: no for xs
+@mixin media-breakpoint-up($name) {
+  $min: breakpoint-min($name);
+
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+@mixin media-breakpoint-max($name) {
+  $max: breakpoint-max($name);
+
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// Media that spans multiple breakpoint widths.
+@mixin media-breakpoint-between($name) {
+  $min: breakpoint-min($name);
+  $max: breakpoint-max($name);
+
+  @if $min !=null and $max !=null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max ==null {
+    @include media-breakpoint-up($name) {
+      @content;
+    }
+  } @else if $min ==null {
+    @include media-breakpoint-max($name) {
+      @content;
+    }
+  }
+}
+
+/**
+ * As of Angular 21 the or statements (portrait or landscape) are
+ * no longer valid. There is no compile or runtime error, they just
+ * don't work. Bugger.
+ *
+ * Angular CDK layout Breakpoints use.
+ * @see https://material.angular.io/cdk/layout/overview  
+ */
+@mixin media-breakpoint-only($device) {
+  // Get the portrait media query for this device
+  $media-query: map.get(
+    $map: breakpointVariables.$angular-breakpoint-portrait,
+    $key: $device,
+  );
+
+  @media only screen and #{$media-query} {
+    @content;
+  }
+
+  // Get the landscape media query for this device
+  $media-query: map.get(
+    $map: breakpointVariables.$angular-breakpoint-landscape,
+    $key: $device,
+  );
+
+  @media only screen and #{$media-query} {
+    @content;
+  }
+}

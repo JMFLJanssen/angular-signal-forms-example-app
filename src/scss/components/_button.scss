@@ -1,0 +1,327 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/button' as buttonVariables;
+@use '../utils/variables/colors' as colorVariables;
+@use '../utils/variables/themes' as themeVariables;
+@use '../utils/variables/typography' as typographyVariables;
+
+@use '../utils/functions/colors' as colorFunctions;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+
+/****************
+ * BUTTON SHAPE *
+ ****************/
+
+// Rijkshuisstijl 2025: squared off with 10% rounded corners. And since all buttons need to be 48px in height this is 5px.
+:root {
+  @include mat.icon-button-overrides(
+    (
+      container-shape: 5px,
+    )
+  );
+
+  @include mat.button-overrides(
+    (
+      filled-container-shape: 5px,
+      outlined-container-shape: 5px,
+      text-container-shape: 5px,
+      text-horizontal-padding: 12px,
+      filled-horizontal-padding: 12px,
+      outlined-horizontal-padding: 12px,
+    )
+  );
+}
+
+/***************
+ * BUTTON SIZE *
+ ***************/
+
+// Rijkshuisstijl 2025: the (minimum) height of a button is 48px even with responsive scaling.
+button,
+a[matButton],
+a[mat-button] {
+  height: 48px !important;
+}
+
+/**************************
+ * TEXT SIZE & DECORATION *
+ **************************/
+
+button,
+a[matButton],
+a[mat-button] {
+  &:hover {
+    *:not(mat-icon):not(span.mat-badge-content) {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Responsive text sizes
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  @include breakpointMixins.media-breakpoint-only($device) {
+    $fontSizes: map.get(
+      $map: typographyVariables.$font-sizes,
+      $key: $device,
+    );
+    $font-size-body: map.get($fontSizes, 'body');
+    $font-size-button: calc($font-size-body * map.get($fontSizes, 'button'));
+    @include mat.button-overrides(
+      (
+        filled-label-text-size: $font-size-button,
+        outlined-label-text-size: $font-size-button,
+        text-label-text-size: $font-size-button,
+      )
+    );
+  }
+}
+
+/****************
+ * BUTTON GROUP *
+ ****************/
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  gap: buttonVariables.$madui-buttongroup-spacing;
+}
+
+/*****************
+ * ACCENT COLORS *
+ *****************/
+
+$accent-btn-colors: (
+  'success': map.get(colorVariables.$accents, 'success'),
+  'info': map.get(colorVariables.$accents, 'info'),
+  'warning': map.get(colorVariables.$accents, 'warning'),
+  'danger': map.get(colorVariables.$accents, 'danger'),
+);
+
+@each $key, $colorvalue in $accent-btn-colors {
+  $colorname: colorFunctions.colorname($colorvalue);
+  $colortype: map.get(
+    $map: colorVariables.$color-types,
+    $key: $colorname,
+  );
+  $colorcontrast: colorFunctions.colorcontrast($colorvalue, 500);
+
+  // Which variant to use the hover on flat buttons?
+  $hoverHue: map.get(buttonVariables.$madui-button-flat-hover-hues, $colortype);
+
+  // ANGULAR 18 FILLED BUTTONS
+  button[mat-flat-button][color="#{$key}"]:not([disabled]), a[mat-flat-button][color="#{$key}"]:not([disabled]),
+  button[mat-icon-button][color="#{$key}"][flat]:not([disabled]), a[mat-icon-button][color="#{$key}"][flat]:not([disabled]),
+  // ANGULAR 20 FILLED BUTTONS
+  button[matButton="filled"][color="#{$key}"]:not([disabled]), a[matButton="filled"][color="#{$key}"]:not([disabled]),
+  button[matIconButton][color="#{$key}"][filled]:not([disabled]), a[matIconButton][color="#{$key}"][filled]:not([disabled]) {
+    background-color: $colorvalue !important;
+    color: $colorcontrast !important;
+
+    ro-icon > svg {
+      fill: $colorcontrast !important;
+    }
+
+    &:hover {
+      background-color: colorFunctions.colorvariant($colorvalue, $hoverHue) !important;
+      color: colorFunctions.colorcontrast($colorvalue, $hoverHue);
+
+      ro-icon > svg {
+        fill: colorFunctions.colorcontrast($colorvalue, $hoverHue) !important;
+      }
+    }
+  }
+
+  // ANGULAR 18 'TRANSPARENT' BUTTONS
+  button[mat-button][color="#{$key}"]:not([disabled]), a[mat-button][color="#{$key}"]:not([disabled]),
+    button[mat-stroked-button][color="#{$key}"]:not([disabled]), a[mat-stroked-button][color="#{$key}"]:not([disabled]),
+    button[mat-icon-button][stroked][color="#{$key}"]:not([disabled]), a[mat-icon-button][color="#{$key}"][stroked]:not([disabled]),
+    button[mat-icon-button][color="#{$key}"]:not([disabled]), a[mat-icon-button][color="#{$key}"]:not([disabled]),
+    // ANGULAR 20 'TRANSPARENT' BUTTONS
+    button[matButton][color="#{$key}"]:not([disabled]), a[matButton][color="#{$key}"]:not([disabled]),
+    button[matButton="outlined"][color="#{$key}"]:not([disabled]), a[matButton="outlined"][color="#{$key}"]:not([disabled]),
+    button[matIconButton][color="#{$key}"][outlined]:not([disabled]), a[matIconButton][color="#{$key}"]:not([disabled]),
+    button[matIconButton][color="#{$key}"]:not([disabled]), a[matIconButton][color="#{$key}"][outlined]:not([disabled]) {
+    color: $colorvalue;
+
+    ro-icon > svg {
+      fill: $colorvalue !important;
+    }
+
+    &:hover {
+      background-color: colorFunctions.colorvariant($colorvalue, buttonVariables.$madui-button-hover-hue-light-theme);
+    }
+  }
+
+  // ANGULAR 18 BORDER STROKED BUTTONS
+  button[mat-stroked-button][color="#{$key}"]:not([disabled]), a[mat-stroked-button][color="#{$key}"]:not([disabled]), button[mat-icon-button][outlined][color="#{$key}"]:not([disabled]),
+  // ANGULAR 20 BORDER OUTLINED BUTTONS
+  button[matButton="outlined"][color="#{$key}"]:not([disabled]), a[matButton="outlined"][color="#{$key}"]:not([disabled]), button[matIconButton][outlined][color="#{$key}"]:not([disabled]) {
+    border: 1.5px solid $colorvalue;
+  }
+}
+
+// DARK MODE CORRECTIONS
+@each $key, $colorvalue in $accent-btn-colors {
+  $colorname: colorFunctions.colorname($colorvalue);
+
+  .dark-mode button[mat-button][color="#{$key}"]:not([disabled]), .dark-mode a[mat-button][color="#{$key}"]:not([disabled]),
+    .dark-mode button[mat-stroked-button][color="#{$key}"]:not([disabled]), .dark-mode a[mat-stroked-button][color="#{$key}"]:not([disabled]),
+    .dark-mode button[mat-icon-button][stroked][color="#{$key}"]:not([disabled]), .dark-mode a[mat-icon-button][color="#{$key}"][stroked]:not([disabled]),
+    .dark-mode button[mat-icon-button][color="#{$key}"]:not([disabled]), .dark-mode a[mat-icon-button][color="#{$key}"]:not([disabled]),
+    // ANGULAR 20 'TRANSPARENT' BUTTONS
+    .dark-mode button[matButton][color="#{$key}"]:not([disabled]), .dark-mode a[matButton][color="#{$key}"]:not([disabled]),
+    .dark-mode button[matButton="outlined"][color="#{$key}"]:not([disabled]), .dark-mode a[matButton="outlined"][color="#{$key}"]:not([disabled]),
+    .dark-mode button[matIconButton][color="#{$key}"][outlined]:not([disabled]), .dark-mode a[matIconButton][color="#{$key}"]:not([disabled]),
+    .dark-mode button[matIconButton][color="#{$key}"]:not([disabled]), .dark-mode a[matIconButton][color="#{$key}"][outlined]:not([disabled]) {
+    &:hover {
+      background-color: colorFunctions.colorvariant($colorvalue, buttonVariables.$madui-button-hover-hue-dark-theme);
+    }
+  }
+}
+
+/**********************************
+ * THEME COLOURED BUTTONS & HOVER *
+ **********************************/
+
+@each $key in ('primary', 'accent', 'warn') {
+  // ANGULAR 18 FILLED BUTTONS
+  button[mat-flat-button][color="#{$key}"]:not([disabled]), a[mat-flat-button][color="#{$key}"]:not([disabled]),
+  button[mat-icon-button][color="#{$key}"][flat]:not([disabled]), a[mat-icon-button][color="#{$key}"][flat]:not([disabled]),
+  // ANGULAR 20 FILLED BUTTONS
+  button[matButton="filled"][color="#{$key}"]:not([disabled]), a[matButton="filled"][color="#{$key}"]:not([disabled]),
+  button[matIconButton][color="#{$key}"][filled]:not([disabled]), a[matIconButton][color="#{$key}"][filled]:not([disabled]) {
+    background-color: var(--#{$key});
+    color: var(--#{$key}-contrast) !important;
+
+    ro-icon > svg {
+      fill: var(--#{$key}-contrast) !important;
+    }
+  }
+
+  // ANGULAR 18 'TRANSPARENT' BUTTONS
+  button[mat-button][color="#{$key}"]:not([disabled]), a[mat-button][color="#{$key}"]:not([disabled]),
+    button[mat-stroked-button][color="#{$key}"]:not([disabled]), a[mat-stroked-button][color="#{$key}"]:not([disabled]),
+    button[mat-icon-button][stroked][color="#{$key}"]:not([disabled]), a[mat-icon-button][color="#{$key}"][stroked]:not([disabled]),
+    button[mat-icon-button][color="#{$key}"]:not([disabled]), a[mat-icon-button][color="#{$key}"]:not([disabled]),
+    // ANGULAR 20 'TRANSPARENT' BUTTONS
+    button[matButton][color="#{$key}"]:not([disabled]), a[matButton][color="#{$key}"]:not([disabled]),
+    button[matButton="outlined"][color="#{$key}"]:not([disabled]), a[matButton="outlined"][color="#{$key}"]:not([disabled]),
+    button[matIconButton][color="#{$key}"][outlined]:not([disabled]), a[matIconButton][color="#{$key}"]:not([disabled]),
+    button[matIconButton][color="#{$key}"]:not([disabled]), a[matIconButton][color="#{$key}"][outlined]:not([disabled]) {
+    color: var(--#{$key});
+
+    ro-icon > svg {
+      fill: var(--#{$key}) !important;
+    }
+
+    &:hover {
+      background-color: var(--#{$key}-#{buttonVariables.$madui-button-hover-hue-light-theme});
+    }
+  }
+
+  // ANGULAR 18 BORDER STROKED BUTTONS
+  button[mat-stroked-button][color="#{$key}"]:not([disabled]), a[mat-stroked-button][color="#{$key}"]:not([disabled]), button[mat-icon-button][outlined][color="#{$key}"]:not([disabled]),
+  // ANGULAR 20 BORDER OUTLINED BUTTONS
+  button[matButton="outlined"][color="#{$key}"]:not([disabled]), a[matButton="outlined"][color="#{$key}"]:not([disabled]), button[matIconButton][outlined][color="#{$key}"]:not([disabled]) {
+    border: 1.5px solid var(--#{$key});
+  }
+}
+
+// For the hover theme colors the theme is needed because the hover color is calculated from the colortype
+@each $key in ('primary', 'accent', 'warn') {
+  @each $theme in themeVariables.$theme-classes {
+    $colortype: colorFunctions.colortype($key, $theme);
+    $hoverHue: map.get(buttonVariables.$madui-button-flat-hover-hues, $colortype);
+    // ANGULAR 18 FILLED BUTTONS
+    button[mat-flat-button][color="#{$key}"]:not([disabled]), a[mat-flat-button][color="#{$key}"]:not([disabled]),
+    button[mat-icon-button][color="#{$key}"][flat]:not([disabled]), a[mat-icon-button][color="#{$key}"][flat]:not([disabled]),
+    // ANGULAR 20 FILLED BUTTONS
+    button[matButton="filled"][color="#{$key}"]:not([disabled]), a[matButton="filled"][color="#{$key}"]:not([disabled]),
+    button[matIconButton][color="#{$key}"][filled]:not([disabled]), a[matIconButton][color="#{$key}"][filled]:not([disabled]) {
+      &:hover {
+        background-color: var(--#{$key}-#{$hoverHue}) !important;
+        color: var(--#{$key}-contrast-#{$hoverHue});
+
+        ro-icon > svg {
+          fill: var(--#{$key}-contrast-#{$hoverHue}) !important;
+        }
+      }
+    }
+  }
+}
+
+// Hover in dark mode for theme colors
+@each $key in ('primary', 'accent', 'warn') {
+  @each $theme in themeVariables.$theme-classes {
+    $colortype: colorFunctions.colortype($key, $theme);
+    $hoverHue: map.get(buttonVariables.$madui-button-flat-hover-hues, $colortype);
+
+    .dark-mode button[mat-button][color="#{$key}"]:not([disabled]), .dark-mode a[mat-button][color="#{$key}"]:not([disabled]),
+    .dark-mode button[mat-stroked-button][color="#{$key}"]:not([disabled]), .dark-mode a[mat-stroked-button][color="#{$key}"]:not([disabled]),
+    .dark-mode button[mat-icon-button][stroked][color="#{$key}"]:not([disabled]), .dark-mode a[mat-icon-button][color="#{$key}"][stroked]:not([disabled]),
+    .dark-mode button[mat-icon-button][color="#{$key}"]:not([disabled]), .dark-mode a[mat-icon-button][color="#{$key}"]:not([disabled]),
+    // ANGULAR 20 'TRANSPARENT' BUTTONS
+    .dark-mode button[matButton][color="#{$key}"]:not([disabled]), .dark-mode a[matButton][color="#{$key}"]:not([disabled]),
+    .dark-mode button[matButton="outlined"][color="#{$key}"]:not([disabled]), .dark-mode a[matButton="outlined"][color="#{$key}"]:not([disabled]),
+    .dark-mode button[matIconButton][color="#{$key}"][outlined]:not([disabled]), .dark-mode a[matIconButton][color="#{$key}"]:not([disabled]),
+    .dark-mode button[matIconButton][color="#{$key}"]:not([disabled]), .dark-mode a[matIconButton][color="#{$key}"][outlined]:not([disabled]) {
+      &:hover {
+        background-color: var(--#{$key}-#{buttonVariables.$madui-button-hover-hue-dark-theme});
+        color: var(--#{$key}-contrast-#{buttonVariables.$madui-button-hover-hue-dark-theme});
+      }
+    }
+  }
+}
+
+/********************
+ * DISABLED BUTTONS *
+ ********************/
+
+button[disabled]:not(invert) {
+  cursor: none;
+  color: buttonVariables.$madui-button-disabled-color !important;
+}
+
+// ANGULAR 18 FILLED BUTTONS
+button[mat-flat-button][disabled]:not(invert), a[mat-flat-button][disabled]:not(invert),
+button[mat-icon-button][flat][disabled]:not(invert), a[mat-icon-button][flat][disabled]:not(invert),
+// ANGULAR 20 FILLED BUTTONS
+button[matButton="filled"][disabled]:not(invert), a[matButton="filled"][disabled]:not(invert),
+button[matIconButton][filled][disabled]:not(invert), a[matIconButton][filled][disabled]:not(invert) {
+  background-color: buttonVariables.$madui-button-disabled-background !important;
+}
+
+// ANGULAR 18 FILLED BUTTONS
+.dark-mode button[mat-flat-button][disabled]:not(invert), .dark-mode a[mat-flat-button][disabled]:not(invert),
+.dark-mode button[mat-icon-button][flat][disabled]:not(invert), .dark-mode a[mat-icon-button][flat][disabled]:not(invert),
+// ANGULAR 20 FILLED BUTTONS
+.dark-mode button[matButton="filled"][disabled]:not(invert), .dark-mode a[matButton="filled"][disabled]:not(invert),
+.dark-mode button[matIconButton][filled][disabled]:not(invert), .dark-mode a[matIconButton][filled][disabled]:not(invert) {
+  background-color: buttonVariables.$madui-button-disabled-background-dark !important;
+}
+
+// ANGULAR 18 BORDER STROKED BUTTONS
+button[mat-stroked-button][disabled]:not(invert), a[mat-stroked-button][disabled]:not(invert), button[mat-icon-button][outlined][disabled]:not(invert),
+// ANGULAR 20 BORDER OUTLINED BUTTONS
+button[matButton="outlined"][disabled]:not(invert), a[matButton="outlined"][disabled]:not(invert), button[matIconButton][outlined][disabled]:not(invert) {
+  border: 1.5px solid buttonVariables.$madui-button-disabled-color !important;
+}
+
+/**********************************
+ * DISABLED FILLED INVERT BUTTONS *
+ **********************************/
+
+// Theme colors
+@each $key in ('primary', 'accent', 'warn') {
+  // ANGULAR 18 FILLED BUTTONS
+  button[mat-flat-button][color="#{$key}"][disabled][invert], a[mat-flat-button][color="#{$key}"][disabled][invert],
+  button[mat-icon-button][color="#{$key}"][flat][disabled][invert], a[mat-icon-button][color="#{$key}"][flat][disabled][invert],
+  // ANGULAR 20 FILLED BUTTONS
+  button[matButton="filled"][color="#{$key}"][disabled][invert], a[matButton="filled"][color="#{$key}"][disabled][invert],
+  button[matIconButton][color="#{$key}"][filled][disabled][invert], a[matIconButton][color="#{$key}"][filled][disabled][invert] {
+    background-color: var(--#{$key}) !important;
+  }
+}

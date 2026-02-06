@@ -1,0 +1,88 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../utils/variables/breakpoints" as breakpointVariables;
+@use "../utils/variables/colors" as colorVariables;
+@use "../utils/variables/badge" as badgeVariables;
+@use "../utils/variables/typography" as typographyVariables;
+
+@use "../utils/functions/colors" as colorFunctions;
+
+@use "../utils/mixins/breakpoints" as breakpointMixins;
+
+/***********************************
+ * ADDITION OF NOTIFICATION COLORS *
+ ***********************************/
+
+$badge-colors: (
+  "success": map.get(colorVariables.$accents, "success"),
+  "info": map.get(colorVariables.$accents, "info"),
+  "warning": map.get(colorVariables.$accents, "warning"),
+  "danger": map.get(colorVariables.$accents, "danger"),
+);
+
+@each $color, $colorvalue in $badge-colors {
+  $colorname: colorFunctions.colorname($colorvalue);
+  $colortype: map.get(
+    $map: colorVariables.$color-types,
+    $key: $colorname,
+  );
+  $colorcontrast: colorFunctions.colorcontrast($colorvalue, 500);
+
+  *[matBadgeNotificationColor="#{$color}"] {
+    .mat-badge-content {
+      background: $colorvalue;
+      color: $colorcontrast;
+    }
+  }
+}
+
+/**************
+ * (FONT)SIZE *
+ **************/
+
+// These include corrections for the line heights, to place the Rijkshuisstijl fonts vertically in the middle of the badge
+@each $key, $value in badgeVariables.$badge-font-sizes {
+  @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+    @include breakpointMixins.media-breakpoint-only($device) {
+      $font-sizes-device: map.get(
+        $map: typographyVariables.$font-sizes,
+        $key: $device,
+      );
+      $font-size-body: map.get($font-sizes-device, "body");
+      $font-size-badge: map.get($font-sizes-device, $value);
+
+      @if ($key== "small") {
+        @include mat.badge-overrides(
+          (
+            small-size-text-size: calc($font-size-body * $font-size-badge),
+            small-size-line-height: map.get(badgeVariables.$badge-line-heights, $key),
+          )
+        );
+      }
+
+      @if ($key== "medium") {
+        @include mat.badge-overrides(
+          (
+            text-size: calc($font-size-body * $font-size-badge),
+            line-height: map.get(badgeVariables.$badge-line-heights, $key),
+          )
+        );
+      }
+
+      @if ($key== "large") {
+        @include mat.badge-overrides(
+          (
+            large-size-text-size: calc($font-size-body * $font-size-badge),
+            large-size-line-height: map.get(badgeVariables.$badge-line-heights, $key),
+          )
+        );
+      }
+    }
+  }
+}
+
+.mat-badge {
+  $default-badge-color: map.get($badge-colors, "danger");
+  --mat-badge-background-color: #{$default-badge-color} !important;
+}

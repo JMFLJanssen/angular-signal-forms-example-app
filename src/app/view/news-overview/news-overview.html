@@ -1,0 +1,39 @@
+<div class="text-primary-50 text-4xl mb-12 w-full text-center">News overview</div>
+<div class="flex justify-center">
+    <div class="w-2/3">
+        @if (newsService.selectedID().length > 0) {
+            <div class="flex flex-col gap-6">
+                <button matButton="filled" color="accent" (click)="back()" class="w-fit">
+                    <mat-icon>arrow_back</mat-icon>All news
+                </button>
+                <news-view [newsId]="newsService.selectedID()" />
+            </div>
+        } @else {
+            @for (category of categoryService.categories(); track category.id) {
+                @let news = getNewsByCategory(category.id);
+                @if (news && news.length > 0) {
+                    <div class="flex flex-col gap-3 mb-9">
+                        <mat-chip color="primary" class="w-fit">{{ category.name }}</mat-chip>
+                        <mat-action-list class="bg-grey-1 rounded-sm">
+                            @for (item of news; track item.id; let last = $last) {
+                                <mat-list-item lines="2" (click)="selectNewsItem(item.id)">
+                                    @if (isLatest(item.id)) {
+                                        <mat-icon matListItemIcon>fiber_new</mat-icon>
+                                    }
+                                    <span matListItemTitle>{{ item.title }}</span>
+                                    <small>{{ item.excerpt }}</small>
+                                    <div matListItemMeta>
+                                        <mat-icon color="accent">chevron_right</mat-icon>
+                                    </div>
+                                </mat-list-item>
+                                @if (!last) {
+                                    <div class="mx-3"><mat-divider /></div>
+                                }
+                            }
+                        </mat-action-list>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>

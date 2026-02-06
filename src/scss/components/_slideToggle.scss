@@ -1,0 +1,140 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../utils/variables/slideToggle" as slidetoggleVariables;
+@use "../utils/variables/typography" as typographyVariables;
+@use "../utils/variables/breakpoints" as breakpointVariables;
+@use "../utils/variables/button" as buttonVariables;
+@use "../utils/variables/colors" as colorVariables;
+
+@use "../utils/mixins/breakpoints" as breakpointMixins;
+
+.mdc-switch__track {
+  @include mat.slide-toggle-overrides(
+    (
+      track-height: slidetoggleVariables.$track-height,
+      pressed-handle-size: slidetoggleVariables.$handle-size,
+      selected-handle-size: slidetoggleVariables.$handle-size,
+      unselected-handle-size: slidetoggleVariables.$handle-size,
+    )
+  );
+}
+
+// Generic for all states
+.mat-mdc-slide-toggle {
+  // Set the default RO font!
+  * {
+    // Device depedent settings for the default labels
+    @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+      @include breakpointMixins.media-breakpoint-only($device) {
+        $fontSizes: map.get(
+          $map: typographyVariables.$font-sizes,
+          $key: $device,
+        );
+        $fontSize: map.get(
+          $map: $fontSizes,
+          $key: "caption",
+        );
+        $fontSizeBody: map.get(
+          $map: $fontSizes,
+          $key: "body",
+        );
+        font-size: calc($fontSize * $fontSizeBody);
+        color: black;
+      }
+    }
+  }
+
+  // Hide the check and minus icons
+  @if (slidetoggleVariables.$madui-slide-toggle-handle-icons-hide) {
+    .mdc-switch__icons {
+      display: none !important;
+    }
+  }
+
+  // Drop the shadow effects
+  .mdc-switch:enabled .mdc-switch__shadow {
+    box-shadow: none !important;
+  }
+}
+
+.dark-mode .mat-mdc-slide-toggle {
+  * {
+    color: white !important;
+  }
+}
+
+/*************************
+ * MATERIAL THEME COLORS *
+ *************************/
+
+// Change the track color to the specified color
+.mat-mdc-slide-toggle .mdc-switch:enabled .mdc-switch__track::before,
+.mat-mdc-slide-toggle .mdc-switch:enabled .mdc-switch__track::after {
+  background-color: slidetoggleVariables.$madui-slide-toggle-track-color !important;
+}
+
+// Change the color of the handle in off position to the one specified
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--unselected:enabled .mdc-switch__handle::after {
+  background-color: slidetoggleVariables.$madui-slide-toggle-handle-off-color !important;
+}
+
+// And give it the specified hover color
+.mat-mdc-slide-toggle:hover .mdc-switch.mdc-switch--unselected:enabled .mdc-switch__handle::after {
+  background-color: slidetoggleVariables.$madui-slide-toggle-handle-off-hover-color !important;
+}
+
+/*********************
+ * DISABLED COLORING *
+ *********************/
+
+.mat-mdc-slide-toggle .mdc-switch:disabled .mdc-switch__handle::after {
+  background-color: colorVariables.$grey-6 !important;
+}
+
+.mat-mdc-slide-toggle .mdc-switch:disabled .mdc-switch__track::before,
+.mat-mdc-slide-toggle .mdc-switch:disabled .mdc-switch__track::after {
+  background-color: colorVariables.$grey-6 !important;
+}
+
+/*******************************************
+ * MATERIAL 18 FIX: THEME COLORING LIKE M2 *
+ *******************************************/
+
+// With Material 18 the track gets an outline when in the off position. Remove this.
+.mdc-switch__track.mdc-switch__track::after,
+.mdc-switch__track::before {
+  border-color: slidetoggleVariables.$madui-slide-toggle-track-color !important;
+}
+
+// Change the color of the handle in the on state to the requested color
+.mat-primary.mat-mdc-slide-toggle {
+  --mat-slide-toggle-selected-handle-color: var(--primary) !important;
+  --mat-slide-toggle-selected-focus-handle-color: var(--primary) !important;
+  --mat-slide-toggle-selected-pressed-handle-color: var(--primary) !important;
+  --mat-slide-toggle-selected-focus-state-layer-color: var(--primary) !important;
+  --mat-slide-toggle-selected-pressed-state-layer-color: var(--primary) !important;
+  // The checkmark should get the contrasting color
+  --mat-slide-toggle-selected-icon-color: var(--primary-contrast) !important;
+}
+
+.mat-accent.mat-mdc-slide-toggle {
+  --mat-slide-toggle-unselected-pressed-handle-color: var(--accent) !important;
+  --mat-slide-toggle-selected-handle-color: var(--accent) !important;
+  --mat-slide-toggle-selected-focus-handle-color: var(--accent) !important;
+  --mat-slide-toggle-selected-pressed-handle-color: var(--accent) !important;
+  --mat-slide-toggle-selected-focus-state-layer-color: var(--accent) !important;
+  --mat-slide-toggle-selected-pressed-state-layer-color: var(--accent) !important;
+  // The checkmark should get the contrasting color
+  --mat-slide-toggle-selected-icon-color: var(--accent-contrast) !important;
+}
+
+.mat-warn.mat-mdc-slide-toggle {
+  --mat-slide-toggle-selected-handle-color: var(--warn) !important;
+  --mat-slide-toggle-selected-focus-handle-color: var(--warn) !important;
+  --mat-slide-toggle-selected-pressed-handle-color: var(--warn) !important;
+  --mat-slide-toggle-selected-focus-state-layer-color: var(--warn) !important;
+  --mat-slide-toggle-selected-pressed-state-layer-color: var(--warn) !important;
+  // The checkmark should get the contrasting color
+  --mat-slide-toggle-selected-icon-color: var(--warn-contrast) !important;
+}

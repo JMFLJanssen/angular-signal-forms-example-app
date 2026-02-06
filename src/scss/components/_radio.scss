@@ -1,0 +1,86 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../utils/variables/radio" as radioVariables;
+@use "../utils/variables/breakpoints" as breakpointVariables;
+@use "../utils/variables/typography" as typographyVariables;
+@use "../utils/variables/button" as buttonVariables;
+@use "../utils/variables/colors" as colorVariables;
+
+@use "../utils/mixins/breakpoints" as breakpointMixins;
+
+/**************************
+ * ALL !IMPORTANT CHECKED *
+ **************************/
+
+/*************************
+ * MATERIAL THEME COLORS *
+ *************************/
+
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  @include breakpointMixins.media-breakpoint-only($device) {
+    // The typography used for the chips = caption, which is device dependent in size
+    $font-size: map.get(
+      map.get(
+        $map: typographyVariables.$font-sizes,
+        $key: $device,
+      ),
+      "body"
+    );
+
+    :root {
+      @include mat.radio-overrides(
+        (
+          label-text-size: $font-size,
+        )
+      );
+    }
+  }
+}
+
+.mat-mdc-radio-button {
+  // And their size = body
+  .mdc-form-field > label {
+    padding-left: radioVariables.$madui-radio-label-distance;
+    color: inherit;
+
+    &:empty {
+      padding-left: 0; // Prevents empty label from taking up additional space
+    }
+  }
+
+  // The color of the border (not disabled) should always be in the call-to-action
+  // color = theme, accent
+  @if (radioVariables.$madui-radio-outerrim) {
+    .mdc-radio__background {
+      .mdc-radio__outer-circle {
+        border: 2px solid var(--accent) !important;
+      }
+    }
+  }
+
+  // Set the background color to white
+  .mdc-radio__background {
+    background-color: colorVariables.$white !important;
+    border-radius: 10px;
+  }
+}
+
+.dark-mode .mat-mdc-radio-button {
+  // Set the background color to black
+  .mdc-radio__background {
+    background-color: colorVariables.$black !important;
+  }
+}
+
+/*******************************************
+ * MATERIAL 18 FIX: THEME COLORING LIKE M2 *
+ *******************************************/
+
+.mat-accent.mat-mdc-radio-button {
+  --mat-radio-selected-focus-icon-color: var(--accent) !important;
+  --mat-radio-selected-hover-icon-color: var(--accent) !important;
+  --mat-radio-selected-icon-color: var(--accent) !important;
+  --mat-radio-selected-pressed-icon-color: var(--accent) !important;
+  --mat-radio-checked-ripple-color: var(--accent) !important;
+}

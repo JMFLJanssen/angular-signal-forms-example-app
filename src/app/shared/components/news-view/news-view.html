@@ -1,0 +1,13 @@
+@let newsModel = newsId() ? newsService.news() : news();
+
+<h1 class="text-primary-50">{{ newsModel?.title }}</h1>
+<div class="rounded-sm bg-grey-1 opacity-90 p-3 flex flex-row gap-6 items-center">
+    <mat-chip color="primary">{{ getCategory(newsModel!.category) }}</mat-chip>
+    <small
+        >{{ newsModel?.updateDate | date: 'dd MMM yyyy' }} at
+        {{ newsModel?.updateDate | date: 'HH:MM' }}
+    </small>
+</div>
+
+<div class="rounded-sm bg-grey-1 opacity-90 p-3 my-6" [innerHTML]="newsModel?.excerpt"></div>
+<div class="rounded-sm bg-grey-1 opacity-90 p-3 my-6" [innerHTML]="newsModel?.text"></div>

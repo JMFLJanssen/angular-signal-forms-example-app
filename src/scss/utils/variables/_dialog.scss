@@ -1,0 +1,16 @@
+// When using the mat-dialog-title element, a default bottom margin is added
+// to seperate the title more of the content. This is device/browser size
+// dependend.
+$madui-dialog-title-bottom-margins: (
+  "handset": 24px,
+  "tablet": 24px,
+  "web": 32px,
+);
+
+// Same is true for the <mat-dialog-actions> element, which should get
+// some top margin in order fot it to be a bit seperated from the content
+$madui-dialog-actions-top-margins: (
+  "handset": 8px,
+  "tablet": 8px,
+  "web": 16px,
+);

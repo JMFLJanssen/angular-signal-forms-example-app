@@ -1,0 +1,23 @@
+// Height of the (single line) input
+$madui-input-heights: (
+  'handset': 48px,
+  'tablet': 48px,
+  'web': 48px,
+);
+
+// Margin between top label and input
+$madui-input-label-margins: (
+  'handset': 5px,
+  'tablet': 5px,
+  'web': 5px,
+);
+
+// Margin for error icon on input without label
+$madui-input-error-margins: (
+  'handset': 116px,
+  'tablet': 128px,
+  'web': 132px,
+);
+
+// Margin between hint text/error message and input
+$madui-input-hint-margin: 5px;

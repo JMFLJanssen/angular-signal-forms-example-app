@@ -1,0 +1,194 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/expansion' as expansionVariables;
+@use '../utils/variables/typography' as typographyVariables;
+@use '../utils/variables/divider' as dividerVariables;
+@use '../utils/variables/grid' as gridVariables;
+@use '../utils/variables/breakpoints' as breakpointVariables;
+@use '../utils/variables/colors' as colorVariables;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+
+/**************************************
+ * MATERIAL expansion-overrides mixin *
+ **************************************/
+
+:root {
+  @include mat.expansion-overrides(
+    (
+      container-shape: 5px,
+      header-description-color: colorVariables.$black,
+      header-disabled-state-text-color: colorVariables.$grey-3,
+    )
+  );
+}
+
+:root .dark-mode {
+  @include mat.expansion-overrides(
+    (
+      header-description-color: colorVariables.$white,
+      header-disabled-state-text-color: colorVariables.$grey-5,
+    )
+  );
+}
+
+.mat-expansion-panel {
+  // The border of the header
+  box-shadow: none !important;
+
+  // Device dependent settings
+  @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+    @include breakpointMixins.media-breakpoint-only($device) {
+      // The height of the header
+      .mat-expansion-panel-header,
+      .mat-expansion-panel-header.mat-expanded {
+        height: map.get($map: expansionVariables.$madui-expansion-header-heights, $key: $device);
+      }
+
+      // The font-size & line-height
+      $fontSizes: map.get(
+        $map: typographyVariables.$font-sizes,
+        $key: $device,
+      );
+      $font-size-body: map.get(
+        $map: $fontSizes,
+        $key: 'body',
+      );
+      $font-size: calc(
+        map.get(
+            $map: $fontSizes,
+            $key: expansionVariables.$madui-expansion-header-font-size,
+          ) *
+          $font-size-body
+      );
+
+      .mat-expansion-panel-header-title {
+        font-size: $font-size;
+      }
+    }
+  }
+
+  // Highlight the, background of the, header when expansion panel is expanded.
+  .mat-expansion-panel-header.mat-expanded {
+    background-color: var(--accent-100) !important;
+    margin: 0 !important;
+
+    * {
+      color: var(--accent-contrast-100) !important;
+    }
+  }
+
+  // Set the correct 'gutters' for both header and body = device dependent setting
+  @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+    @include breakpointMixins.media-breakpoint-only($device) {
+      $key: map.get(
+        $map: gridVariables.$grid-keys,
+        $key: $device,
+      );
+      $padding: map.get(
+        $map: gridVariables.$grid-gutter-width,
+        $key: $key,
+      );
+
+      .mat-expansion-panel-body {
+        padding: 0;
+      }
+
+      .mat-expansion-panel-header {
+        padding: 0 $padding;
+      }
+    }
+  }
+
+  mat-panel-title {
+    margin-top: 6px;
+  }
+}
+
+// Coloring the header background on hover
+mat-expansion-panel:not([disabled]) .mat-expansion-panel-header:hover {
+  background-color: var(--accent-50) !important;
+
+  * {
+    color: var(--accent-contrast-50) !important;
+  }
+}
+
+// color any icons in the disabled state the same color as the text. mat-icons will get
+// the color of the system override
+mat-expansion-panel[disabled] .mat-expansion-panel-header {
+  ro-icon {
+    svg {
+      fill: colorVariables.$grey-3;
+    }
+  }
+}
+
+.dark-mode mat-expansion-panel[disabled] .mat-expansion-panel-header {
+  ro-icon {
+    svg {
+      fill: colorVariables.$grey-5;
+    }
+  }
+}
+
+// Create a border between the mat-expansion-panels
+.mat-accordion .mat-expansion-panel:not(:first-child) > .mat-expansion-panel-header::after {
+  content: '';
+  position: absolute;
+  background-color: var(--accent-100);
+  width: 100%;
+  height: 1px;
+  top: 0;
+  left: 0;
+}
+
+.mat-expansion-panel-content {
+  font-size: inherit;
+}
+
+// Sometimes it comes in handy to have a light grey content background, to set of
+// white content cards
+.mat-expansion-panel[color='grey-1'] .mat-expansion-panel-body {
+  background-color: colorVariables.$grey-1;
+}
+
+// The color of the expand/collapse indicator
+.mat-expansion-indicator::after {
+  color: var(--accent) !important;
+}
+
+/**********************
+ * DARK MODE SETTINGS *
+ **********************/
+
+.dark-mode mat-expansion-panel:not([disabled]) {
+  // Coloring the header background
+  .mat-expansion-panel-header:hover {
+    background-color: var(--accent-900) !important;
+
+    * {
+      color: var(--accent-contrast-900) !important;
+    }
+  }
+
+  .mat-expansion-panel-header.mat-expanded {
+    background-color: var(--accent-800) !important;
+    margin: 0 !important;
+
+    * {
+      color: var(--accent-contrast-800) !important;
+    }
+  }
+}
+
+.dark-mode {
+  .mat-accordion .mat-expansion-panel:not(:first-child) > .mat-expansion-panel-header::after {
+    background-color: var(--primary-100) !important;
+  }
+}
+
+.dark-mode .mat-expansion-indicator::after {
+  color: var(--accent) !important;
+}

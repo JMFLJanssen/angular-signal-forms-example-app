@@ -1,0 +1,13 @@
+@use "./colors" as colorVariables;
+
+// Dimensions
+$track-height: 14px;
+$handle-size: 20px;
+
+// Colors
+$madui-slide-toggle-track-color: colorVariables.$grey-3;
+$madui-slide-toggle-handle-off-color: colorVariables.$grey-7;
+$madui-slide-toggle-handle-off-hover-color: colorVariables.$grey-6;
+
+// Hide the minus and check icons in the handle?
+$madui-slide-toggle-handle-icons-hide: true;

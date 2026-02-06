@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the darkgreen color is given
+$darkgreen-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "darkgreen",
+);
+
+// Create a material design (specification 2) palette
+$darkgreen-colors: (
+  50: colorFunctions.colorvariant($darkgreen-color, 50),
+  100: colorFunctions.colorvariant($darkgreen-color, 100),
+  200: colorFunctions.colorvariant($darkgreen-color, 200),
+  300: colorFunctions.colorvariant($darkgreen-color, 300),
+  400: colorFunctions.colorvariant($darkgreen-color, 400),
+  500: $darkgreen-color,
+  600: colorFunctions.colorvariant($darkgreen-color, 600),
+  700: colorFunctions.colorvariant($darkgreen-color, 700),
+  800: colorFunctions.colorvariant($darkgreen-color, 800),
+  900: colorFunctions.colorvariant($darkgreen-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($darkgreen-color, 50),
+    100: colorFunctions.colorcontrast($darkgreen-color, 100),
+    200: colorFunctions.colorcontrast($darkgreen-color, 200),
+    300: colorFunctions.colorcontrast($darkgreen-color, 300),
+    400: colorFunctions.colorcontrast($darkgreen-color, 400),
+    500: colorFunctions.colorcontrast($darkgreen-color, 500),
+    600: colorFunctions.colorcontrast($darkgreen-color, 600),
+    700: colorFunctions.colorcontrast($darkgreen-color, 700),
+    800: colorFunctions.colorcontrast($darkgreen-color, 800),
+    900: colorFunctions.colorcontrast($darkgreen-color, 900),
+  ),
+);
+
+$darkgreen: mat.m2-define-palette($darkgreen-colors);

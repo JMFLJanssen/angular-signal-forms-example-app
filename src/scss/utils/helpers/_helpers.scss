@@ -1,0 +1,34 @@
+/**************
+ * VISIBILITY *
+ **************/
+
+.visible {
+  visibility: visible !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+.display-none {
+  display: none;
+}
+
+/*********************
+ * CENTERING CONTENT *
+ *********************/
+
+// Use the full page to display the content in the center
+.fill-page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+}
+
+// Center the content of a container
+.valign {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}

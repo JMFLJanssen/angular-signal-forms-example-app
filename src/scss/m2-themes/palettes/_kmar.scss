@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the kmar color is given
+$kmar-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "kmar",
+);
+
+// Create a material design (specification 2) palette
+$kmar-colors: (
+  50: colorFunctions.colorvariant($kmar-color, 50),
+  100: colorFunctions.colorvariant($kmar-color, 100),
+  200: colorFunctions.colorvariant($kmar-color, 200),
+  300: colorFunctions.colorvariant($kmar-color, 300),
+  400: colorFunctions.colorvariant($kmar-color, 400),
+  500: $kmar-color,
+  600: colorFunctions.colorvariant($kmar-color, 600),
+  700: colorFunctions.colorvariant($kmar-color, 700),
+  800: colorFunctions.colorvariant($kmar-color, 800),
+  900: colorFunctions.colorvariant($kmar-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($kmar-color, 50),
+    100: colorFunctions.colorcontrast($kmar-color, 100),
+    200: colorFunctions.colorcontrast($kmar-color, 200),
+    300: colorFunctions.colorcontrast($kmar-color, 300),
+    400: colorFunctions.colorcontrast($kmar-color, 400),
+    500: colorFunctions.colorcontrast($kmar-color, 500),
+    600: colorFunctions.colorcontrast($kmar-color, 600),
+    700: colorFunctions.colorcontrast($kmar-color, 700),
+    800: colorFunctions.colorcontrast($kmar-color, 800),
+    900: colorFunctions.colorcontrast($kmar-color, 900),
+  ),
+);
+
+$kmar: mat.m2-define-palette($kmar-colors);

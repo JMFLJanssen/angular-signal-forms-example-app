@@ -1,0 +1,39 @@
+@use "sass:map" as map;
+@use "@angular/material" as mat;
+
+@use "../../utils/variables/colors" as colorVariables;
+@use "../../utils/functions/colors" as colorFunctions;
+
+// In the colors map, the 500 hue color specification for the brown color is given
+$brown-color: map.get(
+  $map: colorVariables.$colors,
+  $key: "brown",
+);
+
+// Create a material design (specification 2) palette
+$brown-colors: (
+  50: colorFunctions.colorvariant($brown-color, 50),
+  100: colorFunctions.colorvariant($brown-color, 100),
+  200: colorFunctions.colorvariant($brown-color, 200),
+  300: colorFunctions.colorvariant($brown-color, 300),
+  400: colorFunctions.colorvariant($brown-color, 400),
+  500: $brown-color,
+  600: colorFunctions.colorvariant($brown-color, 600),
+  700: colorFunctions.colorvariant($brown-color, 700),
+  800: colorFunctions.colorvariant($brown-color, 800),
+  900: colorFunctions.colorvariant($brown-color, 900),
+  contrast: (
+    50: colorFunctions.colorcontrast($brown-color, 50),
+    100: colorFunctions.colorcontrast($brown-color, 100),
+    200: colorFunctions.colorcontrast($brown-color, 200),
+    300: colorFunctions.colorcontrast($brown-color, 300),
+    400: colorFunctions.colorcontrast($brown-color, 400),
+    500: colorFunctions.colorcontrast($brown-color, 500),
+    600: colorFunctions.colorcontrast($brown-color, 600),
+    700: colorFunctions.colorcontrast($brown-color, 700),
+    800: colorFunctions.colorcontrast($brown-color, 800),
+    900: colorFunctions.colorcontrast($brown-color, 900),
+  ),
+);
+
+$brown: mat.m2-define-palette($brown-colors);

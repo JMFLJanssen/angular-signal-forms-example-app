@@ -1,0 +1,136 @@
+@if (isForm()) {
+    <ng-container *ngTemplateOutlet="form"></ng-container>
+    <ng-container *ngTemplateOutlet="buttons"></ng-container>
+} @else {
+    <ng-container *ngTemplateOutlet="chapterList"></ng-container>
+}
+
+<ng-template #chapterList>
+    <div class="bg-grey-1 opacity-90 p-3 rounded-sm">
+        @if (isEmpty()) {
+            No chapters created for this article (yet)
+        }
+        @for (chapter of chapters()().value(); track chapter.id; let index = $index) {
+            @if (chapter.status !== 3) {
+                <div class="flex flex-row items-center justify-between w-full">
+                    <span>{{ chapter.title }}</span>
+                    <button matIconButton color="accent" (click)="open(index)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+            }
+        }
+    </div>
+    <div class="mt-6">
+        <button matButton="filled" color="accent" (click)="createNew()">
+            <mat-icon>add</mat-icon>Chapter
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #form>
+    <mat-accordion [togglePosition]="'before'">
+        <mat-expansion-panel expanded="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="flex flex-row items-center">
+                    @if (chapterForm.title().touched() && chapterForm.title().errors().length > 0) {
+                        <mat-icon class="mr-1 text-danger">error</mat-icon>
+                    }
+                    <span>Title *</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="bg-grey-1 opacity-90 p-3">
+                <div class="ro-form-field w-full">
+                    @if (chapterForm.title().touched() && chapterForm.title().errors()) {
+                        @for (error of chapterForm.title().errors(); track $index) {
+                            <mat-error>{{ error.message }}</mat-error>
+                        }
+                    }
+                    <input matInput [formField]="chapterForm.title" #title />
+                    <mat-hint class="w-full flex justify-end pr-6"
+                        >{{ title.value.length }} / 50</mat-hint
+                    >
+                </div>
+                <div class="flex flex-row items-center gap-2">
+                    <button matIconButton color="accent" (click)="openInfoDialog()">
+                        <mat-icon>info</mat-icon>
+                    </button>
+                    <span class="mr-2">Show title ?</span>
+                    <mat-slide-toggle [formField]="chapterForm.showTitle"></mat-slide-toggle>
+                </div>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title class="flex flex-row items-center">
+                    @if (chapterForm.text().errors().length > 0) {
+                        <mat-icon class="mr-1 text-info">warning</mat-icon>
+                    }
+                    <span>Chapter text content *</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="bg-grey-1 opacity-90 p-3">
+                <ngx-editor-menu
+                    [editor]="editor"
+                    [toolbar]="toolbar"
+                    [colorPresets]="colorPresets"
+                />
+                <ngx-editor
+                    [editor]="editor"
+                    [(ngModel)]="content"
+                    (ngModelChange)="updateChapterForm()"
+                />
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title class="flex flex-row items-center">
+                    @if (chapterForm.image.imageUrl().errors().length > 0) {
+                        <mat-icon class="mr-1 text-info">warning</mat-icon>
+                    }
+                    <span>Chapter image *</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="bg-grey-1 opacity-90 p-3">
+                <div class="ro-form-field w-full mb-6">
+                    <mat-label>Optional image caption</mat-label>
+                    <input matInput [formField]="chapterForm.imageCaption" #caption />
+                    <mat-hint class="w-full flex justify-end pr-6"
+                        >{{ caption.value.length }} / 100</mat-hint
+                    >
+                </div>
+                <image-form [image]="chapterForm.image"></image-form>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</ng-template>
+
+<ng-template #buttons>
+    <div class="flex flex-row justify-between my-6">
+        <button
+            matIconButton
+            filled
+            color="accent"
+            [class]="chapterModel().order !== 0 ? 'visible' : 'invisible'"
+            (click)="deleteChapter(); toggle()"
+            typ="button"
+        >
+            <mat-icon>delete</mat-icon>
+        </button>
+        <div class="button-group">
+            <button matButton="outlined" color="white" (click)="toggle()">
+                <mat-icon>close</mat-icon>
+                Cancel
+            </button>
+            <button
+                matButton="filled"
+                color="accent"
+                [disabled]="chapterForm().invalid()"
+                (click)="submitForm(); toggle()"
+            >
+                <mat-icon>upload</mat-icon>
+                Upload to article
+            </button>
+        </div>
+    </div>
+</ng-template>

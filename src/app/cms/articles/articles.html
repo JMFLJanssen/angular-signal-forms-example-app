@@ -1,0 +1,77 @@
+<div class="w-full px-32 flex flex-col mt-6">
+    <div class="flex flex-row justify-between items-center mb-6">
+        <button
+            matIconButton
+            filled
+            color="accent"
+            type="button"
+            (click)="add()"
+            [routerLink]="'/cms/article/edit'"
+        >
+            <mat-icon>add</mat-icon>
+        </button>
+        <span class="text-6xl text-primary-50">Articles</span>
+        <button
+            matIconButton
+            filled
+            color="accent"
+            type="button"
+            [class]="{ invisible: articleService.articles().length === 0 }"
+            [routerLink]="'/cms/article/edit'"
+        >
+            <mat-icon>edit</mat-icon>
+        </button>
+    </div>
+    @if (articleService.articles().length === 0) {
+        <div class="flex w-full justify-center">
+            <ng-container *ngTemplateOutlet="info"></ng-container>
+        </div>
+    } @else {
+        <div class="flex flex-row gap-6 mt-6">
+            <div class="w-5/12">
+                <ng-container *ngTemplateOutlet="list"></ng-container>
+            </div>
+            <div class="w-7/12">
+                <article-view [articleId]="articleService.selectedID()"></article-view>
+            </div>
+        </div>
+    }
+</div>
+
+<ng-template #info>
+    <div class="flex flex-row gap-3 items-center bg-info-50 p-3 rounded-sm w-fit mt-6">
+        <mat-icon class="text-info">info</mat-icon>
+        <span>No articles created yet.</span>
+    </div>
+</ng-template>
+
+<ng-template #list>
+    <div
+        class="bg-grey-1 opacity-90 rounded-sm p-3"
+        [class]="articleService.articles().length === 0 ? 'mt-13' : 'mt-0'"
+    >
+        <mat-action-list>
+            @for (
+                item of articleService.articles();
+                track item.id;
+                let last = $last;
+                let index = $index
+            ) {
+                <mat-list-item
+                    (click)="select(item.id)"
+                    [class]="{
+                        'bg-accent-100': articleService.article().id === item.id,
+                    }"
+                >
+                    <span matListItemTitle>{{ item.title }}</span>
+                    <div matListItemMeta class="pt-2">
+                        <mat-icon class="text-accent">chevron_right</mat-icon>
+                    </div>
+                </mat-list-item>
+                @if (!last) {
+                    <div class="py-1"><mat-divider></mat-divider></div>
+                }
+            }
+        </mat-action-list>
+    </div>
+</ng-template>

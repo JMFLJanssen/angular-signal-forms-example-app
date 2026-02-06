@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 flex justify-between items-center mb-6">
+            <span class="text-2xl text-grey-1">Latest articles</span>
+            <button matButton color="white" [routerLink]="'/articles'" (click)="selectNone()">
+                <div class="flex flex-row gap-1">
+                    <span>All articles</span>
+                    <div class="mt-0.75"><mat-icon>chevron_right</mat-icon></div>
+                </div>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        @for (article of articleService.articles().slice(0, 3); track article.id) {
+            @if (article.status === 1) {
+                <div class="col-4">
+                    <article-card [articleId]="article.id"></article-card>
+                </div>
+            }
+        }
+    </div>
+    <div class="row">
+        <div class="col-12 flex justify-between items-center my-6">
+            <span class="text-2xl text-grey-1">Latest news</span>
+            <button matButton color="white" [routerLink]="'/news'" (click)="selectNone()">
+                <div class="flex flex-row gap-1">
+                    <span>All news</span>
+                    <div class="mt-0.75"><mat-icon>chevron_right</mat-icon></div>
+                </div>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        @for (news of newsService.newsItems().slice(0, 3); track news.id) {
+            <div class="col-4">
+                <div
+                    class="bg-grey-1 rounded-sm p-6 flex flex-col text-center h-42 justify-between items-center"
+                    (click)="selectNewsItem(news.id)"
+                    [routerLink]="'/news'"
+                >
+                    <h4 class="text-primary">{{ news.title }}</h4>
+                    <button matButton="outlined" color="accent" class="w-fit">
+                        Read news item
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

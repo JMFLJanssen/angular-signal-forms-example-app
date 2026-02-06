@@ -1,0 +1,40 @@
+// In contrast to the default Material design chips, the Rijkshuisstijl chips
+// are squared. In essence being smaller buttons.
+$madui-chip-border-radius: 16px;
+
+// Chips in groups
+$madui-chip-group-margin: 4px;
+
+// The heights of the chips are device dependent
+$madui-chip-heights: (
+  'handset': 28px,
+  'tablet': 30px,
+  'web': 32px,
+);
+
+// A chip kan have a supportive icon. Default icons are always 24x24px,
+// but due to the limited height of a chip, this is adjusted slightly
+// the smaller the device gets.
+$madui-chip-icon-sizes: (
+  'handset': 0.8,
+  'tablet': 0.9,
+  'web': 1,
+);
+
+// When using a mat-chip-list always add default top and bottom margin
+$madui-chip-margins: (
+  'handset': 16px,
+  'tablet': 24px,
+  'web': 24px,
+);
+
+// The allowed colors for chips
+$madui-chip-colors: (
+  'primary': 'primary',
+  'accent': 'accent',
+  'warn': 'warn',
+  'warning': 'warning',
+  'danger': 'danger',
+  'info': 'info',
+  'success': 'success',
+);

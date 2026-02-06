@@ -1,0 +1,135 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/colors' as colorVariables;
+
+:root {
+  @include mat.select-overrides(
+    (
+      container-elevation-shadow: none,
+      placeholder-text-color: map.get(colorVariables.$coolgray, 500),
+    )
+  );
+}
+
+.ro-form-field {
+  mat-select,
+  .mat-mdc-select-value {
+    height: 44px;
+  }
+
+  mat-select {
+    border: none;
+    border-radius: 2.4px;
+    outline: 2px solid map.get(colorVariables.$coolgray, 500);
+    background-color: white;
+
+    .mat-mdc-select-value {
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .mat-mdc-select-arrow {
+      display: none !important;
+    }
+  }
+
+  /*********
+   * FOCUS *
+   *********/
+
+  mat-select:focus {
+    outline: 2px solid var(--accent);
+  }
+
+  /************
+   * DISABLED *
+   ************/
+
+  mat-select:disabled {
+    background-color: map.get(colorVariables.$coolgray, 200);
+    color: map.get(colorVariables.$coolgray, 600);
+    outline: 2px solid map.get(colorVariables.$coolgray, 200);
+  }
+}
+
+/************************
+ * DARKMODE CORRECTIONS *
+ ************************/
+
+.dark-mode .ro-form-field {
+  mat-select {
+    background-color: black;
+  }
+
+  mat-select:disabled {
+    background-color: map.get(colorVariables.$coolgray, 600);
+    color: map.get(colorVariables.$coolgray, 200);
+    outline: 2px solid map.get(colorVariables.$coolgray, 600);
+  }
+}
+
+/***************************
+ * HIDE STANDARD CHECKMARK *
+ ***************************/
+
+// Hide the standard checkmark of the selected option
+.mat-pseudo-checkbox {
+  display: none !important;
+}
+
+/**********************************
+ * SELECTION PANEL AS ACTION LIST *
+ **********************************/
+
+.mat-mdc-select-panel {
+  // The Rijkshuisstijl 2025 has a slightly rounded border for most elements
+  border: 1.5px solid var(--accent);
+}
+
+// Drop the default light grey background of the first element
+.mat-mdc-option:not(.mdc-list-item--selected):focus.mdc-list-item,
+.mat-mdc-option:not(.mdc-list-item--selected).mdc-list-item {
+  background: transparent !important;
+}
+
+.mat-mdc-option:hover:not(.mat-mdc-option-disabled) {
+  background: var(--accent-50) !important;
+
+  span {
+    color: var(--accent-contrast-50) !important;
+  }
+}
+
+// Selected color = hue 100 of theme's accent color
+.mat-mdc-option.mdc-list-item--selected {
+  background: var(--accent-100) !important;
+
+  span {
+    color: var(--accent-contrast-100) !important;
+  }
+}
+
+// Hover color = hue 900 of theme's accent color
+.dark-mode .mat-mdc-option:hover:not(.mat-mdc-option-disabled) {
+  background: var(--accent-900) !important;
+
+  span {
+    color: var(--accent-contrast-900) !important;
+  }
+}
+
+// Selected color = hue 800 of theme's accent color
+.dark-mode .mat-mdc-option.mdc-list-item--selected {
+  background: var(--accent-800) !important;
+
+  span {
+    color: var(--accent-contrast-800) !important;
+  }
+}
+
+.mat-pseudo-checkbox-full.mat-pseudo-checkbox-checked,
+.mat-pseudo-checkbox-full.mat-pseudo-checkbox-indeterminate {
+  background-color: var(--accent) !important;
+}

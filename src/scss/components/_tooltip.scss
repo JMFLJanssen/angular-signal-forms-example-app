@@ -1,0 +1,48 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/typography' as typographyVariables;
+@use '../utils/variables/breakpoints' as breakpointVariables;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+
+div.mat-mdc-tooltip-surface.mdc-tooltip__surface {
+  background-color: var(--primary) !important;
+  color: var(--primary-contrast) !important;
+}
+
+:root,
+:root .dark-mode {
+  @include mat.tooltip-overrides(
+    (
+      container-shape: 3px,
+    )
+  );
+}
+
+@each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+  @include breakpointMixins.media-breakpoint-only($device) {
+    $fontSizes: map.get(
+      $map: typographyVariables.$font-sizes,
+      $key: $device,
+    );
+
+    :root {
+      @include mat.tooltip-overrides(
+        (
+          supporting-text-size: calc(map.get($fontSizes, 'body') * map.get($fontSizes, 'small')),
+        )
+      );
+    }
+  }
+}
+
+/************
+ * INVERTED *
+ ************/
+
+.ro-tooltip-inverted div.mat-mdc-tooltip-surface.mdc-tooltip__surface {
+  background-color: var(--primary-contrast) !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--primary);
+}

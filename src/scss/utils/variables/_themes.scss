@@ -1,0 +1,182 @@
+/***************************
+ * LIGHT THEME DEFINITIONS *
+ ***************************/
+
+// DEFENSIE THEMES
+$mindef-theme: (
+  'primary': 'orange',
+  'accent': 'skyblue',
+  'warn': 'purple',
+);
+
+$commit-theme: (
+  'primary': 'orange',
+  'accent': 'skyblue',
+  'warn': 'purple',
+);
+
+$kl-theme: (
+  'primary': 'kl',
+  'accent': 'orange',
+  'warn': 'skyblue',
+);
+
+$klu-theme: (
+  'primary': 'klu',
+  'accent': 'orange',
+  'warn': 'skyblue',
+);
+
+$km-theme: (
+  'primary': 'km',
+  'accent': 'orange',
+  'warn': 'skyblue',
+);
+
+$kmar-theme: (
+  'primary': 'kmar',
+  'accent': 'skyblue',
+  'warn': 'orange',
+);
+
+// CUSTOM THEMES
+$frosty-theme: (
+  'primary': 'kmar',
+  'accent': 'skyblue',
+  'warn': 'mintgreen',
+);
+
+$fresh-theme: (
+  'primary': 'kmar',
+  'accent': 'skyblue',
+  'warn': 'orange',
+);
+
+$custom-theme: (
+  'primary': 'skyblue',
+  'accent': 'darkblue',
+  'warn': 'orange',
+);
+
+// ALL LIGHT THEMES
+$light-themes: (
+  'mindef': $mindef-theme,
+  'commit': $commit-theme,
+  'km': $km-theme,
+  'kl': $kl-theme,
+  'klu': $klu-theme,
+  'kmar': $kmar-theme,
+  'fresh': $fresh-theme,
+  'frosty': $frosty-theme,
+  'custom': $custom-theme,
+);
+
+/**************************
+ * DARK THEME DEFINITIONS *
+ **************************/
+
+// DEFENSIE THEMES
+$mindef-dark-theme: (
+  'primary': 'orange',
+  'accent': 'skyblue',
+  'warn': 'lightblue',
+);
+
+$commit-dark-theme: (
+  'primary': 'orange',
+  'accent': 'skyblue',
+  'warn': 'lightblue',
+);
+
+$kl-dark-theme: (
+  'primary': 'kl',
+  'accent': 'skyblue',
+  'warn': 'darkyellow',
+);
+
+$klu-dark-theme: (
+  'primary': 'klu',
+  'accent': 'skyblue',
+  'warn': 'darkyellow',
+);
+
+$km-dark-theme: (
+  'primary': 'km',
+  'accent': 'lightblue',
+  'warn': 'darkyellow',
+);
+
+$kmar-dark-theme: (
+  'primary': 'kmar',
+  'accent': 'darkyellow',
+  'warn': 'lightblue',
+);
+
+// CUSTOM THEMES
+$frosty-dark-theme: (
+  'primary': 'kmar',
+  'accent': 'skyblue',
+  'warn': 'mintgreen',
+);
+
+$fresh-dark-theme: (
+  'primary': 'kmar',
+  'accent': 'darkyellow',
+  'warn': 'lightblue',
+);
+
+$custom-dark-theme: (
+  'primary': 'skyblue',
+  'accent': 'darkblue',
+  'warn': 'darkyellow',
+);
+
+// ALL DARK THEMS
+$dark-themes: (
+  'mindef': $mindef-dark-theme,
+  'commit': $commit-dark-theme,
+  'km': $km-dark-theme,
+  'kl': $kl-dark-theme,
+  'klu': $klu-dark-theme,
+  'kmar': $kmar-dark-theme,
+  'fresh': $fresh-dark-theme,
+  'frosty': $frosty-dark-theme,
+  'custom': $custom-dark-theme,
+);
+
+/*****************
+ * THEME CLASSES *
+ *****************/
+
+$theme-classes: (
+  '.km',
+  '.kl',
+  '.klu',
+  '.kmar',
+  '.commit',
+  '.mindef',
+  '.frosty',
+  '.fresh',
+  '.custom',
+  '.km-dark',
+  '.kl-dark',
+  '.klu-dark',
+  '.kmar-dark',
+  '.commit-dark',
+  '.mindef-dark',
+  '.frosty-dark',
+  '.fresh-dark',
+  '.custom-dark'
+);
+
+$theme-class-map: (
+  'km': '.km',
+  'kl': '.kl',
+  'klu': '.klu',
+  'kmar': '.kmar',
+  'commit': '.commit',
+  'mindef': '.mindef',
+  'fresh': '.fresh',
+  'frosty': '.frosty',
+  'custom': '.custom',
+);

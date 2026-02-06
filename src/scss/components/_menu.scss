@@ -1,0 +1,88 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/menu' as menuVariables;
+@use '../utils/variables/typography' as typographyVariables;
+
+:root {
+  @include mat.menu-overrides(
+    (
+      container-shape: 5px,
+    )
+  );
+}
+
+/****************
+ * SUBMENU ICON *
+ ****************/
+.mat-mdc-menu-content {
+  // Remove the default Material icon
+  button > svg {
+    @if (menuVariables.$madui-menu-hide_submenu_icon) {
+      display: none !important;
+    }
+  }
+
+  // Make room on the right of the text for the new ro-icon submenu icon
+  button {
+    margin-right: 24px;
+  }
+
+  // Position the submenu icon correctly
+  .mat-mdc-menu-item .mat-icon.position-right,
+  button[mat-menu-item] .mat-mdc-menu-item-text ro-icon.position-right {
+    position: absolute;
+    right: 0px;
+    align-self: center !important;
+  }
+
+  padding-right: 0;
+}
+
+button[mat-menu-item] .mat-mdc-menu-item-text {
+  display: flex;
+  align-items: center;
+
+  ro-icon,
+  mat-icon {
+    margin-right: 16px;
+    margin-top: 4px;
+  }
+
+  ro-icon.position-right {
+    svg {
+      fill: var(--accent) !important;
+    }
+  }
+}
+
+.mat-mdc-menu-item .mat-icon-no-color,
+.mat-mdc-menu-item .mat-mdc-menu-submenu-icon {
+  color: var(--accent) !important;
+}
+
+.mat-mdc-menu-panel {
+  // The Rijkshuisstijl 2025 has a slightly rounded border for most elements
+  border: 1px solid var(--primary-100);
+}
+
+.dark-mode .mat-mdc-menu-panel {
+  border: 1px solid var(--primary-400);
+}
+
+.mat-mdc-menu-panel.mat-mdc-menu-panel {
+  max-width: 320px;
+  min-width: 200px;
+}
+
+/************
+ * COLORING *
+ ************/
+
+.mat-mdc-menu-item:hover {
+  background-color: var(--accent-50) !important;
+}
+
+.dark-mode .mat-mdc-menu-item:hover {
+  background-color: var(--accent-800) !important;
+}

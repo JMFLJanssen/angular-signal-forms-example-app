@@ -1,0 +1,17 @@
+@use "./colors" as colorVariables;
+
+// The height of the track
+$madui-slider-track-height: 4px;
+
+// Default the slider track height = 6px , so if you change it
+// you have to adapt the top-margin of the active track to
+// vertically lineup with the inactive track
+$madui-slider-track-active-top-margin: 1px;
+
+// The Rijkshuisstijl specifies a  12px size for the knob
+$madui-slider-knob-size: 12px;
+// But in the hover state it's 18px
+$madui-slider-knob-size-hover: 18px;
+
+// The default color for the track = the inactive part
+$madui-slider-track-color: colorVariables.$grey-3;

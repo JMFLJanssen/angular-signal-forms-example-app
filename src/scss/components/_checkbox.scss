@@ -1,0 +1,141 @@
+@use 'sass:map' as map;
+@use '@angular/material' as mat;
+
+@use '../utils/variables/checkbox' as checkboxVariables;
+@use '../utils/variables/colors' as colorVariables;
+@use '../utils/variables/typography' as typographyVariables;
+@use '../utils/variables/button' as buttonVariables;
+@use '../utils/variables/breakpoints' as breakpointVariables;
+
+@use '../utils/mixins/breakpoints' as breakpointMixins;
+
+/**************************
+ * ALL !IMPORTANT CHECKED *
+ **************************/
+
+// Changing the size of the checkbox
+.mdc-checkbox__background {
+  width: checkboxVariables.$madui-checkbox-size !important;
+  height: checkboxVariables.$madui-checkbox-size !important;
+}
+
+.mat-mdc-checkbox {
+  // The default size of a radio button is always 44px, since this is the though area size
+  height: buttonVariables.$madui-button-height !important;
+
+  // Size of the labels = body
+  .mdc-form-field > label {
+    padding-left: checkboxVariables.$madui-checkbox-label-distance;
+
+    @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+      @include breakpointMixins.media-breakpoint-only($device) {
+        // The typography used for the chips = caption, which is device dependent in size
+        $font-size: map.get(
+          map.get(
+            $map: typographyVariables.$font-sizes,
+            $key: $device,
+          ),
+          'body'
+        );
+        @include mat.checkbox-overrides(
+          (
+            label-text-size: $font-size,
+          )
+        );
+      }
+    }
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/*********************
+ * CHECKBOX COLORING *
+ *********************/
+
+.mat-mdc-checkbox {
+  --mat-checkbox-disabled-label-color: #b4b4b4 !important;
+}
+
+.mat-mdc-checkbox .mdc-form-field > label {
+  color: black;
+}
+
+.dark-mode .mat-mdc-checkbox .mdc-form-field > label {
+  color: white;
+}
+
+/*************************
+ * MATERIAL THEME COLORS *
+ *************************/
+
+/*******************************************
+ * MATERIAL 18 FIX: THEME COLORING LIKE M2 *
+ *******************************************/
+
+// LIGHT THEME
+mat-checkbox label {
+  color: colorVariables.$black;
+}
+
+mat-checkbox:not([color='primary']),
+mat-checkbox:not([color='warn']),
+mat-checkbox[color='accent'],
+mat-checkbox {
+  --mat-checkbox-selected-icon-color: var(--accent) !important;
+  --mat-checkbox-selected-pressed-icon-color: var(--accent) !important;
+  --mat-checkbox-selected-focus-state-layer-color: var(--accent) !important;
+  --mat-checkbox-selected-focus-icon-color: var(--accent) !important;
+  --mat-checkbox-selected-hover-icon-color: var(--accent) !important;
+  --mat-checkbox-selected-hover-state-layer-color: var(--accent) !important;
+  --mat-checkbox-selected-checkmark-color: var(--accent-contrast) !important;
+
+  .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate='true']) ~ .mdc-checkbox__background {
+    border: 2px solid var(--accent) !important;
+    background-color: white !important;
+  }
+}
+
+mat-checkbox[color='primary'] {
+  --mat-checkbox-selected-icon-color: var(--primary) !important;
+  --mat-checkbox-selected-pressed-icon-color: var(--primary) !important;
+  --mat-checkbox-selected-focus-state-layer-color: var(--primary) !important;
+  --mat-checkbox-selected-focus-icon-color: var(--primary) !important;
+  --mat-checkbox-selected-hover-icon-color: var(--primary) !important;
+  --mat-checkbox-selected-hover-state-layer-color: var(--primary) !important;
+  --mat-checkbox-selected-checkmark-color: var(--primary-contrast) !important;
+
+  .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate='true']) ~ .mdc-checkbox__background {
+    border: 2px solid var(--primary) !important;
+    background-color: white !important;
+  }
+}
+
+mat-checkbox[color='warn'] {
+  --mat-checkbox-selected-icon-color: var(--warn) !important;
+  --mat-checkbox-selected-pressed-icon-color: var(--warn) !important;
+  --mat-checkbox-selected-focus-state-layer-color: var(--warn) !important;
+  --mat-checkbox-selected-focus-icon-color: var(--warn) !important;
+  --mat-checkbox-selected-hover-icon-color: var(--warn) !important;
+  --mat-checkbox-selected-hover-state-layer-color: var(--warn) !important;
+  --mat-checkbox-selected-checkmark-color: var(--warn-contrast) !important;
+
+  .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate='true']) ~ .mdc-checkbox__background {
+    border: 2px solid var(--warn) !important;
+    background-color: white !important;
+  }
+}
+
+// DARK THEME
+.kmar-dark mat-checkbox label {
+  color: colorVariables.$white;
+}
+
+.dark-mode .mat-mdc-checkbox {
+  .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate='true']) ~ .mdc-checkbox__background {
+    background-color: black !important;
+  }
+}
