@@ -79,7 +79,18 @@ export class NewsItems implements OnInit, OnDestroy {
      *   he has gone over and invalidate the form.
      */
     updateNewsForm() {
-        const count = this.editorContent.replace(/<[^>]*>/g, '').length;
+        // First remove the HTML tags from the content, to count the actual characters entered by the user, not the enrichments through the editor.
+        let text = this.editorContent.replace(/<[^>]*>/g, '');
+        // Convert the ascii characters to their actual character, e.g. &lt; to a <, to count the actual characters entered by the user, not the enrichments through the editor.
+        text = text
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&amp;/g, '&')
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, "'");
+
+        const count = text.length;
+
         if (count === 0 && this.editorContent.length > 0) {
             // content has been entered and then deleted => create an error message
             this.editorErrorMessage.set('A news item must have some content.');
