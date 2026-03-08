@@ -2,9 +2,7 @@
     <div class="w-1/2">
         @if (articleService.selectedID().length > 0) {
             <div class="flex flex-col gap-6 mt-6">
-                <button matButton="filled" color="accent" (click)="back()" class="w-fit">
-                    <mat-icon>arrow_back</mat-icon>All articles
-                </button>
+                <button matButton="filled" color="accent" (click)="back()" class="w-fit"><mat-icon>arrow_back</mat-icon>All articles</button>
                 <article-view [articleId]="articleService.selectedID()"></article-view>
             </div>
         } @else {
@@ -21,18 +19,9 @@
                         <mat-chip color="primary" class="w-fit">{{ category.name }}</mat-chip>
                     </div>
                     @if (latestArticle.category === category.id) {
-                        <div
-                            #imageContainer
-                            class="relative w-full mt-3 cursor-pointer"
-                            (click)="selectArticle(latestArticle.id)"
-                        >
-                            <img
-                                [src]="latestArticle.image.imageUrl"
-                                class="w-full h-100 object-cover rounded-md"
-                            />
-                            <div
-                                class="absolute top-0 left-0 gradient w-full h-full rounded-sm"
-                            ></div>
+                        <div #imageContainer class="relative w-full mt-3 cursor-pointer" (click)="selectArticle(latestArticle.id)">
+                            <img [src]="latestArticle.image.imageUrl" class="w-full h-100 object-cover rounded-md" />
+                            <div class="absolute top-0 left-0 gradient w-full h-full rounded-sm"></div>
                             <div class="absolute bottom-3 left-6 text-white">
                                 <h3>{{ latestArticle.title }}</h3>
                                 <small>{{ latestArticle.excerpt }}</small>

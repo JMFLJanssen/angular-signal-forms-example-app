@@ -1,10 +1,10 @@
-@use "./colors" as colorVariables;
+@use './colors' as colorVariables;
 
 // Font-size used for title
-$madui-list-font-size-title: "body";
+$madui-list-font-size-title: 'body';
 
 // Font-size user for secondary lines
-$madui-list-font-size-line: "caption";
+$madui-list-font-size-line: 'caption';
 
 // The color used for secondary lines
 $madui-list-text-color-line: colorVariables.$grey-4;

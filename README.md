@@ -31,21 +31,26 @@ This app connects to a real backend powered by Firebase. Due to the Google billi
 ## 🛠️ Getting Started
 
 **Step 1**: Create a Firebase Project
+
 - Visit the Firebase <a href="https://console.firebase.google.com/">Console</a>
 - Click “Create a new Firebase project” and follow the prompts to create a new Firebase project.
 - Form the "Build" product category add Hosting, Firestore Database & Storage and follow the instructions to add hosting, create the database and create the storage bucket (for this the pricing plan needs to be upgraded).
 
 **Step 2**: Set up Firebase
+
 ```bash
 npm install -g firebase-tools
 ```
 
 **Step 3**: Install as new project
+
 - Download the project
 - install modules: <code>--force</code> is needed since up-to-date (feb 6 2026) @angular/fire is not yet v21 compatible, but still usable.
+
 ```bash
 npm i --force
 ```
+
 - Goto the Firebase project and copy the project's General Settings and copy your web app's Firebase configuration.
 - open <code>app.config.ts</code> and replace the impersonalized firebase settings for yours.
 
@@ -64,6 +69,7 @@ The create/update/delete functions of the services have been disabled by putting
 ---
 
 ## 🧩 Roadmap
+
 Although not Signal Form related this project only becomes a true real-world example when access to the CMS is restricted for editors & admins. For this the following features still have to be implemented.
 
 - [ ] Firebase authentication & Role management
@@ -73,6 +79,7 @@ Although not Signal Form related this project only becomes a true real-world exa
 ---
 
 ## 🐛 Found a bug? Got an idea?
+
 I love feedback! I'm sure there is a bug somewhere or there are improved ways to get the same result. Got an idea or found a bug? [open an issue](https://github.com/JMFLJanssen/angular-signal-forms-example-app/issues/new).
 
 ---

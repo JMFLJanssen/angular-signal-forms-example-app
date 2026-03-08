@@ -11,48 +11,48 @@
 
 // Media of at least the minimum breakpoint width: no for xs
 @mixin media-breakpoint-up($name) {
-  $min: breakpoint-min($name);
+    $min: breakpoint-min($name);
 
-  @if $min {
-    @media (min-width: $min) {
-      @content;
+    @if $min {
+        @media (min-width: $min) {
+            @content;
+        }
+    } @else {
+        @content;
     }
-  } @else {
-    @content;
-  }
 }
 
 // Media of at most the maximum breakpoint width. No query for the largest breakpoint.
 @mixin media-breakpoint-max($name) {
-  $max: breakpoint-max($name);
+    $max: breakpoint-max($name);
 
-  @if $max {
-    @media (max-width: $max) {
-      @content;
+    @if $max {
+        @media (max-width: $max) {
+            @content;
+        }
+    } @else {
+        @content;
     }
-  } @else {
-    @content;
-  }
 }
 
 // Media that spans multiple breakpoint widths.
 @mixin media-breakpoint-between($name) {
-  $min: breakpoint-min($name);
-  $max: breakpoint-max($name);
+    $min: breakpoint-min($name);
+    $max: breakpoint-max($name);
 
-  @if $min !=null and $max !=null {
-    @media (min-width: $min) and (max-width: $max) {
-      @content;
+    @if $min !=null and $max !=null {
+        @media (min-width: $min) and (max-width: $max) {
+            @content;
+        }
+    } @else if $max ==null {
+        @include media-breakpoint-up($name) {
+            @content;
+        }
+    } @else if $min ==null {
+        @include media-breakpoint-max($name) {
+            @content;
+        }
     }
-  } @else if $max ==null {
-    @include media-breakpoint-up($name) {
-      @content;
-    }
-  } @else if $min ==null {
-    @include media-breakpoint-max($name) {
-      @content;
-    }
-  }
 }
 
 /**
@@ -64,23 +64,23 @@
  * @see https://material.angular.io/cdk/layout/overview  
  */
 @mixin media-breakpoint-only($device) {
-  // Get the portrait media query for this device
-  $media-query: map.get(
-    $map: breakpointVariables.$angular-breakpoint-portrait,
-    $key: $device,
-  );
+    // Get the portrait media query for this device
+    $media-query: map.get(
+        $map: breakpointVariables.$angular-breakpoint-portrait,
+        $key: $device,
+    );
 
-  @media only screen and #{$media-query} {
-    @content;
-  }
+    @media only screen and #{$media-query} {
+        @content;
+    }
 
-  // Get the landscape media query for this device
-  $media-query: map.get(
-    $map: breakpointVariables.$angular-breakpoint-landscape,
-    $key: $device,
-  );
+    // Get the landscape media query for this device
+    $media-query: map.get(
+        $map: breakpointVariables.$angular-breakpoint-landscape,
+        $key: $device,
+    );
 
-  @media only screen and #{$media-query} {
-    @content;
-  }
+    @media only screen and #{$media-query} {
+        @content;
+    }
 }

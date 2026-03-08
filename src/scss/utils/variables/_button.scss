@@ -5,9 +5,9 @@ $madui-button-height: 48px !default;
 
 // Button heights are always 44px, but the visible height is dependend on the device
 $madui-button-visible-heights: (
-  'handset': 40px,
-  'tablet': 44px,
-  'web': 48px,
+    'handset': 40px,
+    'tablet': 44px,
+    'web': 48px,
 );
 
 // When the button includes an icon & text, the spacing between icon and text = 8px
@@ -22,10 +22,10 @@ $madui-button-disabled-background-dark: colorVariables.$grey-6;
 $madui-button-disabled-color: colorVariables.$grey-4;
 
 $madui-button-disabled-hues: (
-  'darker': 200,
-  'dark': 200,
-  'light': 300,
-  'lighter': 300,
+    'darker': 200,
+    'dark': 200,
+    'light': 300,
+    'lighter': 300,
 );
 
 /***********************
@@ -34,18 +34,18 @@ $madui-button-disabled-hues: (
 
 // LIGHT THEME: FLAT BUTTON
 $madui-button-flat-hover-hues: (
-  'darker': 300,
-  'dark': 700,
-  'light': 700,
-  'lighter': 700,
+    'darker': 300,
+    'dark': 700,
+    'light': 700,
+    'lighter': 700,
 );
 
 // DARK THEME: FLAT BUTTON
 $madui-button-flat-hover-hues-dark-theme: (
-  'darker': 300,
-  'dark': 700,
-  'light': 700,
-  'lighter': 700,
+    'darker': 300,
+    'dark': 700,
+    'light': 700,
+    'lighter': 700,
 );
 
 // STROKED & BASIC BUTTON

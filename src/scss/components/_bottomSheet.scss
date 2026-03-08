@@ -7,18 +7,18 @@
 // 2025: lighlty rounded corners
 :root,
 :root .dark-mode {
-  @include mat.bottom-sheet-overrides(
-    (
-      container-shape: 8px,
-    )
-  );
+    @include mat.bottom-sheet-overrides(
+        (
+            container-shape: 8px,
+        )
+    );
 }
 
 // Changes:
 // - no border-radius
 // - no shadow
 .mat-bottom-sheet-container {
-  box-shadow: none !important;
-  border: cardVariables.$madui-card-border-size solid var(--primary-#{bottomsheetVariables.$madui-bottomsheet-border-hue});
-  border-bottom: none;
+    box-shadow: none !important;
+    border: cardVariables.$madui-card-border-size solid var(--primary-#{bottomsheetVariables.$madui-bottomsheet-border-hue});
+    border-bottom: none;
 }

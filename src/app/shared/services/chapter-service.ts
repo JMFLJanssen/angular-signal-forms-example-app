@@ -40,11 +40,7 @@ export class ChapterService {
      */
     async create(chapter: Chapter) {
         // A article chapter doesn't need to have an image!
-        if (
-            chapter.image.imageUrl &&
-            chapter.image.imageUrl.startsWith('data:image') &&
-            chapter.image.imageFile
-        ) {
+        if (chapter.image.imageUrl && chapter.image.imageUrl.startsWith('data:image') && chapter.image.imageFile) {
             // 1. Image
             const guid = createGuid();
             const path = `images/articles/${chapter.article}/${guid}`;
@@ -93,11 +89,7 @@ export class ChapterService {
      */
     async update(chapter: Chapter) {
         // 1. new image uploaded?
-        if (
-            chapter.image.imageUrl &&
-            chapter.image.imageUrl.startsWith('data:image') &&
-            chapter.image.imageFile
-        ) {
+        if (chapter.image.imageUrl && chapter.image.imageUrl.startsWith('data:image') && chapter.image.imageFile) {
             // Get the old url and delete the old image
             const oldImageUrl = this.chapter()!.image.imageUrl;
             if (oldImageUrl) await this.imageApi.deleteImage(oldImageUrl);

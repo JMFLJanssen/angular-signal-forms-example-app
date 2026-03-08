@@ -175,10 +175,4 @@ export class ToastOptions {
 }
 
 export type ToastType = 'success' | 'warning' | 'info' | 'error';
-export type ToastPositionType =
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-left'
-    | 'bottom-right'
-    | 'full-bottom'
-    | 'full-top';
+export type ToastPositionType = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'full-bottom' | 'full-top';

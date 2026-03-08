@@ -33,15 +33,9 @@
     <div class="row">
         @for (news of newsService.newsItems().slice(0, 3); track news.id) {
             <div class="col-4">
-                <div
-                    class="bg-grey-1 rounded-sm p-6 flex flex-col text-center h-42 justify-between items-center"
-                    (click)="selectNewsItem(news.id)"
-                    [routerLink]="'/news'"
-                >
+                <div class="bg-grey-1 rounded-sm p-6 flex flex-col text-center h-42 justify-between items-center" (click)="selectNewsItem(news.id)" [routerLink]="'/news'">
                     <h4 class="text-primary">{{ news.title }}</h4>
-                    <button matButton="outlined" color="accent" class="w-fit">
-                        Read news item
-                    </button>
+                    <button matButton="outlined" color="accent" class="w-fit">Read news item</button>
                 </div>
             </div>
         }

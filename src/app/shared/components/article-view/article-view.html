@@ -23,21 +23,14 @@
         <div class="mb-6">
             @if (articleModel?.chapters) {
                 @for (chapter of articleModel!.chapters; track chapter.id; let even = $even) {
-                    <div
-                        *ngTemplateOutlet="
-                            chapterTemplate;
-                            context: { chapter: chapter, even: even }
-                        "
-                    ></div>
+                    <div *ngTemplateOutlet="chapterTemplate; context: { chapter: chapter, even: even }"></div>
                 }
             }
         </div>
     } @else {
         <div class="mb-6">
             @for (chapter of chapterService.articleChapters(); track chapter.id; let even = $even) {
-                <div
-                    *ngTemplateOutlet="chapterTemplate; context: { chapter: chapter, even: even }"
-                ></div>
+                <div *ngTemplateOutlet="chapterTemplate; context: { chapter: chapter, even: even }"></div>
             }
         </div>
     }
@@ -58,9 +51,7 @@
                         <div class="my-2 flex flex-col">
                             <img class="w-full object-cover" [src]="chapter.image.imageUrl" />
                             @if (chapter.imageCaption) {
-                                <small class="line-clamp-1 text-grey-4 mt-1">{{
-                                    chapter.imageCaption
-                                }}</small>
+                                <small class="line-clamp-1 text-grey-4 mt-1">{{ chapter.imageCaption }}</small>
                             }
                         </div>
                     }
@@ -69,9 +60,7 @@
                             <div class="flex flex-col w-5/12 float-left mb-1 mr-4">
                                 <img [src]="chapter.image.imageUrl" />
                                 @if (chapter.imageCaption) {
-                                    <small class="line-clamp-2 text-grey-4 mt-1">{{
-                                        chapter.imageCaption
-                                    }}</small>
+                                    <small class="line-clamp-2 text-grey-4 mt-1">{{ chapter.imageCaption }}</small>
                                 }
                             </div>
                             <span [innerHTML]="chapter.text"></span>
@@ -82,9 +71,7 @@
                             <div class="flex flex-col w-5/12 float-right mb-1 ml-4">
                                 <img [src]="chapter.image.imageUrl" />
                                 @if (chapter.imageCaption) {
-                                    <small class="line-clamp-2 text-grey-4">{{
-                                        chapter.imageCaption
-                                    }}</small>
+                                    <small class="line-clamp-2 text-grey-4">{{ chapter.imageCaption }}</small>
                                 }
                             </div>
 

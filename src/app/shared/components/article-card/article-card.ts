@@ -40,8 +40,7 @@ export class ArticleCard {
      * Click on 'Read the full article' => load the full Article object (not just the ArticleItem).
      */
     loadArticle() {
-        if (!this.articleId() && this.articleItem()!.id)
-            this.articleService.selectedID.set(this.articleItem()!.id);
+        if (!this.articleId() && this.articleItem()!.id) this.articleService.selectedID.set(this.articleItem()!.id);
         else if (this.articleId()) this.articleService.selectedID.set(this.articleId()!);
     }
 }

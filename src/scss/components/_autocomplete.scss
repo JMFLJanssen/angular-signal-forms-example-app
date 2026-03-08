@@ -5,12 +5,12 @@
 // Styles from the material/autocomplete package can be customized using the autocomplete-overrides mixin.
 :root,
 :root .dark-mode {
-  @include mat.autocomplete-overrides(
-    (
-      // No elevation shadow for the opened select
-      container-elevation-shadow: none
-    )
-  );
+    @include mat.autocomplete-overrides(
+        (
+            // No elevation shadow for the opened select
+            container-elevation-shadow: none
+        )
+    );
 }
 
 /**
@@ -21,5 +21,5 @@
 
 // A border around the option list
 .mat-mdc-autocomplete-panel {
-  border: 1.5px solid var(--accent);
+    border: 1.5px solid var(--accent);
 }

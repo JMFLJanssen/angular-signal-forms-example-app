@@ -101,9 +101,7 @@ export class ChaptersForm implements OnInit, OnDestroy {
             .forEach((chapter) => {
                 if (chapter.status === 3) count++;
             });
-        return this.chapters()().value().length === 0 || this.chapters()().value().length === count
-            ? true
-            : false;
+        return this.chapters()().value().length === 0 || this.chapters()().value().length === count ? true : false;
     }
 
     /****************

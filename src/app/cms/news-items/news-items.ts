@@ -59,8 +59,7 @@ export class NewsItems implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.editor = new Editor();
-        if (this.newsService.newsItems().length > 0)
-            this.newsService.selectedID.set(this.newsService.newsItems()[0].id);
+        if (this.newsService.newsItems().length > 0) this.newsService.selectedID.set(this.newsService.newsItems()[0].id);
     }
 
     ngOnDestroy(): void {
@@ -85,8 +84,7 @@ export class NewsItems implements OnInit, OnDestroy {
             // content has been entered and then deleted => create an error message
             this.editorErrorMessage.set('A news item must have some content.');
             this.editorContent = '';
-        } else if (count > this.maxCharactersAllowed)
-            this.editorErrorMessage.set('A news item has a maximum of 1000 characters.');
+        } else if (count > this.maxCharactersAllowed) this.editorErrorMessage.set('A news item has a maximum of 1000 characters.');
         else this.editorErrorMessage.set('');
 
         this.newsModel.update((news) => ({ ...news, text: this.editorContent }));

@@ -12,16 +12,7 @@ import { CategoryService } from '../../shared/services/category-service';
 
 @Component({
     selector: 'categories',
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatIconModule,
-        MatInputModule,
-        FormError,
-        FormField,
-        MatListModule,
-        MatDividerModule,
-    ],
+    imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, FormError, FormField, MatListModule, MatDividerModule],
     templateUrl: './categories.html',
 })
 export class Categories {
@@ -70,8 +61,7 @@ export class Categories {
      * Change from view to form.
      */
     edit() {
-        if (!this.categoryModel().id && this.categoryService.categories().length > 0)
-            this.categoryModel.set(this.categoryService.categories()[0]);
+        if (!this.categoryModel().id && this.categoryService.categories().length > 0) this.categoryModel.set(this.categoryService.categories()[0]);
         this.toggle();
     }
 
@@ -79,9 +69,7 @@ export class Categories {
      * @param id the id of the categpry as selected from the list of existing
      */
     select(id: string) {
-        this.categoryModel.set(
-            this.categoryService.categories().find((category) => category.id === id)!,
-        );
+        this.categoryModel.set(this.categoryService.categories().find((category) => category.id === id)!);
     }
 
     onSubmit(event: Event) {

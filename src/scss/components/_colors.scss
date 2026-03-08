@@ -13,48 +13,45 @@
  *****************************/
 
 @each $color-name, $color-value in colorVariables.$greys {
-  .bg-#{$color-name} {
-    background-color: $color-value !important;
-    color: map.get($map: colorVariables.$grey-contrasts, $key: $color-name);
-  }
+    .bg-#{$color-name} {
+        background-color: $color-value !important;
+        color: map.get($map: colorVariables.$grey-contrasts, $key: $color-name);
+    }
 
-  .border-#{$color-name} {
-    border: 1px solid $color-value;
-  }
+    .border-#{$color-name} {
+        border: 1px solid $color-value;
+    }
 }
 
 // Reverse the colors for darkmode: where grey-1 is a really light grey in the light theme
 // it is a really dark color in darkmode.
 $grey-names: map.keys(
-  $map: colorVariables.$greys,
+    $map: colorVariables.$greys,
 );
 $grey-values: map.values(
-  $map: colorVariables.$greys,
+    $map: colorVariables.$greys,
 );
 $length: calc(list.length($grey-names) - 1);
 
 @for $i from 2 through $length {
-  $index: calc(10 - $i);
-  $grey-value: list.nth(
-    $list: $grey-values,
-    $n: $index,
-  );
-  $grey-name: list.nth(
-    $list: $grey-names,
-    $n: $i,
-  );
-
-  .dark-mode .bg-#{$grey-name} {
-    background-color: $grey-value !important;
-    color: map.get(
-      $map: colorVariables.$grey-contrasts,
-      $key: colorFunctions.colorname($grey-value)
+    $index: calc(10 - $i);
+    $grey-value: list.nth(
+        $list: $grey-values,
+        $n: $index,
     );
-  }
+    $grey-name: list.nth(
+        $list: $grey-names,
+        $n: $i,
+    );
 
-  .dark-mode .border-#{$grey-name} {
-    border: 1px solid $grey-value;
-  }
+    .dark-mode .bg-#{$grey-name} {
+        background-color: $grey-value !important;
+        color: map.get($map: colorVariables.$grey-contrasts, $key: colorFunctions.colorname($grey-value));
+    }
+
+    .dark-mode .border-#{$grey-name} {
+        border: 1px solid $grey-value;
+    }
 }
 
 /********************************
@@ -62,25 +59,25 @@ $length: calc(list.length($grey-names) - 1);
  ********************************/
 
 @each $key, $value in colorVariables.$coolgray {
-  .bg-coolgray-#{$key} {
-    background-color: $value !important;
-    color: map.get(colorVariables.$coolgray-contrasts, $key);
-  }
-
-  .border-coolgray-#{$key} {
-    border: 1px solid $value;
-  }
-
-  @if $key == '500' {
-    .bg-coolgray {
-      background-color: $value !important;
-      color: map.get(colorVariables.$coolgray-contrasts, $key);
+    .bg-coolgray-#{$key} {
+        background-color: $value !important;
+        color: map.get(colorVariables.$coolgray-contrasts, $key);
     }
 
-    .border-coolgray {
-      border: 1px solid $value;
+    .border-coolgray-#{$key} {
+        border: 1px solid $value;
     }
-  }
+
+    @if $key == '500' {
+        .bg-coolgray {
+            background-color: $value !important;
+            color: map.get(colorVariables.$coolgray-contrasts, $key);
+        }
+
+        .border-coolgray {
+            border: 1px solid $value;
+        }
+    }
 }
 
 /**************************************************
@@ -116,7 +113,7 @@ $length: calc(list.length($grey-names) - 1);
 // the name of the color and their default (= 500 hue) hex color value.
 
 @each $colorname, $colorvalue in colorVariables.$colors {
-  .text-#{$colorname} {
-    color: $colorvalue;
-  }
+    .text-#{$colorname} {
+        color: $colorvalue;
+    }
 }

@@ -1,17 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import {
-    addDoc,
-    collection,
-    deleteDoc,
-    doc,
-    Firestore,
-    getDoc,
-    getDocs,
-    orderBy,
-    query,
-    QueryDocumentSnapshot,
-    updateDoc,
-} from '@angular/fire/firestore';
+import { addDoc, collection, deleteDoc, doc, Firestore, getDoc, getDocs, orderBy, query, QueryDocumentSnapshot, updateDoc } from '@angular/fire/firestore';
 import { Article, ArticleItem } from '../../models/article';
 
 /**

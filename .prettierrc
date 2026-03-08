@@ -1,22 +1,23 @@
 {
-  "semi": true,
-  "trailingComma": "es5",
-  "singleQuote": true,
-  "printWidth": 240,
-  "tabWidth": 4,
-  "endOfLine": "auto",
-   "bracketSpacing": true,
-  "overrides": [
-    {
-      "files": "*.scss",
-      "options": {
-        "singleQuote": false
-      }
-    },  {
-      "files": "*.html",
-      "options": {
-        "printWidth": 120 
-      }
-    }
-  ]
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "printWidth": 180,
+    "tabWidth": 4,
+    "endOfLine": "auto",
+    "bracketSpacing": true,
+    "overrides": [
+        {
+            "files": "*.scss",
+            "options": {
+                "singleQuote": false
+            }
+        },
+        {
+            "files": "*.html",
+            "options": {
+                "printWidth": 180
+            }
+        }
+    ]
 }

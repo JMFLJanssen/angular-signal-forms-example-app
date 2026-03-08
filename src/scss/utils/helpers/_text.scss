@@ -1,30 +1,30 @@
-@use "sass:map" as map;
-@use "sass:list" as list;
+@use 'sass:map' as map;
+@use 'sass:list' as list;
 
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 
-@use "../variables/colors" as colorVariables;
+@use '../variables/colors' as colorVariables;
 
-@use "../functions/colors" as colorFunctions;
+@use '../functions/colors' as colorFunctions;
 
 /*********************
  * THEME BACKGROUNDS *
  *********************/
 
-$text-theme-colors: ("primary", "accent", "warn");
+$text-theme-colors: ('primary', 'accent', 'warn');
 
 @each $color in $text-theme-colors {
-  @each $hue in map.keys($map: colorVariables.$variants) {
-    .text-#{$color}-#{$hue} {
-      color: var(--#{$color}-#{$hue});
-    }
+    @each $hue in map.keys($map: colorVariables.$variants) {
+        .text-#{$color}-#{$hue} {
+            color: var(--#{$color}-#{$hue});
+        }
 
-    @if ($hue ==500) {
-      .text-#{$color} {
-        color: var(--#{$color});
-      }
+        @if ($hue ==500) {
+            .text-#{$color} {
+                color: var(--#{$color});
+            }
+        }
     }
-  }
 }
 
 /************************
@@ -37,17 +37,17 @@ $available-colors: map.deep-merge(colorVariables.$accents, $available-colors);
 $available-colors: map.deep-merge(colorVariables.$mindef, $available-colors);
 
 @each $color-name, $color-value in $available-colors {
-  @each $hue in map.keys($map: colorVariables.$variants) {
-    .text-#{$color-name}-#{$hue} {
-      color: colorFunctions.colorvariant($color-value, $hue);
-    }
+    @each $hue in map.keys($map: colorVariables.$variants) {
+        .text-#{$color-name}-#{$hue} {
+            color: colorFunctions.colorvariant($color-value, $hue);
+        }
 
-    @if ($hue ==500) {
-      .text-#{$color-name} {
-        color: colorFunctions.colorvariant($color-value, $hue);
-      }
+        @if ($hue ==500) {
+            .text-#{$color-name} {
+                color: colorFunctions.colorvariant($color-value, $hue);
+            }
+        }
     }
-  }
 }
 
 /*********
@@ -55,32 +55,32 @@ $available-colors: map.deep-merge(colorVariables.$mindef, $available-colors);
  *********/
 
 @each $color-name, $color-value in colorVariables.$greys {
-  .text-#{$color-name} {
-    color: $color-value;
-  }
+    .text-#{$color-name} {
+        color: $color-value;
+    }
 }
 
 // Reverse the colors for darkmode
 $grey-names: map.keys(
-  $map: colorVariables.$greys,
+    $map: colorVariables.$greys,
 );
 $grey-values: map.values(
-  $map: colorVariables.$greys,
+    $map: colorVariables.$greys,
 );
 $length: calc(list.length($grey-names) - 1);
 
 @for $i from 2 through $length {
-  $index: calc(10 - $i);
-  $grey-value: list.nth(
-    $list: $grey-values,
-    $n: $index,
-  );
-  $grey-name: list.nth(
-    $list: $grey-names,
-    $n: $i,
-  );
+    $index: calc(10 - $i);
+    $grey-value: list.nth(
+        $list: $grey-values,
+        $n: $index,
+    );
+    $grey-name: list.nth(
+        $list: $grey-names,
+        $n: $i,
+    );
 
-  .dark-mode .text-#{$grey-name} {
-    color: $grey-value;
-  }
+    .dark-mode .text-#{$grey-name} {
+        color: $grey-value;
+    }
 }

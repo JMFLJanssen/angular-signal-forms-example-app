@@ -26,14 +26,7 @@ export class ArticleOverview {
      * @returns all articles assigned to that category
      */
     getArticlesByCategory(id: string) {
-        return this.articleService
-            .articles()
-            .filter(
-                (article) =>
-                    article.category === id &&
-                    article.id !== this.articleService.articles()[0].id &&
-                    article.status === 1,
-            );
+        return this.articleService.articles().filter((article) => article.category === id && article.id !== this.articleService.articles()[0].id && article.status === 1);
     }
 
     /**

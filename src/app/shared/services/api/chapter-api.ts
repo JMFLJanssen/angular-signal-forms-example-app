@@ -1,18 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import {
-    addDoc,
-    collection,
-    deleteDoc,
-    doc,
-    Firestore,
-    getDoc,
-    getDocs,
-    orderBy,
-    query,
-    QueryDocumentSnapshot,
-    updateDoc,
-    where,
-} from '@angular/fire/firestore';
+import { addDoc, collection, deleteDoc, doc, Firestore, getDoc, getDocs, orderBy, query, QueryDocumentSnapshot, updateDoc, where } from '@angular/fire/firestore';
 import { Chapter, chapterInitialState, ChapterItem } from '../../models/chapter';
 import { objectStatus } from '../../models/status';
 
@@ -75,11 +62,7 @@ export class ChapterApi {
      */
     async readByArticle(articleId: string): Promise<Chapter[]> {
         const chapters: Chapter[] = [];
-        const q = query(
-            collection(this.db, this.collection),
-            where('articleId', '==', articleId),
-            orderBy('order'),
-        );
+        const q = query(collection(this.db, this.collection), where('articleId', '==', articleId), orderBy('order'));
         await getDocs(q)
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {

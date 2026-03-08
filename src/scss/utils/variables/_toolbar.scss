@@ -1,15 +1,15 @@
 // The height of the toolbar is media dependent!
 $madui-toolbar-heights: (
-  'handset': 56px,
-  'tablet': 64px,
-  'web': 70px,
+    'handset': 56px,
+    'tablet': 64px,
+    'web': 70px,
 );
 
 // Left & right padding of the toolbar
 $madui-toolbar-padding: (
-  'handset': 16px,
-  'tablet': 24px,
-  'web': 24px,
+    'handset': 16px,
+    'tablet': 24px,
+    'web': 24px,
 );
 
 // By default the textsize of the title in the toolbar = h3
@@ -17,16 +17,16 @@ $madui-toolbar-title-font-size: 'h6';
 
 // The hover color for mat-icons
 $madui-toolbar-icon-button-hover-hues: (
-  'darker': 100,
-  'dark': 100,
-  'light': 700,
-  'lighter': 700,
+    'darker': 100,
+    'dark': 100,
+    'light': 700,
+    'lighter': 700,
 );
 
 // The hover color for buttons in the optional menu
 $madui-toolbar-menu-button-hover-hues: (
-  'darker': 50,
-  'dark': 50,
-  'light': 600,
-  'lighter': 600,
+    'darker': 50,
+    'dark': 50,
+    'light': 600,
+    'lighter': 600,
 );

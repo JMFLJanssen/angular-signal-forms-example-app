@@ -145,18 +145,8 @@ export class ArticleForm implements OnInit, OnDestroy {
             }
 
             // Update the form status for the content part: informing the user whether this part is valid or not
-            if (contentValidity)
-                this.status.update((prev) => [
-                    ...prev.slice(0, 0),
-                    formStatus.Valid,
-                    ...prev.slice(1),
-                ]);
-            else
-                this.status.update((prev) => [
-                    ...prev.slice(0, 0),
-                    formStatus.Invalid,
-                    ...prev.slice(1),
-                ]);
+            if (contentValidity) this.status.update((prev) => [...prev.slice(0, 0), formStatus.Valid, ...prev.slice(1)]);
+            else this.status.update((prev) => [...prev.slice(0, 0), formStatus.Invalid, ...prev.slice(1)]);
         }
 
         if (part === 'IMAGE') {
@@ -166,18 +156,8 @@ export class ArticleForm implements OnInit, OnDestroy {
                 this.articleForm.image.imageUrl().markAsTouched();
                 imageValidity = false;
             }
-            if (imageValidity)
-                this.status.update((prev) => [
-                    ...prev.slice(0, 1),
-                    formStatus.Valid,
-                    ...prev.slice(2),
-                ]);
-            else
-                this.status.update((prev) => [
-                    ...prev.slice(0, 1),
-                    formStatus.Invalid,
-                    ...prev.slice(2),
-                ]);
+            if (imageValidity) this.status.update((prev) => [...prev.slice(0, 1), formStatus.Valid, ...prev.slice(2)]);
+            else this.status.update((prev) => [...prev.slice(0, 1), formStatus.Invalid, ...prev.slice(2)]);
         }
 
         if (part === 'CHAPTERS') {
@@ -200,8 +180,7 @@ export class ArticleForm implements OnInit, OnDestroy {
     }
 
     cancel() {
-        if (!this.articleService.selectedID() && this.articleService.articles().length > 0)
-            this.articleService.selectedID.set(this.articleService.articles()[0].id);
+        if (!this.articleService.selectedID() && this.articleService.articles().length > 0) this.articleService.selectedID.set(this.articleService.articles()[0].id);
         // Make sure to reload the previously opened article in order to undo any changes that
         // might have been done on the form.
         else this.articleService.articleResource.reload();

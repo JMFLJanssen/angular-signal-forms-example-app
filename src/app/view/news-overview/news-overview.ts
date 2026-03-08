@@ -14,14 +14,7 @@ import { NewsService } from '../../shared/services/news-service';
 
 @Component({
     selector: 'news-overview',
-    imports: [
-        MatChipsModule,
-        MatListModule,
-        MatDividerModule,
-        MatIconModule,
-        MatButtonModule,
-        NewsView,
-    ],
+    imports: [MatChipsModule, MatListModule, MatDividerModule, MatIconModule, MatButtonModule, NewsView],
     templateUrl: './news-overview.html',
 })
 export class NewsOverview {
@@ -56,8 +49,6 @@ export class NewsOverview {
      * @returns true if the news item is the latest news item updated, false otherwise.
      */
     isLatest(id: string) {
-        return this.newsService.newsItems().findIndex((news) => news.id === id) === 0
-            ? true
-            : false;
+        return this.newsService.newsItems().findIndex((news) => news.id === id) === 0 ? true : false;
     }
 }

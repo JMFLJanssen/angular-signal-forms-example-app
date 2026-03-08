@@ -14,96 +14,96 @@
 
 mat-list-item .mat-mdc-list-item-icon,
 mat-list-item .mat-mdc-list-item-icon:hover {
-  color: var(--primary) !important;
+    color: var(--primary) !important;
 }
 
 :root {
-  @include mat.list-overrides(
-    (
-      list-item-one-line-container-height: listVariables.$madui-listitem-height-oneLine,
-      list-item-two-line-container-height: listVariables.$madui-listitem-height-twoLines,
-      list-item-three-line-container-height: listVariables.$madui-listitem-height-threeLines,
-    )
-  );
+    @include mat.list-overrides(
+        (
+            list-item-one-line-container-height: listVariables.$madui-listitem-height-oneLine,
+            list-item-two-line-container-height: listVariables.$madui-listitem-height-twoLines,
+            list-item-three-line-container-height: listVariables.$madui-listitem-height-threeLines,
+        )
+    );
 }
 
 mat-list,
 mat-action-list,
 mat-nav-list {
-  // Font-sizes are device dependend settings
-  @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
-    @include breakpointMixins.media-breakpoint-only($device) {
-      $font-size-title: map.get(
-        map.get(
-          $map: typographyVariables.$font-sizes,
-          $key: $device,
-        ),
-        listVariables.$madui-list-font-size-title
-      );
+    // Font-sizes are device dependend settings
+    @each $device in map.keys($map: breakpointVariables.$angular-breakpoints) {
+        @include breakpointMixins.media-breakpoint-only($device) {
+            $font-size-title: map.get(
+                map.get(
+                    $map: typographyVariables.$font-sizes,
+                    $key: $device,
+                ),
+                listVariables.$madui-list-font-size-title
+            );
 
-      $font-size-body: map.get(
-        map.get(
-          $map: typographyVariables.$font-sizes,
-          $key: $device,
-        ),
-        'body'
-      );
-      $font-size-line: map.get(
-        map.get(
-          $map: typographyVariables.$font-sizes,
-          $key: $device,
-        ),
-        listVariables.$madui-list-font-size-line
-      );
+            $font-size-body: map.get(
+                map.get(
+                    $map: typographyVariables.$font-sizes,
+                    $key: $device,
+                ),
+                'body'
+            );
+            $font-size-line: map.get(
+                map.get(
+                    $map: typographyVariables.$font-sizes,
+                    $key: $device,
+                ),
+                listVariables.$madui-list-font-size-line
+            );
 
-      :root {
-        @include mat.list-overrides(
-          (
-            list-item-label-text-size: $font-size-title,
-            list-item-supporting-text-size: calc($font-size-body * $font-size-line),
-          )
-        );
-      }
+            :root {
+                @include mat.list-overrides(
+                    (
+                        list-item-label-text-size: $font-size-title,
+                        list-item-supporting-text-size: calc($font-size-body * $font-size-line),
+                    )
+                );
+            }
 
-      // Setting the second line = caption
-      .mdc-list-item__secondary-text {
-        $font-size-body: map.get(
-          map.get(
-            $map: typographyVariables.$font-sizes,
-            $key: $device,
-          ),
-          'body'
-        );
-        $font-size-line: map.get(
-          map.get(
-            $map: typographyVariables.$font-sizes,
-            $key: $device,
-          ),
-          listVariables.$madui-list-font-size-line
-        );
-        font-size: calc($font-size-body * $font-size-line);
+            // Setting the second line = caption
+            .mdc-list-item__secondary-text {
+                $font-size-body: map.get(
+                    map.get(
+                        $map: typographyVariables.$font-sizes,
+                        $key: $device,
+                    ),
+                    'body'
+                );
+                $font-size-line: map.get(
+                    map.get(
+                        $map: typographyVariables.$font-sizes,
+                        $key: $device,
+                    ),
+                    listVariables.$madui-list-font-size-line
+                );
+                font-size: calc($font-size-body * $font-size-line);
 
-        // Set the text color
-        color: listVariables.$madui-list-text-color-line;
-      }
+                // Set the text color
+                color: listVariables.$madui-list-text-color-line;
+            }
+        }
     }
-  }
 
-  // Add a bit more space between the title and the secondary lines
-  .mdc-list-item.mdc-list-item--with-two-lines .mdc-list-item__secondary-text::before {
-    height: calc(20px + listVariables.$madui-listitem-line-spacing);
-  }
-
-  .mdc-list-item.mdc-list-item--with-three-lines {
-    [matListItemTitle] {
-      padding-bottom: listVariables.$madui-listitem-line-spacing;
+    // Add a bit more space between the title and the secondary lines
+    .mdc-list-item.mdc-list-item--with-two-lines .mdc-list-item__secondary-text::before {
+        height: calc(20px + listVariables.$madui-listitem-line-spacing);
     }
-  }
 
-  // In a mat-action-list buttons are used as mat-list-item. Default all caps: turn this off!
-  button[mat-list-item] {
-    text-transform: none;
-  }
+    .mdc-list-item.mdc-list-item--with-three-lines {
+        [matListItemTitle] {
+            padding-bottom: listVariables.$madui-listitem-line-spacing;
+        }
+    }
+
+    // In a mat-action-list buttons are used as mat-list-item. Default all caps: turn this off!
+    button[mat-list-item] {
+        text-transform: none;
+    }
 }
 
 // Change the hover color of a list item in a mat-action-list & mat-nav-list
@@ -112,21 +112,21 @@ $focus-color: var(--accent-100);
 
 mat-action-list:not(.nohover),
 mat-nav-list:not(.nohover) {
-  mat-list-item:hover,
-  button[mat-list-item]:hover,
-  a[mat-list-item]:hover {
-    background-color: $hover-color !important;
+    mat-list-item:hover,
+    button[mat-list-item]:hover,
+    a[mat-list-item]:hover {
+        background-color: $hover-color !important;
 
-    span {
-      color: var(--accent-contrast-50);
+        span {
+            color: var(--accent-contrast-50);
+        }
     }
-  }
 }
 
 // drop the default hover & focus colors
 .mdc-list-item:hover::before,
 .mdc-list-item:focus::before {
-  background-color: transparent !important;
+    background-color: transparent !important;
 }
 
 /*******************************************************************
@@ -135,14 +135,14 @@ mat-nav-list:not(.nohover) {
 
 .mat-mdc-list-item-icon,
 .mat-mdc-list-item-meta {
-  align-self: center !important;
-  margin-top: 0 !important;
+    align-self: center !important;
+    margin-top: 0 !important;
 }
 
 .mat-mdc-list-item-icon {
-  > svg {
-    display: block;
-  }
+    > svg {
+        display: block;
+    }
 }
 
 /****************************************************
@@ -152,50 +152,50 @@ mat-nav-list:not(.nohover) {
 mat-list-item,
 button[mat-list-item],
 a[mat-list-item] {
-  border-radius: 8px !important;
-  mat-icon[matListItemIcon][color='primary'],
-  mat-icon[matListItemMeta][color='primary'] {
-    color: var(--primary);
-  }
-
-  ro-icon[matListItemIcon][color='primary'],
-  ro-icon[matListItemMeta][color='primary'] {
-    svg {
-      fill: var(--primary);
+    border-radius: 8px !important;
+    mat-icon[matListItemIcon][color='primary'],
+    mat-icon[matListItemMeta][color='primary'] {
+        color: var(--primary);
     }
-  }
+
+    ro-icon[matListItemIcon][color='primary'],
+    ro-icon[matListItemMeta][color='primary'] {
+        svg {
+            fill: var(--primary);
+        }
+    }
 }
 
 mat-list-item,
 button[mat-list-item],
 a[mat-list-item] {
-  mat-icon[matListItemIcon][color='accent'],
-  mat-icon[matListItemMeta][color='accent'] {
-    color: var(--accent);
-  }
-
-  ro-icon[matListItemIcon][color='accent'],
-  ro-icon[matListItemMeta][color='accent'] {
-    svg {
-      fill: var(--accent);
+    mat-icon[matListItemIcon][color='accent'],
+    mat-icon[matListItemMeta][color='accent'] {
+        color: var(--accent);
     }
-  }
+
+    ro-icon[matListItemIcon][color='accent'],
+    ro-icon[matListItemMeta][color='accent'] {
+        svg {
+            fill: var(--accent);
+        }
+    }
 }
 
 mat-list-item,
 button[mat-list-item],
 a[mat-list-item] {
-  mat-icon[matListItemIcon][color='warn'],
-  mat-icon[matListItemMeta][color='warn'] {
-    color: var(--warn);
-  }
-
-  ro-icon[matListItemIcon][color='warn'],
-  ro-icon[matListItemMeta][color='warn'] {
-    svg {
-      fill: var(--warn);
+    mat-icon[matListItemIcon][color='warn'],
+    mat-icon[matListItemMeta][color='warn'] {
+        color: var(--warn);
     }
-  }
+
+    ro-icon[matListItemIcon][color='warn'],
+    ro-icon[matListItemMeta][color='warn'] {
+        svg {
+            fill: var(--warn);
+        }
+    }
 }
 
 /************************
@@ -204,22 +204,22 @@ a[mat-list-item] {
 
 .dark-mode mat-list-item .mat-mdc-list-item-icon,
 .dark-mode mat-list-item .mat-mdc-list-item-icon:hover {
-  color: var(--primary-100) !important;
+    color: var(--primary-100) !important;
 }
 
 // Change the hover color of a list item in a mat-action-list & mat-nav-list
 
 .dark-mode mat-action-list:not(.nohover),
 .dark-mode mat-nav-list:not(.nohover) {
-  mat-list-item:hover,
-  button[mat-list-item]:hover,
-  a[mat-list-item]:hover {
-    background-color: var(--accent-800) !important;
+    mat-list-item:hover,
+    button[mat-list-item]:hover,
+    a[mat-list-item]:hover {
+        background-color: var(--accent-800) !important;
 
-    span {
-      color: var(--accent-contrast-800);
+        span {
+            color: var(--accent-contrast-800);
+        }
     }
-  }
 }
 
 /*************************
@@ -227,27 +227,27 @@ a[mat-list-item] {
  *************************/
 
 .mdc-list-item[ng-reflect-router-link] {
-  mat-icon[matListItemMeta] {
-    color: var(--accent);
-  }
-
-  ro-icon[matListItemMeta] {
-    svg {
-      fill: var(--accent);
+    mat-icon[matListItemMeta] {
+        color: var(--accent);
     }
-  }
 
-  &:hover {
-    background-color: $hover-color;
-  }
+    ro-icon[matListItemMeta] {
+        svg {
+            fill: var(--accent);
+        }
+    }
 
-  cursor: pointer;
+    &:hover {
+        background-color: $hover-color;
+    }
+
+    cursor: pointer;
 }
 
 .dark-mode .mdc-list-item[ng-reflect-router-link] {
-  &:hover {
-    background-color: var(--accent-800);
-  }
+    &:hover {
+        background-color: var(--accent-800);
+    }
 
-  cursor: pointer;
+    cursor: pointer;
 }

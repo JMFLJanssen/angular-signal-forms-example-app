@@ -14,19 +14,10 @@
                 </div>
             </div>
         </div>
-        <div
-            class="flip-box-back p-6 grid content-center gap-6 bg-accent text-accent-contrast rounded-md"
-        >
+        <div class="flip-box-back p-6 grid content-center gap-6 bg-accent text-accent-contrast rounded-md">
             {{ article!.excerpt }}
             <div class="grid justify-center w-full">
-                <button
-                    matButton
-                    class="max-w-fit accent-contrast"
-                    (click)="loadArticle()"
-                    [routerLink]="'/articles'"
-                >
-                    Read the full article
-                </button>
+                <button matButton class="max-w-fit accent-contrast" (click)="loadArticle()" [routerLink]="'/articles'">Read the full article</button>
             </div>
         </div>
     </div>
