@@ -4,7 +4,7 @@ import { Chapter, chapterInitialState, ChapterItem } from '../../models/chapter'
 import { objectStatus } from '../../models/status';
 
 /**
- * CRUD FIREBASE implementation for Chapter objects, which are always part of an Article.
+ * Firebase Firestore API for chapters. Provides methods to create, read, update and delete chapters in the Firestore database.
  */
 @Injectable({
     providedIn: 'root',

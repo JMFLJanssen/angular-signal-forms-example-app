@@ -7,7 +7,7 @@ import { CategoryService } from '../../services/category-service';
 import { NewsService } from '../../services/news-service';
 
 /**
- * Component for full view of a news item.
+ * Component for full view of a news item, used in the CMS news overview page and in the news item page.
  */
 
 @Component({
@@ -16,7 +16,7 @@ import { NewsService } from '../../services/news-service';
     templateUrl: './news-view.html',
 })
 export class NewsView {
-    // 2 ways of viewing an news item: 1 in the app directly loaded from the database.
+    // 2 ways of viewing a news item: 1 in the app directly loaded from the database.
     // 2 as a news item in change from the CMS. For the first the ID is enough input
     // for the second it's the full model that's needed.
     newsId = input<string>();

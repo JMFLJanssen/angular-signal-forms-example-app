@@ -3,7 +3,7 @@ import { addDoc, collection, deleteDoc, doc, Firestore, getDocs, orderBy, query,
 import { Category } from '../../models/category';
 
 /**
- * CRUD FIREBASE implementation for Category objects.
+ * Firebase Firestore API for categories. Provides methods to create, read, update and delete categories in the Firestore database.
  */
 @Injectable({
     providedIn: 'root',

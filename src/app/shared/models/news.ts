@@ -23,7 +23,7 @@ export interface NewsItem {
     // The category the news item is assigned to
     category: string;
 
-    // Status Concept or Current. The first only visible in the CMS, not yet ready for the world
+    // Status Concept or Published. The first only visible in the CMS, not yet ready for the world
     status: status;
 }
 
@@ -46,7 +46,13 @@ export const newsInitialState: News = {
     text: '',
 };
 
-// Implementation of the business rules set for a news item.
+/**
+ * Validation rules:
+ * - title = required with a length between 5 and 50 characters
+ * - excerpt = required with a length between 25 and 150 characters
+ * - category = required
+ * - text = required
+ */
 export const newsSchema = schema<News>((schemaPath) => {
     required(schemaPath.title, { message: 'A news item must have a title.' });
     minLength(schemaPath.title, 5, {

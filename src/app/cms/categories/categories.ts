@@ -30,10 +30,6 @@ export class Categories {
         this.isForm.update((isForm) => !isForm);
     }
 
-    canDelete() {
-        return this.categoryService.canDelete(this.categoryModel().id);
-    }
-
     /****************
      * USER ACTIONS *
      ****************/

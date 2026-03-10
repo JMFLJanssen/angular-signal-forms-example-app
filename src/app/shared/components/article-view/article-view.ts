@@ -7,7 +7,8 @@ import { CategoryService } from '../../services/category-service';
 import { ChapterService } from '../../services/chapter-service';
 
 /**
- * Component for full view of an article and its chapters.
+ * Component for full view of an article and its chapters. Used in the CMS article overview page, in the article item page
+ * as well as in the article preview tab of the Article Form.
  */
 
 @Component({

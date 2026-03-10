@@ -3,6 +3,11 @@ import { News, newsInitialState, NewsItem } from '../models/news';
 import { NewsApi } from './api/news-api';
 import { ToastrService } from './toastr-service';
 
+/**
+ * Handling the business logic related to news items, such as retrieving them from the database, creating new ones, updating existing ones and deleting them.
+ * The service is also responsible for keeping track of the state of the news items, such as the list of all news items and the currently selected news item, using signals.
+ * The service also handles error handling by showing toast notifications to the user when something goes wrong during CRUD operations.
+ */
 @Injectable({
     providedIn: 'root',
 })
@@ -35,7 +40,6 @@ export class NewsService {
      * @error notify the user something went wrong
      */
     create(news: News) {
-        /** DISABLED FOR DEMO PURPOSESE
         this.api
             .create(news)
             .then((newNews) => {
@@ -47,11 +51,9 @@ export class NewsService {
             })
             .catch(() => {
                 const title = 'Creation error';
-                const message =
-                    'An unexpected error occurred during creation of the new news item. Please try again later.';
+                const message = 'An unexpected error occurred during creation of the new news item. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
-        */
     }
 
     /********
@@ -88,7 +90,6 @@ export class NewsService {
      * @error notify the user something went wrong
      */
     update(news: News) {
-        /** DISABLED FOR DEMO PURPOSESE
         this.api
             .update(news)
             .then(() => {
@@ -97,11 +98,9 @@ export class NewsService {
             })
             .catch(() => {
                 const title = 'Update error';
-                const message =
-                    'An unexpected error occurred during news update. Please try again later.';
+                const message = 'An unexpected error occurred during news update. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
-        */
     }
 
     /**********
@@ -115,7 +114,6 @@ export class NewsService {
      * @error notify the user something went wrong
      */
     delete(id: string) {
-        /** DISABLED FOR DEMO PURPOSESE
         this.api
             .delete(id)
             .then(() => {
@@ -127,10 +125,8 @@ export class NewsService {
             })
             .catch((e) => {
                 const title = 'Deletion error';
-                const message =
-                    'An unexpected error occurred during deletion of the news item. Please try again later.';
+                const message = 'An unexpected error occurred during deletion of the news item. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
-        */
     }
 }

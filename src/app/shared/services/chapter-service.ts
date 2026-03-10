@@ -4,6 +4,11 @@ import { Chapter, chapterInitialState, ChapterItem } from '../models/chapter';
 import { ChapterApi } from './api/chapter-api';
 import { ImageApi } from './api/image-api';
 
+/**
+ * Handling the business logic related to chapters, such as retrieving them from the database, creating new ones, updating existing ones and deleting them.
+ * The CRUD operations are used within the ArticleService, as chapters are part of an article.
+ */
+
 @Injectable({
     providedIn: 'root',
 })

@@ -30,7 +30,16 @@ export const articleInitialState: Article = {
     chapters: [],
 };
 
-// Implementation of the business rules set for an article
+/**
+ * Validation rules:
+ * - title = required with a length between 5 and 50 characters
+ * - excerpt = required with a length between 25 and 150 characters
+ * - category = required
+ * - text = required
+ * - cover image = required
+ * - if provided the caption of an image can be no then 100 characters.
+ * - either the chapter should have text or an image
+ */
 export const articleSchema = schema<Article>((schemaPath) => {
     required(schemaPath.title, { message: 'An article must have a title.' });
     minLength(schemaPath.title, 5, {

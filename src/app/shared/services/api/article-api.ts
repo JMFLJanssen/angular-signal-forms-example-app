@@ -3,7 +3,7 @@ import { addDoc, collection, deleteDoc, doc, Firestore, getDoc, getDocs, orderBy
 import { Article, ArticleItem } from '../../models/article';
 
 /**
- * CRUD FIREBASE implementation for Article objects.
+ * Fireabase Firestore API for articles. Provides methods to create, read, update and delete categories in the Firestore database.
  */
 @Injectable({
     providedIn: 'root',

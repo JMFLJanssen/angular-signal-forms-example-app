@@ -16,7 +16,10 @@ export const catetoryInitialState: Category = {
     name: '',
 };
 
-// Implementation of the business rules set for a category.
+/**
+ * Validation rules:
+ * - name = required with a length between 5 and 25 characters
+ */
 export const categorySchema = schema<Category>((schemaPath) => {
     required(schemaPath.name, { message: 'A category must have a name' });
     minLength(schemaPath.name, 5, {

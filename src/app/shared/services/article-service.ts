@@ -7,6 +7,10 @@ import { ImageApi } from './api/image-api';
 import { ChapterService } from './chapter-service';
 import { ToastrService } from './toastr-service';
 
+/**
+ * The ArticleService is responsible for handling all operations related to articles, including CRUD operations and the management of the article list and selected article.
+ * It interacts with the ArticleApi for database operations, the ImageApi for handling article images, and the ChapterService for managing chapters related to articles.
+ */
 @Injectable({
     providedIn: 'root',
 })
@@ -17,6 +21,7 @@ export class ArticleService {
 
     // Other services
     private chapterService: ChapterService = inject(ChapterService);
+    // Used to provide user feedback on the success or failure of operations.
     private toastrService: ToastrService = inject(ToastrService);
 
     // The list of all articles, once retrieved from the databse is putten
@@ -44,7 +49,6 @@ export class ArticleService {
      * @error notify the user something went wrong
      */
     create(article: Article) {
-        /** DISABLED FOR DEMO PURPOSESE
         this.handleCreate(article)
             .then((newArticle) => {
                 this.allResource.reload();
@@ -53,11 +57,9 @@ export class ArticleService {
             })
             .catch((e) => {
                 const title = 'Creation error';
-                const message =
-                    'An unexpected error occurred during creation of the new article. Please try again later.';
+                const message = 'An unexpected error occurred during creation of the new article. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
-        */
     }
 
     /**
@@ -126,7 +128,6 @@ export class ArticleService {
      * @error notify the user something went wrong
      */
     update(article: Article) {
-        /** DISABLED FOR DEMO PURPOSESE
         this.handleUpdate(article)
             .then(() => {
                 this.allResource.reload();
@@ -134,11 +135,9 @@ export class ArticleService {
             })
             .catch(() => {
                 const title = 'Update error';
-                const message =
-                    'An unexpected error occurred during article update. Please try again later.';
+                const message = 'An unexpected error occurred during article update. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
-        */
     }
 
     /**
@@ -179,7 +178,6 @@ export class ArticleService {
      * @error notify the user something went wrong
      */
     delete(article: Article) {
-        /** DISABLED FOR DEMO PURPOSESE
         this.handleDelete(article)
             .then(() => {
                 this.allResource.reload();
@@ -190,11 +188,9 @@ export class ArticleService {
             })
             .catch(() => {
                 const title = 'Deletion error';
-                const message =
-                    'An unexpected error occurred during deletion of the article. Please try again later.';
+                const message = 'An unexpected error occurred during deletion of the article. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
-        */
     }
 
     private async handleDelete(article: Article) {

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from '@angular/fire/storage';
 
 /**
- * CRUD FIREBASE implementation for Image objects. This is the API for the Firebase online storage,
- * not the Firebase database.
+ * Firebase Storage API for images. Provides methods to upload and delete images in the Firebase Storage bucket.
+ * Images aren't stored with their original name, rather using a GUID thus making locating the image more difficult.
  */
 @Injectable({
     providedIn: 'root',

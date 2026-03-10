@@ -6,8 +6,11 @@ import { ArticleItem } from '../../models/article';
 import { ArticleService } from '../../services/article-service';
 
 /**
- * On the homepage some articles are shown as cards. The title, excerpt
- * and image should entice the user to read the full article.
+ * Articles are shown in a card format, containing the title, a short description and a button to read the full article.
+ * The article card can be used in two ways:
+ * 1. as a card for an article loaded from the database, where only the ID is provided as input parameter.
+ * 2. as a card for an article in change from the CMS, where the ArticleItem object is provided as input parameter. Used in the article form,
+ * to display the article in change as a card, with the same format as the articles loaded from the database.
  */
 
 @Component({

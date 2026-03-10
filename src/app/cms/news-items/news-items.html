@@ -96,7 +96,7 @@
                 <div matSuffix>
                     <mat-select #statusSelector [formField]="newsForm.status">
                         <mat-option [value]="0">Concept</mat-option>
-                        <mat-option [value]="1">Current</mat-option>
+                        <mat-option [value]="1">Published</mat-option>
                     </mat-select>
                     @if (statusSelector.panelOpen) {
                         <button matIconButton color="accent" (click)="statusSelector.close()" type="button">

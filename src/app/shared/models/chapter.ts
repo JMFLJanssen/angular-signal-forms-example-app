@@ -2,6 +2,12 @@ import { maxLength, required, schema, validate } from '@angular/forms/signals';
 import { Image, imageInitialState } from './image';
 import { objectStatus } from './status';
 
+/**
+ * Used to represent a chapter of an article in this application. Where the ChapterItem object
+ * contains all information needed to list chapters. The Chapter object containing
+ * the full information of a chapter.
+ */
+
 export interface ChapterItem {
     // Firebase auto generated unique string id
     id: string;

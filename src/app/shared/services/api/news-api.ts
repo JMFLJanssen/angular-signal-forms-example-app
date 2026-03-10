@@ -3,7 +3,7 @@ import { addDoc, collection, deleteDoc, doc, Firestore, getDoc, getDocs, orderBy
 import { News, NewsItem } from '../../models/news';
 
 /**
- * CRUD FIREBASE implementation for News objects.
+ * Firebase Firestore API for news items. Provides methods to create, read, update and delete news items in the Firestore database.
  */
 @Injectable({
     providedIn: 'root',

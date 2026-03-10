@@ -3,6 +3,10 @@ import { Category } from '../models/category';
 import { CategoryApi } from './api/category-api';
 import { ToastrService } from './toastr-service';
 
+/**
+ * Handling the business logic related to categories, such as retrieving them from the database, creating new ones, updating existing ones and deleting them.
+ */
+
 @Injectable({
     providedIn: 'root',
 })
@@ -28,7 +32,6 @@ export class CategoryService {
      * @error notify the user something went wrong
      */
     create(category: Category) {
-        /** DISABLED FOR DEMO PURPOSESE
         this.api
             .create(category)
             .then((newCategory) => {
@@ -36,11 +39,9 @@ export class CategoryService {
             })
             .catch(() => {
                 const title = 'Creation error';
-                const message =
-                    'An unexpected error occurred during creation of the new category. Please try again later.';
+                const message = 'An unexpected error occurred during creation of the new category. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
-        */
     }
 
     /********
@@ -67,7 +68,6 @@ export class CategoryService {
      * @error notify the user something went wrong
      */
     update(category: Category) {
-        /** DISABLED FOR DEMO PURPOSESE
         this.api
             .update(category)
             .then(() => {
@@ -75,11 +75,9 @@ export class CategoryService {
             })
             .catch(() => {
                 const title = 'Update error';
-                const message =
-                    'An unexpected error occurred during category update. Please try again later.';
+                const message = 'An unexpected error occurred during category update. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
-        */
     }
 
     /**********
@@ -104,7 +102,6 @@ export class CategoryService {
      * @error notify the user something went wrong
      */
     delete(id: string) {
-        /** DISABLED FOR DEMO PURPOSESE
         this.api
             .delete(id)
             .then(() => {
@@ -112,10 +109,8 @@ export class CategoryService {
             })
             .catch((e) => {
                 const title = 'Deletion error';
-                const message =
-                    'An unexpected error occurred during deletion of the category. Please try again later.';
+                const message = 'An unexpected error occurred during deletion of the category. Please try again later.';
                 this.toastrService.showToast(title, message, 'error');
             });
-        */
     }
 }
